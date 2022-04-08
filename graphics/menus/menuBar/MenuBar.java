@@ -33,7 +33,7 @@ public class MenuBar extends java.awt.MenuBar {
         newItem.setForeground(Color.black);
         newItem.setMnemonic('N');
         newItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
-        newItem.setIcon(setImageSize("icon/LightThemeIcon.png"));
+        newItem.setIcon(setImageSize("icon/new.png"));
         newItem.setBorderPainted(false);
         file.add(newItem);
 
@@ -43,8 +43,9 @@ public class MenuBar extends java.awt.MenuBar {
         saveItem.setForeground(Color.black);
         saveItem.setMnemonic('S');
         saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+        saveItem.setIcon(setImageSize("icon/save.png"));
         saveItem.setBorderPainted(false);
-        file.add(saveItem);
+        file.add(saveItem); 
     }
     public ImageIcon setImageSize(String path) throws IOException {
         return new ImageIcon(ImageIO.read(new File(path)).getScaledInstance(20,20,0));
