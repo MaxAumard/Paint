@@ -36,7 +36,7 @@ public class ShapesController extends Controller {
 		Shape s = getTarget(e);
 		if(s != null) {
 			setSelection(s);
-		};
+		}
 	}
 
 	public void mouseEntered(MouseEvent e)
@@ -91,7 +91,7 @@ public class ShapesController extends Controller {
 	}
 
 	public void setSelection(Shape s) {
-		if(!this.shiftHeld){unselectAll();};
+		if(!this.shiftHeld){unselectAll();}
 		this.selectColl.add(s);
 		if(s.getAttributes("Selection") == null) {
 			SelectionAttributes sAtt = new SelectionAttributes();
