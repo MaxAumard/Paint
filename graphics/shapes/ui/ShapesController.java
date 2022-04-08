@@ -11,7 +11,6 @@ import graphics.ui.Controller;
 
 public class ShapesController extends Controller {
 
-	//COUCOU
 	
 	private boolean shiftHeld = false;
 	private Point lastPoint;
