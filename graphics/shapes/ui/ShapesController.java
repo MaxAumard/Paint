@@ -11,6 +11,7 @@ import graphics.ui.Controller;
 
 public class ShapesController extends Controller {
 
+	
 	private boolean shiftHeld = false;
 	private Point lastPoint;
 	private SCollection selectColl = new SCollection();
@@ -57,11 +58,14 @@ public class ShapesController extends Controller {
 
 	public void mouseDragged(MouseEvent evt)
 	{
-		if(selectColl.getCollection().size() > 0) {
-			this.selectColl.translate(evt.getX()- lastPoint.x, evt.getY()- lastPoint.y);
-			lastPoint = new Point(evt.getPoint());
-			this.getView().repaint();
+		for (Shape s : ((SCollection) getModel()).collection) {
+			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
+			if( sAtt.isSelected() ) {
+				s.translate(evt.getX()-lastPoint.x, evt.getY()-lastPoint.y);
+			}
 		}
+		this.lastPoint = evt.getPoint();
+		this.getView().repaint();
 	}
 
 	public void keyTyped(KeyEvent evt)
