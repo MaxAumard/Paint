@@ -17,8 +17,13 @@ public class ToolBar  {
 
         Button pipette = new Button("icon/pipette.png",new ActionListener(){
             public void actionPerformed(ActionEvent e) {
+
+
             }});
         pipette.setBackground(new Color(239, 239, 239));
+
+
+
 
         ToggleButton darkTheme = new ToggleButton("icon/LightThemeIcon.png","icon/DarkThemeIcon.png",new ActionListener(){
             public void actionPerformed(ActionEvent e) {
@@ -50,6 +55,7 @@ public class ToolBar  {
                     sview.setBackground(Color.white);
                     pipette.setBackground(interfaceLightColor);
                 }}});
+
         toolBar.addSeparator(new Dimension(15,0));
         toolBar.add(darkTheme);
         toolBar.addSeparator(new Dimension(10,0));
