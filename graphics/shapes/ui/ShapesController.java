@@ -37,6 +37,7 @@ public class ShapesController extends Controller {
 		if(s != null) {
 			setSelection(s);
 		}
+
 	}
 
 	public void mouseEntered(MouseEvent e)
