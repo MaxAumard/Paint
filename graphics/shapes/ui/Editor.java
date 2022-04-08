@@ -21,7 +21,7 @@ public class Editor extends JFrame
 	SCollection model;
 	MenuBar menuBar;
 	ToolBar toolBar;
-	//iqufhpiuqe
+	//psdogokdodskfos
 	public Editor() throws IOException {
 		super("Shapes Editor");
 
