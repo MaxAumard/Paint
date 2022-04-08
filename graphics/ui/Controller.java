@@ -21,6 +21,10 @@ public class Controller implements MouseListener, MouseMotionListener, KeyListen
 		model = newModel;
 	}
 
+	public Controller() {
+
+	}
+
 	public void setView(View view)
 	{
 		this.view = view;

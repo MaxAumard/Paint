@@ -44,7 +44,7 @@ public class Editor extends JFrame
 
 		//TODO JTOOLBAR FAIT BUGER LE SHIFT
 		this.toolBar = new ToolBar(menuBar.getMyJMenuBar(), sview);
-		//this.getContentPane().add(toolBar.getJToolBar(), BorderLayout.WEST);
+		this.getContentPane().add(toolBar.getJToolBar(), BorderLayout.WEST);
 		toolBar.getJToolBar().setOrientation(SwingConstants.VERTICAL);
 
 	}
