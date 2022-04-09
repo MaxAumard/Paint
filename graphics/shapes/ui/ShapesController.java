@@ -11,7 +11,7 @@ import graphics.ui.Controller;
 
 public class ShapesController extends Controller {
 
-	
+
 	private boolean shiftHeld = false;
 	private Point lastPoint;
 	private SCollection selectColl = new SCollection();
@@ -77,6 +77,11 @@ public class ShapesController extends Controller {
 		if(evt.isShiftDown()) {
 			this.shiftHeld = true;
 		}
+		if(evt.isControlDown()) {
+			if(evt.getKeyCode()==71 ) {
+				groupShape();
+			}
+		}
 	}
 
 	public void keyReleased(KeyEvent evt)
@@ -120,4 +125,24 @@ public class ShapesController extends Controller {
 		return null;
 	}
 
+	public void groupShape() {
+		SCollection newColl = new SCollection();
+		SCollection tempModel = new SCollection();
+		newColl.addAttributes(new SelectionAttributes());
+		tempModel.addAttributes(new SelectionAttributes());
+
+		for (Shape s : ((SCollection) this.getModel()).collection) {
+			tempModel.add(s);
+			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
+			if( sAtt.isSelected() ) {
+				newColl.add(s);
+				sAtt.unselect();
+				tempModel.collection.remove(s);
+			}
+		}
+
+		tempModel.add(newColl);
+		this.getView().setModel(tempModel);
+		this.getView().repaint();
+	}
 }
