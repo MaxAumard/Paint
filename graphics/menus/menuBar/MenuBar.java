@@ -28,7 +28,7 @@ public class MenuBar extends java.awt.MenuBar {
         menuBar.add(file);
 
 
-        JMenuItem newItem = new JMenuItem("New");
+        JMenuItem newItem = new JMenuItem("New File");
         newItem.setBackground(new Color(239, 239, 239));
         newItem.setForeground(Color.black);
         newItem.setMnemonic('N');
