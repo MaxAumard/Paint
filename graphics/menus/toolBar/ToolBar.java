@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class ToolBar extends JToolBar{
     JToolBar jtoolBar;
@@ -21,7 +22,7 @@ public class ToolBar extends JToolBar{
         //prevent flotability
         jtoolBar.setFloatable(false);
         //toolBar buttons will be stored here
-        Collection buttons = new ArrayList();
+        Collection buttons = new ArrayList<Button>();
         
 
 
@@ -82,6 +83,11 @@ public class ToolBar extends JToolBar{
         btnDark.setMargin(new Insets(0,0,0,0));
         toolBar.add(btnDark);
 */
+        
+        //Enlever le focus sur chaque bouttons 
+        pipette.setFocusable(false);
+        colorChooser.setFocusable(false);
+        darkTheme.setFocusable(false);
     }
 
 
