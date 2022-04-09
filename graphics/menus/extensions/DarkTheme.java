@@ -1,6 +1,7 @@
 package graphics.menus.extensions;
 
 import graphics.menus.toolBar.Button;
+import graphics.menus.toolBar.ToggleButton;
 import graphics.shapes.ui.ShapesView;
 
 import javax.swing.*;
@@ -11,8 +12,8 @@ import java.util.Iterator;
 
 public class DarkTheme {
 
-    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, ShapesView sview, Collection<Button> buttons, JButton cc){
-        Iterator<Button> iterator = buttons.iterator();
+    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, ShapesView sview, Collection<ToggleButton> buttons, JButton cc){
+        Iterator<ToggleButton> iterator = buttons.iterator();
 
         // Darkmode
         if (((JToggleButton)e.getSource()).isSelected()){
@@ -39,7 +40,7 @@ public class DarkTheme {
                 iterator.next().setBackground(interfaceDarkColor);
             }
 
-            //colorchooser color
+            //colorchooser picture
             ImageIcon icon = new ImageIcon(new ImageIcon("icon/darkColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
             cc.setIcon(icon);
 
@@ -70,7 +71,7 @@ public class DarkTheme {
                 iterator.next().setBackground(interfaceLightColor);
             }
 
-            //colorchooser color
+            //colorchooser picture
             ImageIcon icon = new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
             cc.setIcon(icon);
         }

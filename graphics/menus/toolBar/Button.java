@@ -1,11 +1,10 @@
 package graphics.menus.toolBar;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+
 
 public class Button extends JButton {
     public Button(String pathIcon, ActionListener actionListener){
