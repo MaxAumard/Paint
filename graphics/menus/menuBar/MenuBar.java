@@ -35,7 +35,7 @@ public class MenuBar extends java.awt.MenuBar {
         newItem.setForeground(Color.black);//text
         newItem.setMnemonic('N');//demande d'ouvrir le menu
         newItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));//pas besoin d'ouvrir le menu
-        newItem.setIcon(setImageSize("icon/new.png"));
+        newItem.setIcon(setImageSize("icon/new.png"));//icone
         newItem.setBorderPainted(false);
         file.add(newItem);
         
@@ -49,6 +49,7 @@ public class MenuBar extends java.awt.MenuBar {
         file.addSeparator();
         
         JMenuItem saveItem = new JMenuItem("Save");
+        saveItem.addActionListener(this::mnuSaveListerner);
         saveItem.setBackground(new Color(239, 239, 239));
         saveItem.setForeground(Color.black);
         saveItem.setMnemonic('S');
@@ -73,5 +74,10 @@ public class MenuBar extends java.awt.MenuBar {
     
     private void mnuNewListerner(ActionEvent event) {
     	System.out.println("Creation New file");
+
+    }
+    
+    private void mnuSaveListerner(ActionEvent event) {
+    	System.out.println("File save");
     }
 }
