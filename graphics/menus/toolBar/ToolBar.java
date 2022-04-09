@@ -1,8 +1,8 @@
 package graphics.menus.toolBar;
 
+import graphics.menus.extensions.ColorChooser;
 import graphics.menus.extensions.DarkTheme;
 import graphics.shapes.ui.ShapesView;
-import graphics.ui.View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,30 +11,58 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ToolBar {
-    JToolBar toolBar;
+public class ToolBar extends JToolBar{
+    JToolBar jtoolBar;
     public ToolBar(JMenuBar menuBar, ShapesView sview) throws IOException {
         super();
-        toolBar = new JToolBar();
-        toolBar.setFloatable(false);
-        Collection<Button> buttons = new ArrayList();
+        //cration of the toolBar
+        jtoolBar = new JToolBar();
+        //prevent flotability
+        jtoolBar.setFloatable(false);
+        //toolBar buttons will be stored here
+        Collection buttons = new ArrayList();
 
+
+        //pipette button
         Button pipette = new Button("icon/pipette.png",new ActionListener(){
             public void actionPerformed(ActionEvent e) {
             }});
         buttons.add(pipette);
         pipette.setBackground(new Color(239, 239, 239));
 
+
+        //colorChooser button
+        JButton colorChooser = new JButton();
+        colorChooser.setBackground(Color.black);
+        colorChooser.setBorder(BorderFactory.createEmptyBorder());
+        colorChooser.setMargin(new Insets(-2,-2,-1,-1));
+        colorChooser.setIcon(new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+        colorChooser.addActionListener( new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e) {
+                new ColorChooser(colorChooser);
+            }
+            });
+
+
+        //darktheme button
         ToggleButton darkTheme = new ToggleButton("icon/LightThemeIcon.png","icon/DarkThemeIcon.png",new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                new DarkTheme(e, toolBar, menuBar, sview, buttons);
+                new DarkTheme(e, jtoolBar, menuBar, sview, buttons, colorChooser);
                 }});
-        toolBar.addSeparator(new Dimension(15,0));
-        toolBar.add(darkTheme);
-        toolBar.addSeparator(new Dimension(10,0));
-        toolBar.add(pipette);
 
 
+        //add icons to toolbar
+        jtoolBar.addSeparator(new Dimension(15,0));
+        jtoolBar.add(darkTheme);
+        jtoolBar.addSeparator(new Dimension(10,0));
+        jtoolBar.add(pipette);
+
+
+
+
+        jtoolBar.addSeparator(new Dimension(10,0));
+        jtoolBar.add(colorChooser);
 
         /*// ////////////////////////////////////////////////////////////////////////////////
         JButton btnWhite = createButton("icon/sunWhiteTheme.png");
@@ -53,6 +81,6 @@ public class ToolBar {
 
 
     public JToolBar getJToolBar(){
-        return this.toolBar;
+        return this.jtoolBar;
     }
 }

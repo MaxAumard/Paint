@@ -13,14 +13,13 @@ public class ToggleButton extends JToggleButton {
     public ToggleButton(String pathIconNotSelected,String pathIconSelected, ActionListener actionListener) {
         super();
         setBorder(BorderFactory.createEmptyBorder());
-        ImageIcon iconNotSelected = new ImageIcon();
-        try {iconNotSelected = new ImageIcon((ImageIO.read(new File(pathIconNotSelected)).getScaledInstance(25, 25, 0)));
-        } catch (IOException e) {e.printStackTrace();}
+
+        //icon non selected
+        ImageIcon iconNotSelected = new ImageIcon(new ImageIcon(pathIconNotSelected).getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
         this.setIcon(iconNotSelected);
 
-        ImageIcon iconSelected = new ImageIcon();
-        try {iconSelected = new ImageIcon((ImageIO.read(new File(pathIconSelected)).getScaledInstance(25, 25, 0)));
-        } catch (IOException e) {e.printStackTrace();}
+        // icon selected
+        ImageIcon iconSelected = new ImageIcon(new ImageIcon(pathIconSelected).getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
         this.setSelectedIcon(iconSelected);
 
 

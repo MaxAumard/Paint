@@ -11,10 +11,11 @@ import java.util.Iterator;
 
 public class DarkTheme {
 
-    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, ShapesView sview, Collection<Button> buttons){
+    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, ShapesView sview, Collection<Button> buttons, JButton cc){
         Iterator<Button> iterator = buttons.iterator();
 
-        if (((JToggleButton)e.getSource()).isSelected()){ // Darkmode
+        // Darkmode
+        if (((JToggleButton)e.getSource()).isSelected()){
             Color interfaceDarkColor = new Color(31,31,31);
 
             //toolbar color
@@ -23,7 +24,7 @@ public class DarkTheme {
             //menuBar color
             menuBar.setBackground(interfaceDarkColor);
 
-            //TODO ITEM IN MENUBAR
+            //item in menuBar
             int menu = 1;
             while (menuBar.getMenu(menu)!= null){
                 menuBar.getMenu(menu).setForeground(Color.WHITE);
@@ -33,10 +34,17 @@ public class DarkTheme {
             // Drawing area color
             sview.setBackground(Color.darkGray);
 
+            //buttons color
             while (iterator.hasNext()) {
                 iterator.next().setBackground(interfaceDarkColor);
             }
+
+            //colorchooser color
+            ImageIcon icon = new ImageIcon(new ImageIcon("icon/darkColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+            cc.setIcon(icon);
+
         }
+        //LightMode
         else{
             Color interfaceLightColor = new Color(239, 239, 239);
             Font fontMenu = new Font("Sans Serif", Font.PLAIN, 15);
@@ -47,17 +55,24 @@ public class DarkTheme {
             //menubar color
             menuBar.setBackground(interfaceLightColor);
 
-            //TODO ITEM IN MENUBAR
+            //item in menubar
             int menu = 1;
             while (menuBar.getMenu(menu)!= null){
                 menuBar.getMenu(menu).setForeground(Color.black);
                 menu++;
             }
+
+            // Drawing area color
             sview.setBackground(Color.white);
 
+            //buttons color
             while (iterator.hasNext()) {
                 iterator.next().setBackground(interfaceLightColor);
             }
+
+            //colorchooser color
+            ImageIcon icon = new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+            cc.setIcon(icon);
         }
     }
 }
