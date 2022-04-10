@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 public class ToolBar extends JToolBar{
     JToolBar jtoolBar;
