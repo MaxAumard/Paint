@@ -27,7 +27,8 @@ import graphics.shapes.ui.ShapesView;
 
 public class AddRect {
 	
-	public void add(ShapesView sview) {
+	public void add(ShapesView sview,Color colorBorder) {
+				
 		JTextField xField = new JTextField(5);
 		JTextField yField = new JTextField(5);
 		JTextField longueur = new JTextField(5);
@@ -35,7 +36,7 @@ public class AddRect {
 
 		JPanel myPanel = new JPanel();
 		
-		myPanel.setLayout(new GridLayout(3,4,4,10));
+		myPanel.setLayout(new GridLayout(2,4,4,10));
 		myPanel.add(new JLabel("x:"));
 		myPanel.add(xField);
 		myPanel.add(new JLabel("y:"));
@@ -45,30 +46,6 @@ public class AddRect {
 		myPanel.add(new JLabel("Hauteur:"));
 		myPanel.add(hauteur);
 		
-		Color fillColor = new Color(0,0,0);
-		JButton colorChooser = new JButton();
-		colorChooser.setIcon(new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
-		colorChooser.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ColorChooser cc = new ColorChooser();
-				cc.setColorChooseed(Color.BLACK);
-				cc.displayColorChooser(colorChooser);
-			}});
-		
-		Color borderColor = new Color(0,0,0);
-		JButton colorChooser2 = new JButton();
-		colorChooser2.setIcon(new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
-		colorChooser2.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				ColorChooser cc2 = new ColorChooser();
-				cc2.setColorChooseed(Color.BLACK);
-				cc2.displayColorChooser(colorChooser2);
-			}});
-		
-		myPanel.add(new JLabel("Fill color"));
-		myPanel.add(colorChooser);
-		myPanel.add(new JLabel("Border color"));
-		myPanel.add(colorChooser2);
 
 		int result = JOptionPane.showConfirmDialog(null, myPanel,"New Rectangle", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION && textNotEmpty(xField,yField,longueur,hauteur) && textIsInt(xField,yField,longueur,hauteur)) {
@@ -78,7 +55,8 @@ public class AddRect {
 			int h = Integer.valueOf(hauteur.getText());
 			
 			SRectangle r = new SRectangle(new Point(x,y),l,h);
-			r.addAttributes(new ColorAttributes(true,true,borderColor,fillColor));
+			r.addAttributes(new ColorAttributes(true,true,colorBorder,colorBorder));
+			System.out.println(colorBorder);
 			r.addAttributes(new SelectionAttributes());
 			SCollection coll = (SCollection) sview.getModel();
 			coll.add(r);
@@ -89,7 +67,7 @@ public class AddRect {
 			errorPanel.add(new JLabel("Please enter valid numbers"));
 			int showError = JOptionPane.showConfirmDialog(null, errorPanel,"Error",JOptionPane.OK_CANCEL_OPTION);
 			if (result == JOptionPane.OK_OPTION) {
-				this.add(sview);
+				this.add(sview,colorBorder);
 			}
 		}
 	}

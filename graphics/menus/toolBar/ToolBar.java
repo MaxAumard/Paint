@@ -70,7 +70,7 @@ public class ToolBar extends JToolBar{
 		addRect.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					AddRect addRect = new AddRect();
-					addRect.add(sview);
+					addRect.add(sview,colorChoosed);
 					sview.repaint();
 				}
 			}
