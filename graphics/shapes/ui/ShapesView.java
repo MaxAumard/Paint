@@ -1,6 +1,7 @@
 package graphics.shapes.ui;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
@@ -17,6 +18,8 @@ public class ShapesView extends View{
 		this.draftman = new ShapeDraftman();
 		this.setBackground(Color.white);
 	}
+
+
 
 	public boolean isFocusable() {
 		return true;
@@ -35,4 +38,5 @@ public class ShapesView extends View{
 		this.draftman.setGraphics(g);
 		model.accept(draftman);
 	}
+
 }

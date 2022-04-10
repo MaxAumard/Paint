@@ -1,9 +1,6 @@
 package graphics.menus.toolBar;
 
-import graphics.menus.extensions.AddRect;
-import graphics.menus.extensions.ColorChooser;
-import graphics.menus.extensions.DarkTheme;
-import graphics.menus.extensions.Pipette;
+import graphics.menus.extensions.*;
 import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
 import graphics.shapes.attributes.ColorAttributes;
@@ -19,6 +16,9 @@ import java.util.Collection;
 
 public class ToolBar extends JToolBar{
 	JToolBar jtoolBar;
+	private static Color colorChoosed = Color.WHITE ;
+
+
 	public ToolBar(JMenuBar menuBar, ShapesView sview) throws IOException {
 		super();
 		//cration of the toolBar
@@ -42,9 +42,10 @@ public class ToolBar extends JToolBar{
 				ColorChooser cc = new ColorChooser();
 				cc.setColorChooseed(Color.BLACK);
 				cc.displayColorChooser(colorChooser);
+				System.out.println(cc.getColorChoosed());
+				colorChoosed = cc.getColorChoosed() ;
 
 			}});
-
 		//pipette button
 		Button pipette = new Button("icon/pipette.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -75,6 +76,15 @@ public class ToolBar extends JToolBar{
 			}
 		
 		);
+
+		//bucket button
+		Button bucket = new Button("icon/bucket.png",new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				//Bucket bu = new Bucket();
+
+			}});
+		buttons.add(pipette);
+		pipette.setBackground(new Color(239, 239, 239));
 
 		//add icons to toolbar
 		jtoolBar.addSeparator(new Dimension(15,0));

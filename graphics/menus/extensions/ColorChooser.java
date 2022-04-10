@@ -1,7 +1,8 @@
 package graphics.menus.extensions;
 
+import graphics.menus.toolBar.ToolBar;
+
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import java.awt.*;
 import javax.swing.JColorChooser;
@@ -19,6 +20,7 @@ public class ColorChooser {
         this.color = color;
 
     }
+
 
 
     public void displayColorChooser(JButton ccButton) {

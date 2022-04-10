@@ -5,10 +5,8 @@ import graphics.shapes.ui.ShapesView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 
 public class Pipette implements MouseListener {
     Color colorPicked = Color.BLACK;
@@ -18,13 +16,13 @@ public class Pipette implements MouseListener {
 
 
     public Pipette(ColorChooser cc, JButton colorChooserBtn, ShapesView sview) {
-        super();
-            this.cc = cc;
-            this.colorChooserBtn = colorChooserBtn;
-            this.sview = sview;
 
-            this.sview.addMouseListener(this);
-            this.sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon("icon/pipetteCursor.png").getImage(),new Point(0,25),"pipette cursor"));
+        this.cc = cc;
+        this.colorChooserBtn = colorChooserBtn;
+        this.sview = sview;
+
+        this.sview.addMouseListener(this);
+        this.sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon("icon/pipetteCursor.png").getImage(),new Point(0,25),"pipette cursor"));
     }
 
     public Color getPixelColor(int x, int y) throws AWTException {
@@ -41,7 +39,6 @@ public class Pipette implements MouseListener {
     @Override
     public void mousePressed(MouseEvent evt){
         try {
-
             this.colorPicked = getPixelColor(evt.getX(),evt.getY());
         } catch (AWTException ex) {}
         cc.setColorChooseed(colorPicked);
