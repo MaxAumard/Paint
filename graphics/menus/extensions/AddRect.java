@@ -36,7 +36,7 @@ public class AddRect {
 
 		int result = JOptionPane.showConfirmDialog(null, myPanel, 
 				"New Rectangle", JOptionPane.OK_CANCEL_OPTION);
-		if (result == JOptionPane.OK_OPTION && textNotEmpty()) {
+		if (result == JOptionPane.OK_OPTION && textNotEmpty(xField,yField,longueur,hauteur)) {
 			int x = Integer.valueOf(xField.getText());
 			int y = Integer.valueOf(yField.getText());
 			int l = Integer.valueOf(longueur.getText());
@@ -50,7 +50,10 @@ public class AddRect {
 		}
 	}
 	
-	public void textNotEmpty() {
-		!xField.getText().isEmpty() && !yField.getText().isEmpty() && !longueur.getText().isEmpty() && !hauteur.getText().isEmpty()
+	public boolean textNotEmpty(JTextField xField,JTextField yField,JTextField lField,JTextField hField) {
+		if(!xField.getText().isEmpty() && !yField.getText().isEmpty() && !lField.getText().isEmpty() && !hField.getText().isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 }
