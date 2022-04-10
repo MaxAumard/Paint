@@ -46,7 +46,7 @@ public class ToolBar extends JToolBar{
             }});
 
         //pipette button
-        ToggleButton pipette = new ToggleButton("icon/pipette.png","icon/pipette.png",new ActionListener(){
+        Button pipette = new Button("icon/pipette.png",new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 Pipette pp = new Pipette(cc, colorChooser, sview);
 
