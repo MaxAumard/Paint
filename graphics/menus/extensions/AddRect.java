@@ -35,8 +35,8 @@ public class AddRect {
 		myPanel.add(hauteur);
 
 		int result = JOptionPane.showConfirmDialog(null, myPanel, 
-				"Please Enter X, Y, Lenght and Height Values", JOptionPane.OK_CANCEL_OPTION);
-		if (result == JOptionPane.OK_OPTION && !xField.getText().isEmpty() && !yField.getText().isEmpty() && !longueur.getText().isEmpty() && !hauteur.getText().isEmpty()) {
+				"New Rectangle", JOptionPane.OK_CANCEL_OPTION);
+		if (result == JOptionPane.OK_OPTION && textNotEmpty()) {
 			int x = Integer.valueOf(xField.getText());
 			int y = Integer.valueOf(yField.getText());
 			int l = Integer.valueOf(longueur.getText());
@@ -48,5 +48,9 @@ public class AddRect {
 			coll.add(r);
 
 		}
+	}
+	
+	public void textNotEmpty() {
+		!xField.getText().isEmpty() && !yField.getText().isEmpty() && !longueur.getText().isEmpty() && !hauteur.getText().isEmpty()
 	}
 }
