@@ -15,6 +15,7 @@ public abstract class View extends JPanel
 
 	public View(Object model)
 	{
+		super();
 		this.model = model;
 		this.controller = defaultController(model);
 		this.controller.setView(this);

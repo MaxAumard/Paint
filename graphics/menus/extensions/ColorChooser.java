@@ -8,8 +8,8 @@ import javax.swing.JColorChooser;
 
 
 public class ColorChooser {
-    Color color = null;
-    JColorChooser colorChooser = null;
+    Color color;
+    JColorChooser colorChooser;
 
     public Color getColorChoosed() {
         return this.color;
@@ -17,6 +17,7 @@ public class ColorChooser {
 
     public void setColorChooseed(Color color) {
         this.color = color;
+
     }
 
 

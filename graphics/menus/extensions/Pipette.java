@@ -6,52 +6,57 @@ import graphics.shapes.ui.ShapesView;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
+import java.awt.image.BufferedImage;
 
 public class Pipette implements MouseListener {
     Color colorPicked = Color.BLACK;
     ShapesView sview;
+    ColorChooser cc;
+    JButton colorChooserBtn;
 
-    public Pipette(ColorChooser cc, ShapesView sview, ActionEvent e) {
-        if (((JToggleButton) e.getSource()).isSelected()) {
-            addMouseListener(this);
 
+    public Pipette(ColorChooser cc, JButton colorChooserBtn, ShapesView sview) {
+        super();
+            this.cc = cc;
+            this.colorChooserBtn = colorChooserBtn;
             this.sview = sview;
-            sview.setCursor(Cursor.getDefaultCursor());
-            cc.setColorChooseed(colorPicked);
-            System.out.println("1 " + colorPicked);
 
-        }
+            this.sview.addMouseListener(this);
+            this.sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon("icon/pipetteCursor.png").getImage(),new Point(0,25),"pipette cursor"));
     }
 
     public Color getPixelColor(int x, int y) throws AWTException {
+
         Robot robot = new Robot();
-        System.out.println("3 "+colorPicked);
-        return robot.getPixelColor(x, y);
 
+        // The pixel color information at 20, 20
+        Color color = robot.getPixelColor(100, 100);
+
+        return color;
     }
 
 
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent evt){
         try {
-            this.colorPicked = getPixelColor(e.getX(),e.getY());
-        } catch (AWTException ex) {
-            ex.printStackTrace();
-        }
+
+            this.colorPicked = getPixelColor(evt.getX(),evt.getY());
+        } catch (AWTException ex) {}
+        cc.setColorChooseed(colorPicked);
+        colorChooserBtn.setBackground(colorPicked);
         System.out.println("2 "+colorPicked);
+        this.sview.setCursor(Cursor.getDefaultCursor());
+        sview.removeMouseListener(this);
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent evt) {
 
     }
     @Override
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent evt) {
     }
 
     @Override

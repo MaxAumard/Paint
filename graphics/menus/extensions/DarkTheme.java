@@ -12,8 +12,8 @@ import java.util.Iterator;
 
 public class DarkTheme {
 
-    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, ShapesView sview, Collection<ToggleButton> buttons, JButton cc){
-        Iterator<ToggleButton> iterator = buttons.iterator();
+    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, ShapesView sview, Collection<Button> buttons, JButton cc){
+        Iterator<Button> iterator = buttons.iterator();
 
         // Darkmode
         if (((JToggleButton)e.getSource()).isSelected()){
