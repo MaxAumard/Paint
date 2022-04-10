@@ -3,6 +3,10 @@ package graphics.menus.toolBar;
 import graphics.menus.extensions.ColorChooser;
 import graphics.menus.extensions.DarkTheme;
 import graphics.menus.extensions.Pipette;
+import graphics.shapes.SCollection;
+import graphics.shapes.SRectangle;
+import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapesView;
 import javax.swing.*;
 import java.awt.*;
@@ -56,14 +60,29 @@ public class ToolBar extends JToolBar{
                 new DarkTheme(e, jtoolBar, menuBar, sview, buttons, colorChooser);
                 }});
 
-
-
+        //AddRect button
+        JButton addRect = new JButton();
+        addRect.setBackground(Color.black);
+        addRect.setBorder(BorderFactory.createEmptyBorder());
+        addRect.setMargin(new Insets(-2,-2,-1,-1));
+        addRect.setIcon(new ImageIcon(new ImageIcon("icon/addRect.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+        addRect.addActionListener( new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	SRectangle r = new SRectangle(new Point(25,26),20,30);
+        		r.addAttributes(new ColorAttributes(true,true,Color.LIGHT_GRAY,Color.PINK));
+        		r.addAttributes(new SelectionAttributes());
+            	SCollection coll = (SCollection) sview.getModel();
+            	coll.add(r);
+            	sview.repaint();
+            }});
 
         //add icons to toolbar
         jtoolBar.addSeparator(new Dimension(15,0));
         jtoolBar.add(darkTheme);
         jtoolBar.addSeparator(new Dimension(10,0));
         jtoolBar.add(pipette);
+        jtoolBar.addSeparator(new Dimension(10,0));
+        jtoolBar.add(addRect);
 
 
 
@@ -88,6 +107,7 @@ public class ToolBar extends JToolBar{
         pipette.setFocusable(false);
         colorChooser.setFocusable(false);
         darkTheme.setFocusable(false);
+        addRect.setFocusable(false);
     }
 
 
