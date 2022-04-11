@@ -39,7 +39,7 @@ public class Editor extends JFrame
 		this.sview.setPreferredSize(new Dimension(600,600));
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
 
-		this.menuBar = new MenuBar();
+		this.menuBar = new MenuBar(sview);
 		this.getContentPane().add(menuBar.getMyJMenuBar(), BorderLayout.NORTH);
 
 		this.toolBar = new ToolBar(menuBar.getMyJMenuBar(), sview);

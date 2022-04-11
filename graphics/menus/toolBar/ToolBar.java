@@ -149,26 +149,12 @@ public class ToolBar extends JToolBar{
 
 
 
-
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(colorChooser);
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(colorChooser2);
 
-		/*// ////////////////////////////////////////////////////////////////////////////////
-        JButton btnWhite = createButton("icon/sunWhiteTheme.png");
-        btnWhite.setMargin(new Insets(0,0,0,0));
-        btnWhite.setBackground(new Color(240,240,240));
-        toolBar.add(btnWhite);
-        ///Button dark
-        JButton btnDark = createButton("icon/sunDarkTheme.png");
-        btnDark.setBackground(new Color(27,27,27));
-        btnDark.setForeground(Color.GRAY);
-        btnDark.setMargin(new Insets(0,0,0,0));
-        toolBar.add(btnDark);
-		 */
 
-		//Enlever le focus sur chaque bouttons 
 		for(int i=0; i<jtoolBar.getComponentCount();i++) {
 			String className = (jtoolBar.getComponent(i).getClass()).toString();
 			if(className.equals("class javax.swing.JButton") || className.equals("class graphics.menus.toolBar.ToggleButton") || className.equals("class graphics.menus.toolBar.Button")) {

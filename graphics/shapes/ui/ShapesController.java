@@ -20,76 +20,66 @@ public class ShapesController extends Controller {
 		super(newModel);
 	}
 
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		lastPoint = new Point(e.getPoint());
 		//System.out.println("mouse Pressed");
 	}
 
-	public void mouseReleased(MouseEvent e)
-	{
+	public void mouseReleased(MouseEvent e) {
 		//System.out.println("mouse Released");
 	}
 
-	public void mouseClicked(MouseEvent e)
-	{
+	public void mouseClicked(MouseEvent e) {
 		//System.out.println("mouse Click");
 		Shape s = getTarget(e);
-		if(s != null) {
+		if (s != null) {
 			setSelection(s);
 		}
 
 	}
 
-	public void mouseEntered(MouseEvent e)
-	{
+	public void mouseEntered(MouseEvent e) {
 		//System.out.println("mouse Enter");
 	}
 
-	public void mouseExited(MouseEvent e)
-	{
+	public void mouseExited(MouseEvent e) {
 		//System.out.println("mouse Exit");
 	}
 
-	public void mouseMoved(MouseEvent evt)
-	{
+	public void mouseMoved(MouseEvent evt) {
 		//System.out.println("mouse Move");
 	}
 
-	public void mouseDragged(MouseEvent evt)
-	{
+	public void mouseDragged(MouseEvent evt) {
 		for (Shape s : ((SCollection) getModel()).collection) {
-			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
-			if( sAtt.isSelected() ) {
-				s.translate(evt.getX()-lastPoint.x, evt.getY()-lastPoint.y);
+			SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
+			if (sAtt.isSelected()) {
+				s.translate(evt.getX() - lastPoint.x, evt.getY() - lastPoint.y);
 			}
 		}
 		this.lastPoint = evt.getPoint();
 		this.getView().repaint();
 	}
 
-	public void keyTyped(KeyEvent evt)
-	{
+	public void keyTyped(KeyEvent evt) {
 	}
 
-	public void keyPressed(KeyEvent evt)
-	{
-		if(evt.isShiftDown()) {
+	public void keyPressed(KeyEvent evt) {
+		if (evt.isShiftDown()) {
 			this.shiftHeld = true;
 		}
-		if(evt.isControlDown()) {
-			if(evt.getKeyCode()==71 ) {
+		if (evt.isControlDown()) {
+			if (evt.getKeyCode() == 71) {
 				groupShape();
 			}
 		}
-		if(evt.getKeyCode()==127) {
+		if (evt.getKeyCode() == 127) {
 			deleteShape();
 		}
 	}
 
-	public void keyReleased(KeyEvent evt)
-	{
-		if(evt.getKeyCode()==16){
+	public void keyReleased(KeyEvent evt) {
+		if (evt.getKeyCode() == 16) {
 			this.shiftHeld = false;
 		}
 	}
@@ -104,14 +94,15 @@ public class ShapesController extends Controller {
 	}
 
 	public void setSelection(Shape s) {
-		if(!this.shiftHeld){unselectAll();}
+		if (!this.shiftHeld) {
+			unselectAll();
+		}
 		this.selectColl.add(s);
-		if(s.getAttributes("Selection") == null) {
+		if (s.getAttributes("Selection") == null) {
 			SelectionAttributes sAtt = new SelectionAttributes();
 			sAtt.select();
 			s.addAttributes(sAtt);
-		}
-		else {
+		} else {
 			SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
 			sAtt.select();
 		}
@@ -120,7 +111,7 @@ public class ShapesController extends Controller {
 
 	public Shape getTarget(MouseEvent e) {
 		for (Shape s : ((SCollection) getModel()).collection) {
-			if(s.getBounds().contains(e.getPoint().x,e.getPoint().y)) {
+			if (s.getBounds().contains(e.getPoint().x, e.getPoint().y)) {
 				return s;
 			}
 		}
@@ -136,8 +127,8 @@ public class ShapesController extends Controller {
 
 		for (Shape s : ((SCollection) this.getModel()).collection) {
 			tempModel.add(s);
-			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
-			if( sAtt.isSelected() ) {
+			SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
+			if (sAtt.isSelected()) {
 				newColl.add(s);
 				sAtt.unselect();
 				tempModel.collection.remove(s);
@@ -148,14 +139,14 @@ public class ShapesController extends Controller {
 		this.getView().setModel(tempModel);
 		this.getView().repaint();
 	}
-	
+
 	public void deleteShape() {
 		SCollection tempModel = new SCollection();
 		tempModel.addAttributes(new SelectionAttributes());
 
 		for (Shape s : ((SCollection) this.getModel()).collection) {
-			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
-			if( !sAtt.isSelected() ) {
+			SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
+			if (!sAtt.isSelected()) {
 				tempModel.add(s);
 			}
 		}
