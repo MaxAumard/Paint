@@ -35,7 +35,7 @@ public class ShapesController extends Controller {
 	{
 		//System.out.println("mouse Click");
 		Shape s = getTarget(e);
-		if(s != null) {
+		if(s!=null){
 			setSelection(s);
 		}
 
@@ -120,8 +120,10 @@ public class ShapesController extends Controller {
 
 	public Shape getTarget(MouseEvent e) {
 		for (Shape s : ((SCollection) getModel()).collection) {
-			if(s.getBounds().contains(e.getPoint().x,e.getPoint().y)) {
-				return s;
+			if(!((s.getClass().toString())).contains("SDraw")) {
+				if(s.getBounds().contains(e.getPoint().x,e.getPoint().y)) {
+					return s;
+				}
 			}
 		}
 		unselectAll();
@@ -148,7 +150,7 @@ public class ShapesController extends Controller {
 		this.getView().setModel(tempModel);
 		this.getView().repaint();
 	}
-	
+
 	public void deleteShape() {
 		SCollection tempModel = new SCollection();
 		tempModel.addAttributes(new SelectionAttributes());
