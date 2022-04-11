@@ -1,9 +1,11 @@
 package graphics.shapes.ui;
 
 import graphics.menus.menuBar.MenuBar;
+import graphics.menus.toolBar.ToggleButton;
 import graphics.menus.toolBar.ToolBar;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SDraw;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.attributes.ColorAttributes;
@@ -18,10 +20,11 @@ import java.io.IOException;
 public class Editor extends JFrame
 {
 	ShapesView sview;
+	SDraw d;
 	SCollection model;
 	MenuBar menuBar;
 	ToolBar toolBar;
-	//jijuoijiojj
+
 	public Editor() throws IOException {
 		super("Shapes Editor");
 
@@ -32,25 +35,33 @@ public class Editor extends JFrame
 				System.exit(0);
 			}
 		});
-
-		this.buildModel();
-
+		
+		
+		
+		this.model = new SCollection();
 		this.sview = new ShapesView(this.model);
-		this.sview.setPreferredSize(new Dimension(600,600));
-		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
-
-		this.menuBar = new MenuBar(sview);
+		
+		this.menuBar = new MenuBar();
 		this.getContentPane().add(menuBar.getMyJMenuBar(), BorderLayout.NORTH);
 
 		this.toolBar = new ToolBar(menuBar.getMyJMenuBar(), sview);
 		this.getContentPane().add(toolBar.getJToolBar(), BorderLayout.WEST);
 		toolBar.getJToolBar().setOrientation(SwingConstants.VERTICAL);
+		
+		this.d = new SDraw(this.sview, this.toolBar.draw);
+		this.buildModel();
+		
+		this.sview.addMouseMotionListener(d);
+		this.sview.setPreferredSize(new Dimension(600,600));
+		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
+
+		
 
 	}
-
+	
 	private void buildModel()
 	{
-		this.model = new SCollection();
+		
 		this.model.addAttributes(new SelectionAttributes());
 
 		SRectangle r = new SRectangle(new Point(10,10),20,30);
@@ -80,6 +91,10 @@ public class Editor extends JFrame
 		c.addAttributes(new SelectionAttributes());
 		sc.add(c);
 		this.model.add(sc);
+	
+		this.d.addAttributes(new SelectionAttributes());
+		this.model.add(this.d);
+		
 	}
 
 	public static void main(String[] args) throws IOException {

@@ -11,6 +11,7 @@ import java.util.Iterator;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SDraw;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
@@ -96,6 +97,14 @@ public class ShapeDraftman implements ShapeVisitor{
 		if (selectAtt.isSelected()) {
 			drawSelected(t);
 		}
+	}
+	
+	public void visitDraw(SDraw d) {
+		
+		for(Point p:d.point) {
+			g.fillOval(p.x, p.y, 10, 10);
+		}
+		
 	}
 
 	public void visitCollection(SCollection c) {

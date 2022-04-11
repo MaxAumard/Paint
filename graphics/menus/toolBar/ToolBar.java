@@ -14,18 +14,40 @@ public class ToolBar extends JToolBar{
 	JToolBar jtoolBar;
 	private static Color color1 = Color.BLACK ;
 	private static Color color2 = Color.WHITE ;
-
+	public JButton draw;
 
 	public ToolBar(JMenuBar menuBar, ShapesView sview) throws IOException {
 		super();
-		//cration of the toolBar
+		//creation of the toolBar
 		jtoolBar = new JToolBar();
 		//prevent flotability
 		jtoolBar.setFloatable(false);
 		//toolBar buttons will be stored here
 		Collection buttons = new ArrayList<Button>();
+		
+		
+		draw = new JButton();
+		draw.isSelected();
+		draw.setIcon(new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+		draw.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println(draw.isSelected());
+				draw.setSelected(!draw.isSelected());
+				if(draw.isSelected()) {
+					
+					
+					ImageIcon im = new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(31,31, Image.SCALE_SMOOTH));
+			        sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2,im.getIconHeight() ), "dessine cursor"));
+				}
+				else {
+			        sview.setCursor(Cursor.getDefaultCursor());
 
-
+				}
+			}
+		});
 
 		//colorChooser button for color1
 		JButton colorChooser = new JButton();
@@ -149,12 +171,29 @@ public class ToolBar extends JToolBar{
 
 
 
+
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(colorChooser);
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(colorChooser2);
+		
+		jtoolBar.addSeparator(new Dimension(10,0));
+		jtoolBar.add(draw);
 
+		/*// ////////////////////////////////////////////////////////////////////////////////
+        JButton btnWhite = createButton("icon/sunWhiteTheme.png");
+        btnWhite.setMargin(new Insets(0,0,0,0));
+        btnWhite.setBackground(new Color(240,240,240));
+        toolBar.add(btnWhite);
+        ///Button dark
+        JButton btnDark = createButton("icon/sunDarkTheme.png");
+        btnDark.setBackground(new Color(27,27,27));
+        btnDark.setForeground(Color.GRAY);
+        btnDark.setMargin(new Insets(0,0,0,0));
+        toolBar.add(btnDark);
+		 */
 
+		//Enlever le focus sur chaque bouttons 
 		for(int i=0; i<jtoolBar.getComponentCount();i++) {
 			String className = (jtoolBar.getComponent(i).getClass()).toString();
 			if(className.equals("class javax.swing.JButton") || className.equals("class graphics.menus.toolBar.ToggleButton") || className.equals("class graphics.menus.toolBar.Button")) {

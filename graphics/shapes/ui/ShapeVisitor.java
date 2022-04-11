@@ -11,4 +11,6 @@ public interface ShapeVisitor {
 	public void visitCollection(SCollection c);
 	
 	public void visitText(SText t);
+	
+	public void visitDraw(SDraw d);
 }

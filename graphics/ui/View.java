@@ -3,6 +3,7 @@ package graphics.ui;
 import javax.swing.JPanel;
 
 import graphics.shapes.SCollection;
+import graphics.shapes.SDraw;
 import graphics.shapes.ui.ShapeDraftman;
 
 import java.awt.*;
@@ -22,6 +23,7 @@ public abstract class View extends JPanel
 		this.addMouseListener(this.controller);
 		this.addMouseMotionListener(this.controller);
 		this.addKeyListener(this.controller);
+		
 	}
 	
 	public void setModel(Object model)

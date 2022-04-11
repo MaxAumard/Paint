@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import graphics.shapes.SCollection;
+import graphics.shapes.SDraw;
 import graphics.shapes.SRectangle;
 import graphics.ui.Controller;
 import graphics.ui.View;

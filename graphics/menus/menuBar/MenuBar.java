@@ -1,8 +1,6 @@
 package graphics.menus.menuBar;
 
 
-import graphics.shapes.ui.ShapesView;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -14,7 +12,7 @@ import java.io.IOException;
 
 public class MenuBar extends java.awt.MenuBar {
     JMenuBar menuBar= new JMenuBar();
-    public MenuBar(ShapesView sview) throws IOException {
+    public MenuBar() throws IOException {
         Font fontMenu = new Font("Sans Serif", Font.PLAIN, 15);
         UIManager.put("Menu.font", fontMenu);
         menuBar = new  JMenuBar();
