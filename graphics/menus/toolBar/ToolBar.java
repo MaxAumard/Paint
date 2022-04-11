@@ -94,6 +94,38 @@ public class ToolBar extends JToolBar{
 			}
 		
 		);
+		
+		//AddCircle button
+		JButton addCircle = new JButton();
+		addCircle.setBackground(Color.black);
+		addCircle.setBorder(BorderFactory.createEmptyBorder());
+		addCircle.setMargin(new Insets(-2,-2,-1,-1));
+		addCircle.setIcon(new ImageIcon(new ImageIcon("icon/addCircle.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+		addCircle.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					AddCircle addCircle = new AddCircle();
+					addCircle.add(sview,color1,color2);
+					sview.repaint();
+				}
+			}
+		
+		);
+		
+		//AddText button
+				JButton addText = new JButton();
+				addText.setBackground(Color.black);
+				addText.setBorder(BorderFactory.createEmptyBorder());
+				addText.setMargin(new Insets(-2,-2,-1,-1));
+				addText.setIcon(new ImageIcon(new ImageIcon("icon/addCircle.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+				addText.addActionListener( new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+							AddText addText = new AddText();
+							addText.add(sview,color1,color2);
+							sview.repaint();
+						}
+					}
+				
+				);
 
 		//bucket button
 		Button bucket = new Button("icon/bucket.png",new ActionListener(){
@@ -111,6 +143,10 @@ public class ToolBar extends JToolBar{
 		jtoolBar.add(pipette);
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(addRect);
+		jtoolBar.addSeparator(new Dimension(10,0));
+		jtoolBar.add(addCircle);
+		jtoolBar.addSeparator(new Dimension(10,0));
+		jtoolBar.add(addText);
 
 
 

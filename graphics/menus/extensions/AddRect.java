@@ -36,8 +36,8 @@ public class AddRect {
 		JTextField yField = new JTextField(5);
 		JTextField longueur = new JTextField(5);
 		JTextField hauteur = new JTextField(5);
-		JCheckBox tFill = new JCheckBox("tFill");
-		JCheckBox tBorder = new JCheckBox("bFill");
+		JCheckBox tFill = new JCheckBox("Transparent Rectangle");
+		JCheckBox tBorder = new JCheckBox("Transparent Border");
 
 		
 		JPanel myPanel = new JPanel();
@@ -52,9 +52,7 @@ public class AddRect {
 		myPanel.add(new JLabel("Hauteur:"));
 		myPanel.add(hauteur);
 		myPanel.add(tFill);
-		(tFill).setLabel("Transparent Fill");;
 		myPanel.add(tBorder);
-		(tBorder).setLabel("Transparent Border");
 
 		int result = JOptionPane.showConfirmDialog(null, myPanel,"New Rectangle", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION && this.tester(myPanel,tFill,tBorder,colorBorder)) {
@@ -65,12 +63,11 @@ public class AddRect {
 			
 			SRectangle r = new SRectangle(new Point(x,y),l,h);
 			r.addAttributes(new ColorAttributes(!tBorder.isSelected(),!tFill.isSelected(),colorBorder,colorFill));
-			System.out.println(colorBorder);
 			r.addAttributes(new SelectionAttributes());
 			SCollection coll = (SCollection) sview.getModel();
 			coll.add(r);
 		}
-		else if(result == JOptionPane.CANCEL_OPTION) {}
+		else if(result == JOptionPane.CANCEL_OPTION || result == JOptionPane.CLOSED_OPTION) {}
 		else {
 			JPanel errorPanel = new JPanel();
 			errorPanel.add(new JLabel("Please enter valid numbers"));
@@ -86,7 +83,6 @@ public class AddRect {
 			if((jpanel.getComponent(i).getClass().toString()).equals("class javax.swing.JTextField")) {
 				if(textIsEmpty((JTextField)jpanel.getComponent(i))) {return false;};
 				if(!textIsInt((JTextField)jpanel.getComponent(i))) {
-					System.out.println("isInt");
 					return false;};
 			}
 		}
@@ -106,7 +102,6 @@ public class AddRect {
 		    Integer.parseInt(field.getText());
 		    return true;
 		} catch (NumberFormatException e) {
-		    System.out.println("Input are not numbers");
 		    return false;
 		}
 	}
