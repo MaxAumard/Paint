@@ -30,7 +30,7 @@ import graphics.shapes.ui.ShapesView;
 
 public class AddRect {
 	
-	public void add(ShapesView sview,Color colorBorder) {
+	public void add(ShapesView sview,Color colorBorder,Color colorFill) {
 				
 		JTextField xField = new JTextField(5);
 		JTextField yField = new JTextField(5);
@@ -76,7 +76,7 @@ public class AddRect {
 			errorPanel.add(new JLabel("Please enter valid numbers"));
 			int showError = JOptionPane.showConfirmDialog(null, errorPanel,"Error",JOptionPane.OK_CANCEL_OPTION);
 			if (result == JOptionPane.OK_OPTION) {
-				this.add(sview,colorBorder);
+				this.add(sview,colorBorder,colorFill);
 			}
 		}
 	}
