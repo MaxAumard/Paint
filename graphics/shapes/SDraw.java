@@ -36,12 +36,8 @@ public class SDraw extends Shape implements MouseMotionListener {
 		if(!dessine.isSelected()) {
 			return;
 		}
-		for (Shape s : ((SCollection) sview.getModel()).collection) {
-			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
-			if( sAtt.isSelected() ) {
-				sAtt.unselect();
-			}
-		}
+		ShapesController sContr = (ShapesController) (this.sview.getController());
+		sContr.unselectAll();
 		x = e.getX();
 		y = e.getY();
 		point.add(new Point(x,y));
