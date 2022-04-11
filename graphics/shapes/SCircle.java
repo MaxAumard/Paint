@@ -11,7 +11,7 @@ public class SCircle extends Shape {
 
 	public SCircle(Point point, int radius) {
 		this.location = point;
-		this.radius = radius;
+		this.radius = radius;    /*c'est moi*/
 	}
 
 	public int getRadius() {
