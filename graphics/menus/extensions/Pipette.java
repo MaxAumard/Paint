@@ -4,11 +4,14 @@ package graphics.menus.extensions;
 
 import graphics.shapes.ui.ShapesView;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 
 public class Pipette implements MouseListener {
@@ -19,16 +22,18 @@ public class Pipette implements MouseListener {
 
     BufferedImage bi;
 
-
     public Pipette(ColorChooser cc, JButton colorChooserBtn, ShapesView sview) {
 
         this.cc = cc;
         this.colorChooserBtn = colorChooserBtn;
         this.sview = sview;
-        this.bi = new BufferedImage(sview.getWidth(),sview.getHeight(),BufferedImage.TYPE_INT_RGB);
+        this.bi = new BufferedImage(sview.getWidth(), sview.getHeight(), BufferedImage.TYPE_INT_RGB);
 
         this.sview.addMouseListener(this);
-        this.sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(new ImageIcon("icon/pipetteCursor.png").getImage(),new Point(0,25),"pipette cursor"));
+        ImageIcon im = new ImageIcon(new ImageIcon("icon/pipetteCursor.png").getImage().getScaledInstance(31,31, Image.SCALE_SMOOTH));
+
+        this.sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2,im.getIconHeight() ), "pipette cursor"));
+
     }
 
 

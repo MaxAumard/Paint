@@ -28,7 +28,6 @@ public class Bucket implements MouseListener {
         if(x>= sview.getWidth()) return;
         if (y>= sview.getHeight()) return;
         if (getPixelColor(x, y) != oldColor) return;
-
         setPixelColor(x,y,newColor);
 
         flood(x-1,y, oldColor,newColor);
