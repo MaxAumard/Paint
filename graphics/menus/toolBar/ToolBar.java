@@ -115,7 +115,7 @@ public class ToolBar extends JToolBar{
 				addText.setBackground(Color.black);
 				addText.setBorder(BorderFactory.createEmptyBorder());
 				addText.setMargin(new Insets(-2,-2,-1,-1));
-				addText.setIcon(new ImageIcon(new ImageIcon("icon/addCircle.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+				addText.setIcon(new ImageIcon(new ImageIcon("icon/addText.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 				addText.addActionListener( new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 							AddText addText = new AddText();
@@ -171,8 +171,11 @@ public class ToolBar extends JToolBar{
 		//Enlever le focus sur chaque bouttons 
 		pipette.setFocusable(false);
 		colorChooser.setFocusable(false);
+		colorChooser2.setFocusable(false);
 		darkTheme.setFocusable(false);
 		addRect.setFocusable(false);
+		addCircle.setFocusable(false);
+		addText.setFocusable(false);
 	}
 
 
