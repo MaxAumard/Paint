@@ -8,11 +8,14 @@ import java.awt.Label;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,29 +36,35 @@ public class AddRect {
 		JTextField yField = new JTextField(5);
 		JTextField longueur = new JTextField(5);
 		JTextField hauteur = new JTextField(5);
+		JCheckBox tFill = new JCheckBox("tFill");
+		JCheckBox tBorder = new JCheckBox("bFill");
 
+		
 		JPanel myPanel = new JPanel();
 		
-		myPanel.setLayout(new GridLayout(2,4,4,10));
-		myPanel.add(new JLabel("x:"));
+		myPanel.setLayout(new GridLayout(3,4,4,10));
+		myPanel.add(new JLabel("Position x:"));
 		myPanel.add(xField);
-		myPanel.add(new JLabel("y:"));
+		myPanel.add(new JLabel("Position y:"));
 		myPanel.add(yField);
-		myPanel.add(new JLabel("longueur:"));
+		myPanel.add(new JLabel("Longueur:"));
 		myPanel.add(longueur);
 		myPanel.add(new JLabel("Hauteur:"));
 		myPanel.add(hauteur);
-		
+		myPanel.add(tFill);
+		(tFill).setLabel("Transparent Fill");;
+		myPanel.add(tBorder);
+		(tBorder).setLabel("Transparent Border");
 
 		int result = JOptionPane.showConfirmDialog(null, myPanel,"New Rectangle", JOptionPane.OK_CANCEL_OPTION);
-		if (result == JOptionPane.OK_OPTION && textNotEmpty(xField,yField,longueur,hauteur) && textIsInt(xField,yField,longueur,hauteur)) {
+		if (result == JOptionPane.OK_OPTION && this.tester(myPanel,tFill,tBorder,colorBorder)) {
 			int x = Integer.valueOf(xField.getText());
 			int y = Integer.valueOf(yField.getText());
 			int l = Integer.valueOf(longueur.getText());
 			int h = Integer.valueOf(hauteur.getText());
 			
 			SRectangle r = new SRectangle(new Point(x,y),l,h);
-			r.addAttributes(new ColorAttributes(true,true,colorBorder,colorBorder));
+			r.addAttributes(new ColorAttributes(!tBorder.isSelected(),!tFill.isSelected(),colorBorder,colorBorder));
 			System.out.println(colorBorder);
 			r.addAttributes(new SelectionAttributes());
 			SCollection coll = (SCollection) sview.getModel();
@@ -72,19 +81,29 @@ public class AddRect {
 		}
 	}
 	
-	public boolean textNotEmpty(JTextField xField,JTextField yField,JTextField lField,JTextField hField) {
-		if(!xField.getText().isEmpty() && !yField.getText().isEmpty() && !lField.getText().isEmpty() && !hField.getText().isEmpty()) {
+	public boolean tester(JPanel jpanel,JCheckBox ch1,JCheckBox ch2,Color colorBorder) {
+		for(int i=0;i< jpanel.getComponentCount();i++) {
+			if((jpanel.getComponent(i).getClass().toString()).equals("class javax.swing.JTextField")) {
+				if(textIsEmpty((JTextField)jpanel.getComponent(i))) {return false;};
+				if(!textIsInt((JTextField)jpanel.getComponent(i))) {
+					System.out.println("isInt");
+					return false;};
+			}
+		}
+		if(ch1.isSelected() && ch2.isSelected()) {return false;}
+		return true;
+	}
+	
+	public boolean textIsEmpty(JTextField field) {
+		if(field.getText().isEmpty()) {
 			return true;
 		}
 		return false;
 	}
 	
-	public boolean textIsInt(JTextField xField,JTextField yField,JTextField lField,JTextField hField) {		
+	public boolean textIsInt(JTextField field) {		
 		try {
-		    int xValue = Integer.parseInt(xField.getText());
-		    int yValue = Integer.parseInt(yField.getText());
-		    int lValue = Integer.parseInt(lField.getText());
-		    int hValue = Integer.parseInt(hField.getText());
+		    Integer.parseInt(field.getText());
 		    return true;
 		} catch (NumberFormatException e) {
 		    System.out.println("Input are not numbers");

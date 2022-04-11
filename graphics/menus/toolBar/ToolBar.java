@@ -16,7 +16,7 @@ import java.util.Collection;
 
 public class ToolBar extends JToolBar{
 	JToolBar jtoolBar;
-	private static Color colorChoosed = Color.WHITE ;
+	private static Color colorChoosed = Color.BLACK ;
 
 
 	public ToolBar(JMenuBar menuBar, ShapesView sview) throws IOException {
