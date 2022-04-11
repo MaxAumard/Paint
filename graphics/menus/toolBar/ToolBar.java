@@ -24,26 +24,26 @@ public class ToolBar extends JToolBar{
 		jtoolBar.setFloatable(false);
 		//toolBar buttons will be stored here
 		Collection buttons = new ArrayList<Button>();
-		
-		
+
+
 		draw = new JButton();
 		draw.isSelected();
 		draw.setIcon(new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		draw.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				System.out.println(draw.isSelected());
 				draw.setSelected(!draw.isSelected());
 				if(draw.isSelected()) {
-					
-					
+
+
 					ImageIcon im = new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(31,31, Image.SCALE_SMOOTH));
-			        sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2,im.getIconHeight() ), "dessine cursor"));
+					sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2,im.getIconHeight() ), "dessine cursor"));
 				}
 				else {
-			        sview.setCursor(Cursor.getDefaultCursor());
+					sview.setCursor(Cursor.getDefaultCursor());
 
 				}
 			}
@@ -64,7 +64,7 @@ public class ToolBar extends JToolBar{
 				System.out.println(cc.getColorChoosed());
 				color1 = cc.getColorChoosed() ;
 			}});
-		
+
 		//colorChooser button for color2
 		JButton colorChooser2 = new JButton();
 		ColorChooser cc2 = new ColorChooser();
@@ -101,52 +101,31 @@ public class ToolBar extends JToolBar{
 
 
 		//AddRect button
-		JButton addRect = new JButton();
-		addRect.setBackground(Color.black);
-		addRect.setBorder(BorderFactory.createEmptyBorder());
-		addRect.setMargin(new Insets(-2,-2,-1,-1));
-		addRect.setIcon(new ImageIcon(new ImageIcon("icon/addRect.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
-		addRect.addActionListener( new ActionListener() {
+		JButton addRect = new Button("icon/addRect.png","icon/addRect.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-					AddRect addRect = new AddRect();
-					addRect.add(sview,color1,color2);
-					sview.repaint();
-				}
-			}
-		
-		);
-		
+				AddRect addRect = new AddRect();
+				addRect.add(sview, color2, color1);
+				sview.repaint();
+			}});
+
 		//AddCircle button
-		JButton addCircle = new JButton();
-		addCircle.setBackground(Color.black);
-		addCircle.setBorder(BorderFactory.createEmptyBorder());
-		addCircle.setMargin(new Insets(-2,-2,-1,-1));
-		addCircle.setIcon(new ImageIcon(new ImageIcon("icon/addCircle.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
-		addCircle.addActionListener( new ActionListener() {
+		JButton addCircle = new Button("icon/addCircle.png","icon/addCircle.png",new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					AddCircle addCircle = new AddCircle();
-					addCircle.add(sview,color1,color2);
-					sview.repaint();
-				}
+				AddCircle addCircle = new AddCircle();
+				addCircle.add(sview,color1,color2);
+				sview.repaint();
 			}
-		
-		);
-		
+		});
+
 		//AddText button
-				JButton addText = new JButton();
-				addText.setBackground(Color.black);
-				addText.setBorder(BorderFactory.createEmptyBorder());
-				addText.setMargin(new Insets(-2,-2,-1,-1));
-				addText.setIcon(new ImageIcon(new ImageIcon("icon/addText.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
-				addText.addActionListener( new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-							AddText addText = new AddText();
-							addText.add(sview,color1,color2);
-							sview.repaint();
-						}
-					}
-				
-				);
+		JButton addText = new Button("icon/addText.png","icon/addText.png",new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddText addText = new AddText();
+				addText.add(sview,color1,color2);
+				sview.repaint();
+			}
+		});
+
 
 		//bucket button
 		Button bucket = new Button("icon/bucket.png",new ActionListener(){
@@ -176,7 +155,7 @@ public class ToolBar extends JToolBar{
 		jtoolBar.add(colorChooser);
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(colorChooser2);
-		
+
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(draw);
 

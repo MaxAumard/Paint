@@ -30,6 +30,8 @@ import graphics.shapes.ui.ShapesView;
 
 public class AddRect {
 	
+	public AddRect() {}
+
 	public void add(ShapesView sview,Color colorBorder,Color colorFill) {
 				
 		JTextField xField = new JTextField(5);
