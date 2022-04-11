@@ -10,8 +10,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+
 
 
 public class Pipette implements MouseListener {
@@ -35,7 +34,6 @@ public class Pipette implements MouseListener {
         this.sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2,im.getIconHeight() ), "pipette cursor"));
 
     }
-
 
     @Override
     public void mousePressed(MouseEvent e) {

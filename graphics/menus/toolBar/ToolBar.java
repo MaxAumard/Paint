@@ -130,7 +130,7 @@ public class ToolBar extends JToolBar{
 		//bucket button
 		Button bucket = new Button("icon/bucket.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				//Bucket bu = new Bucket();
+				Bucket bu = new Bucket(color1,sview);
 
 			}});
 		buttons.add(pipette);
@@ -147,6 +147,8 @@ public class ToolBar extends JToolBar{
 		jtoolBar.add(addCircle);
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(addText);
+		jtoolBar.addSeparator(new Dimension(10,0));
+		jtoolBar.add(bucket);
 
 
 

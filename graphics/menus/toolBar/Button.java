@@ -13,7 +13,6 @@ public class Button extends JButton {
         ImageIcon icon = new ImageIcon(new ImageIcon(pathIcon).getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
         this.setIcon(icon);
 
-
         setMargin(new Insets(-2,-2,-1,-1));
         addActionListener(actionListener);
     }
@@ -27,6 +26,7 @@ public class Button extends JButton {
 
         setMargin(new Insets(-2,-2,-1,-1));
         addActionListener(actionListener);
+        //TODO faire un constructeur avec 2 images !!!!
     }
 
 }

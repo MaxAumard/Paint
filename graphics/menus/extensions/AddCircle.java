@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
-import graphics.shapes.SRectangle;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapesView;

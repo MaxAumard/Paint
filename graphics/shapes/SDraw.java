@@ -27,8 +27,7 @@ public class SDraw extends Shape implements MouseMotionListener {
 		this.sview=sview;
 		point = new ArrayList<>();
 		this.dessine=dessine;
-
-
+		
 	}
 
 
