@@ -169,13 +169,12 @@ public class ToolBar extends JToolBar{
 		 */
 
 		//Enlever le focus sur chaque bouttons 
-		pipette.setFocusable(false);
-		colorChooser.setFocusable(false);
-		colorChooser2.setFocusable(false);
-		darkTheme.setFocusable(false);
-		addRect.setFocusable(false);
-		addCircle.setFocusable(false);
-		addText.setFocusable(false);
+		for(int i=0; i<jtoolBar.getComponentCount();i++) {
+			String className = (jtoolBar.getComponent(i).getClass()).toString();
+			if(className.equals("class javax.swing.JButton") || className.equals("class graphics.menus.toolBar.ToggleButton") || className.equals("class graphics.menus.toolBar.Button")) {
+				jtoolBar.getComponent(i).setFocusable(false);
+			}
+		}
 	}
 
 
