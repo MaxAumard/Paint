@@ -16,7 +16,8 @@ import java.util.Collection;
 
 public class ToolBar extends JToolBar{
 	JToolBar jtoolBar;
-	private static Color colorChoosed = Color.BLACK ;
+	private static Color color1 = Color.BLACK ;
+	private static Color color2 = Color.WHITE ;
 
 
 	public ToolBar(JMenuBar menuBar, ShapesView sview) throws IOException {
@@ -30,7 +31,7 @@ public class ToolBar extends JToolBar{
 
 
 
-		//colorChooser button
+		//colorChooser button for color1
 		JButton colorChooser = new JButton();
 		ColorChooser cc = new ColorChooser();
 		colorChooser.setBackground(Color.black);
@@ -43,9 +44,26 @@ public class ToolBar extends JToolBar{
 				cc.setColorChooseed(Color.BLACK);
 				cc.displayColorChooser(colorChooser);
 				System.out.println(cc.getColorChoosed());
-				colorChoosed = cc.getColorChoosed() ;
-
+				color1 = cc.getColorChoosed() ;
 			}});
+		
+		//colorChooser button for color2
+				JButton colorChooser2 = new JButton();
+				ColorChooser cc2 = new ColorChooser();
+				colorChooser2.setBackground(Color.white);
+				colorChooser2.setBorder(BorderFactory.createEmptyBorder());
+				colorChooser2.setMargin(new Insets(-2,-2,-1,-1));
+				colorChooser2.setIcon(new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+				colorChooser2.addActionListener( new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ColorChooser cc2 = new ColorChooser();
+						cc2.setColorChooseed(Color.BLACK);
+						cc2.displayColorChooser(colorChooser2);
+						System.out.println(cc.getColorChoosed());
+						color2 = cc2.getColorChoosed() ;
+
+					}});
+		
 		//pipette button
 		Button pipette = new Button("icon/pipette.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -70,7 +88,7 @@ public class ToolBar extends JToolBar{
 		addRect.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					AddRect addRect = new AddRect();
-					addRect.add(sview,colorChoosed,colorChoosed);
+					addRect.add(sview,color1,color2);
 					sview.repaint();
 				}
 			}
@@ -99,6 +117,8 @@ public class ToolBar extends JToolBar{
 
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(colorChooser);
+		jtoolBar.addSeparator(new Dimension(10,0));
+		jtoolBar.add(colorChooser2);
 
 		/*// ////////////////////////////////////////////////////////////////////////////////
         JButton btnWhite = createButton("icon/sunWhiteTheme.png");

@@ -64,7 +64,7 @@ public class AddRect {
 			int h = Integer.valueOf(hauteur.getText());
 			
 			SRectangle r = new SRectangle(new Point(x,y),l,h);
-			r.addAttributes(new ColorAttributes(!tBorder.isSelected(),!tFill.isSelected(),colorBorder,colorBorder));
+			r.addAttributes(new ColorAttributes(!tBorder.isSelected(),!tFill.isSelected(),colorBorder,colorFill));
 			System.out.println(colorBorder);
 			r.addAttributes(new SelectionAttributes());
 			SCollection coll = (SCollection) sview.getModel();
