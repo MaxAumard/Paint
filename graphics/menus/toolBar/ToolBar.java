@@ -1,10 +1,6 @@
 package graphics.menus.toolBar;
 
 import graphics.menus.extensions.*;
-import graphics.shapes.SCollection;
-import graphics.shapes.SRectangle;
-import graphics.shapes.attributes.ColorAttributes;
-import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapesView;
 import javax.swing.*;
 import java.awt.*;
@@ -48,22 +44,23 @@ public class ToolBar extends JToolBar{
 			}});
 		
 		//colorChooser button for color2
-				JButton colorChooser2 = new JButton();
+		JButton colorChooser2 = new JButton();
+		ColorChooser cc2 = new ColorChooser();
+		colorChooser2.setBackground(Color.white);
+		colorChooser2.setBorder(BorderFactory.createEmptyBorder());
+		colorChooser2.setMargin(new Insets(-2,-2,-1,-1));
+		colorChooser2.setIcon(new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+		colorChooser2.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				ColorChooser cc2 = new ColorChooser();
-				colorChooser2.setBackground(Color.white);
-				colorChooser2.setBorder(BorderFactory.createEmptyBorder());
-				colorChooser2.setMargin(new Insets(-2,-2,-1,-1));
-				colorChooser2.setIcon(new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
-				colorChooser2.addActionListener( new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						ColorChooser cc2 = new ColorChooser();
-						cc2.setColorChooseed(Color.BLACK);
-						cc2.displayColorChooser(colorChooser2);
-						System.out.println(cc.getColorChoosed());
-						color2 = cc2.getColorChoosed() ;
+				cc2.setColorChooseed(Color.BLACK);
+				cc2.displayColorChooser(colorChooser2);
+				System.out.println(cc.getColorChoosed());
+				color2 = cc2.getColorChoosed() ;
 
-					}});
-		
+			}});
+
+
 		//pipette button
 		Button pipette = new Button("icon/pipette.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -73,11 +70,13 @@ public class ToolBar extends JToolBar{
 		buttons.add(pipette);
 		pipette.setBackground(new Color(239, 239, 239));
 
+
 		//darktheme button
 		ToggleButton darkTheme = new ToggleButton("icon/LightThemeIcon.png","icon/DarkThemeIcon.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				new DarkTheme(e, jtoolBar, menuBar, sview, buttons, colorChooser);
+				DarkTheme dt = new DarkTheme(e, jtoolBar, menuBar, sview, buttons, colorChooser);
 			}});
+
 
 		//AddRect button
 		JButton addRect = new JButton();

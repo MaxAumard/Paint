@@ -14,7 +14,6 @@ public class DarkTheme {
 
     public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, ShapesView sview, Collection<Button> buttons, JButton cc){
         Iterator<Button> iterator = buttons.iterator();
-
         // Darkmode
         if (((JToggleButton)e.getSource()).isSelected()){
             Color interfaceDarkColor = new Color(31,31,31);
@@ -76,4 +75,5 @@ public class DarkTheme {
             cc.setIcon(icon);
         }
     }
+
 }
