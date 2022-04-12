@@ -147,7 +147,6 @@ public class ShapeDraftman implements ShapeVisitor{
 
 	public void visitImage(SImage i) {
 		SelectionAttributes selectAtt = (SelectionAttributes) i.getAttributes("Selected");
-		System.out.println(selectAtt.isSelected());
 		g.drawImage(i.image.getImage(),i.getLoc().x, i.getLoc().y, i.sview);
 
 		if(selectAtt.isSelected()) {
