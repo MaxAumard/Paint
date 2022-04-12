@@ -4,14 +4,19 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.Toolkit;
 import java.util.Iterator;
+
+import javax.swing.ImageIcon;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SDraw;
+import graphics.shapes.SImage;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
@@ -98,13 +103,13 @@ public class ShapeDraftman implements ShapeVisitor{
 			drawSelected(t);
 		}
 	}
-	
+
 	public void visitDraw(SDraw d) {
-		
+
 		for(Point p:d.point) {
 			g.fillOval(p.x, p.y, 10, 10);
 		}
-		
+
 	}
 
 	public void visitCollection(SCollection c) {
@@ -117,5 +122,6 @@ public class ShapeDraftman implements ShapeVisitor{
 			drawSelected(c);		}
 	}
 
-
+	public void visitImage(SImage image) {
+	}
 }
