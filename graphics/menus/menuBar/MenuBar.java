@@ -4,6 +4,12 @@ package graphics.menus.menuBar;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
+
+import graphics.shapes.SCollection;
+import graphics.shapes.Shape;
+import graphics.shapes.attributes.SelectionAttributes;
+import graphics.shapes.ui.ShapesView;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -12,8 +18,10 @@ import java.io.IOException;
 
 public class MenuBar extends java.awt.MenuBar {
     JMenuBar menuBar= new JMenuBar();
-    public MenuBar() throws IOException {
-        Font fontMenu = new Font("Sans Serif", Font.PLAIN, 15);
+    ShapesView sview;
+    public MenuBar(ShapesView sview) throws IOException {
+        this.sview = sview;
+    	Font fontMenu = new Font("Sans Serif", Font.PLAIN, 15);
         UIManager.put("Menu.font", fontMenu);
         menuBar = new  JMenuBar();
 
@@ -65,7 +73,8 @@ public class MenuBar extends java.awt.MenuBar {
         saveasItem.setBorderPainted(false);
         file.add(saveasItem); 
     }
-    public ImageIcon setImageSize(String path) throws IOException {
+
+	public ImageIcon setImageSize(String path) throws IOException {
         return new ImageIcon(ImageIO.read(new File(path)).getScaledInstance(20,20,0));
     }
     public JMenuBar getMyJMenuBar(){
@@ -74,7 +83,10 @@ public class MenuBar extends java.awt.MenuBar {
     
     private void mnuNewListerner(ActionEvent event) {
     	System.out.println("Creation New file");
-
+		SCollection tempModel = new SCollection();
+		tempModel.addAttributes(new SelectionAttributes());
+		sview.setModel(tempModel);
+		sview.repaint();
     }
     
     private void mnuSaveListerner(ActionEvent event) {
