@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
 public class Bucket implements MouseListener {
@@ -17,10 +18,8 @@ public class Bucket implements MouseListener {
     ShapesView sview;
 
     public Bucket(Color color, ShapesView sview)  {
-        this.x = x;
-        this.y = y;
         this.sview = sview;
-        //this.oldColor = getPixelColor(x,y);
+
         this.newColor = color;
         this.sview.addMouseListener(this);
         ImageIcon im = new ImageIcon(new ImageIcon("icon/bucket2.png").getImage().getScaledInstance(31,31, Image.SCALE_SMOOTH));
@@ -29,7 +28,7 @@ public class Bucket implements MouseListener {
 
         //setPixelColor(10,10, Color.BLACK);
     }
-/*
+
     public void flood(int x, int y, Color oldColor,Color newColor){
         if (x<0) return;
         if (y<0) return;
@@ -50,11 +49,13 @@ public class Bucket implements MouseListener {
     }
 
     public void setPixelColor(int x, int y, Color color) {
+        System.out.println("ici");
         Graphics2D g2d = (Graphics2D) new BufferedImage(1,1,1).getGraphics().create();
         SRectangle rectSelection = new SRectangle(new Point(x,y),1,1);
         g2d.setColor(color);
         g2d.drawRect(rectSelection.getLoc().x, rectSelection.getLoc().y, rectSelection.getRect().width ,rectSelection.getRect().height);
-    }*/
+        sview.repaint();
+    }
 
     public SRectangle fillRect(SRectangle r){
         ColorAttributes caRect = (ColorAttributes) r.getAttributes("Color");
@@ -84,6 +85,7 @@ public class Bucket implements MouseListener {
         return c;
 
     }
+
     private SText fillCircle(SText t) {
         ColorAttributes caCircle = (ColorAttributes) t.getAttributes("Color");
         caCircle.filled = true;
@@ -110,13 +112,20 @@ public class Bucket implements MouseListener {
             caTri.fillColor = newColor;
         }
         return tr;
+    }
 
-
+    private void fillImage(SImage i,int x, int y) {
+        Image image = i.image.getImage();
+        flood(x,y,oldColor,newColor);
+        //g.drawImage(i.image.getImage(),i.getLoc().x, i.getLoc().y, i.sview);
     }
 
     public void paintShape(int x, int y, SCollection c){
         ColorAttributes co = (ColorAttributes) c.getAttributes("Color");
         Iterator<Shape> si = c.iterator();
+        this.x = x;
+        this.y = y;
+        this.oldColor = getPixelColor(x,y);
 
         while (si.hasNext()) {
             Shape s = si.next();
@@ -132,6 +141,9 @@ public class Bucket implements MouseListener {
                     }
                     else if (s.getClass() == STriangle.class){
                         fillTriangle((STriangle) s);
+                    }
+                    else if (s.getClass() == SImage.class){
+                        fillImage((SImage)s, x, y);
                     }
                     else if (s.getClass() == SCollection.class){
                         Iterator<Shape> sInside = ((SCollection) s).iterator();
@@ -160,6 +172,8 @@ public class Bucket implements MouseListener {
         }
 
     }
+
+
 
     @Override
     public void mouseClicked(MouseEvent e) {

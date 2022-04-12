@@ -14,11 +14,11 @@ import java.io.IOException;
 
 public class Editor extends JFrame
 {
-	ShapesView sview;
-	SDraw d;
-	SCollection model;
-	MenuBar menuBar;
-	ToolBar toolBar;
+	private ShapesView sview;
+	private SDraw d;
+	private SCollection model;
+	private MenuBar menuBar;
+	private ToolBar toolBar;
 
 	public Editor() throws IOException {
 		super("Shapes Editor");
