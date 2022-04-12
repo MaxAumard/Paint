@@ -1,6 +1,5 @@
 package graphics.shapes;
 
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -11,19 +10,22 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import graphics.shapes.ui.ShapeVisitor;
+import graphics.shapes.ui.ShapesView;
 
 public class SImage extends Shape {
-	private Rectangle rect;
-	private ImageIcon image;
+	public Rectangle rect;
+	public ImageIcon image;
 	private String path;
+	public ShapesView sview;
+	public BufferedImage bimg;
 	
-	public SImage(String path,Point point) throws IOException {
+	public SImage(String path,Point point, ShapesView sview) throws IOException {
+
 		this.path=path;
-		ImageIcon image = new ImageIcon(path);
-		BufferedImage bimg = ImageIO.read(new File(path));
-		int width = bimg.getWidth();
-		int height = bimg.getHeight();
+		this.bimg = ImageIO.read(new File(path));
+		this.image = new ImageIcon(bimg);
 		this.rect = new Rectangle(point.x,point.y,bimg.getWidth(),bimg.getHeight());
+		this.sview = sview;
 
 	}
 	

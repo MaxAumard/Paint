@@ -3,13 +3,7 @@ package graphics.shapes.ui;
 import graphics.menus.menuBar.MenuBar;
 import graphics.menus.toolBar.ToggleButton;
 import graphics.menus.toolBar.ToolBar;
-import graphics.shapes.SCircle;
-import graphics.shapes.SCollection;
-import graphics.shapes.SDraw;
-import graphics.shapes.SPoint;
-import graphics.shapes.SRectangle;
-import graphics.shapes.SText;
-import graphics.shapes.STriangle;
+import graphics.shapes.*;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -61,8 +55,7 @@ public class Editor extends JFrame
 
 	}
 	
-	private void buildModel()
-	{
+	private void buildModel() throws IOException {
 		
 		this.model.addAttributes(new SelectionAttributes());
 
@@ -116,7 +109,13 @@ public class Editor extends JFrame
 		tri2.addAttributes(new ColorAttributes(true,true,Color.DARK_GRAY,Color.PINK));
 		tri2.addAttributes(new SelectionAttributes());
 		this.model.add(tri2);
-		
+
+
+		//
+		SImage im = new SImage("icon/bucket.png",new Point(10,10),sview);
+		//im.addAttributes(new ColorAttributes(true,true,Color.black,Color.black));
+		im.addAttributes(new SelectionAttributes());
+		this.model.add(im);
 	}
 
 	public static void main(String[] args) throws IOException {

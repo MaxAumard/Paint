@@ -100,7 +100,6 @@ public class Bucket implements MouseListener {
 
     }
     private STriangle fillTriangle(STriangle tr) {
-        System.out.println("ici");
         ColorAttributes caTri = (ColorAttributes) tr.getAttributes("Color");
         caTri.filled = true;
         if (caTri.fillColor == caTri.strokeColor){

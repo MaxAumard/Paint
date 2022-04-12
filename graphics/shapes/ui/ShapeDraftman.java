@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 
 
@@ -20,6 +22,9 @@ import graphics.shapes.STriangle;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class ShapeDraftman implements ShapeVisitor{
 
@@ -84,7 +89,6 @@ public class ShapeDraftman implements ShapeVisitor{
 		//FontAttributes fo = (FontAttributes)t.getAttributes("font");
 		ColorAttributes color = (ColorAttributes) t.getAttributes("Color");
 		SelectionAttributes selectAtt = (SelectionAttributes) t.getAttributes("Selected");
-
 		if (color.filled) {
 			//g.setFont(fo.font);
 			g.setColor(color.fillColor);
@@ -114,7 +118,6 @@ public class ShapeDraftman implements ShapeVisitor{
 	public void visitTriangle(STriangle t) {
 		ColorAttributes ca = (ColorAttributes) t.getAttributes("Color");
 		SelectionAttributes selectAtt = (SelectionAttributes) t.getAttributes("Selected");
-
 		if(ca.filled) {
 			g.setColor(ca.fillColor);
 			g.fillPolygon(new int[] {t.getP1().x, t.getP2().x, t.getP3().x}, new int[] {t.getP1().y, t.getP2().y, t.getP3().y}, 3);
@@ -132,6 +135,7 @@ public class ShapeDraftman implements ShapeVisitor{
 	
 	
 	public void visitCollection(SCollection c) {
+
 		Iterator<Shape> shapeIterator = c.iterator();
 		while(shapeIterator.hasNext()) {
 			shapeIterator.next().accept(this);
@@ -142,6 +146,12 @@ public class ShapeDraftman implements ShapeVisitor{
 	}
 
 	public void visitImage(SImage i) {
+		SelectionAttributes selectAtt = (SelectionAttributes) i.getAttributes("Selected");
+		System.out.println(selectAtt.isSelected());
+		g.drawImage(i.image.getImage(),i.getLoc().x, i.getLoc().y, i.sview);
 
+		if(selectAtt.isSelected()) {
+			drawSelected(i);
+		}
 	}
 }
