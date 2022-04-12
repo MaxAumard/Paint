@@ -40,7 +40,7 @@ public class AddText {
 		myPanel.add(tFill);
 		myPanel.add(tBorder);
 
-		int result = JOptionPane.showConfirmDialog(null, myPanel,"New Rectangle", JOptionPane.OK_CANCEL_OPTION);
+		int result = JOptionPane.showConfirmDialog(null, myPanel,"New Text", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION && this.tester(xField,yField,tFill,tBorder)) {
 			int x = Integer.valueOf(xField.getText());
 			int y = Integer.valueOf(yField.getText());

@@ -17,11 +17,14 @@ import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SDraw;
 import graphics.shapes.SImage;
+import graphics.shapes.SPoint;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
+import graphics.shapes.STriangle;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
+import graphics.shapes.ui.*;
 
 public class ShapeDraftman implements ShapeVisitor{
 
@@ -111,7 +114,28 @@ public class ShapeDraftman implements ShapeVisitor{
 		}
 
 	}
+	
 
+	public void visitTriangle(STriangle t) {
+		ColorAttributes ca = (ColorAttributes) t.getAttributes("Color");
+		SelectionAttributes selectAtt = (SelectionAttributes) t.getAttributes("Selected");
+
+		if(ca.filled) {
+			g.setColor(ca.fillColor);
+			g.fillPolygon(new int[] {t.getP1().x, t.getP2().x, t.getP3().x}, new int[] {t.getP1().y, t.getP2().y, t.getP3().y}, 3);
+		}
+		if(ca.stroked) {
+			g.setColor(ca.strokeColor);
+			g.drawPolygon(new int[] {t.getP1().x, t.getP2().x, t.getP3().x}, new int[] {t.getP1().y, t.getP2().y, t.getP3().y}, 3);
+		}
+		if (selectAtt.isSelected()) {
+			drawSelected(t);
+		}
+				
+	}
+	
+	
+	
 	public void visitCollection(SCollection c) {
 		Iterator<Shape> shapeIterator = c.iterator();
 		while(shapeIterator.hasNext()) {

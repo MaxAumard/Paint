@@ -28,6 +28,10 @@ public class SText extends Shape {
 	public String getText() {
 		return this.text;
 	}
+	
+	public void setText(String text) {
+		this.text = text;
+	}
 
 	public void translate(int x,int y) {
 		this.getLoc().translate(x, y);

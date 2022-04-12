@@ -3,8 +3,10 @@ package graphics.shapes.ui;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import graphics.shapes.SCollection;
+import graphics.shapes.SPoint;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
@@ -54,6 +56,15 @@ public class ShapesController extends Controller {
 	public void mouseMoved(MouseEvent evt)
 	{
 		//System.out.println("mouse Move");
+		
+		 SCollection Scol = (SCollection) this.getModel();
+	        for(Shape s : new ArrayList<>(Scol.getShapes())) {
+	        	if(s instanceof SPoint) {
+	        		((SPoint) s).setText("("+evt.getX()+","+evt.getY()+")");
+	        		this.getView().repaint();
+	        	}
+
+	        }
 	}
 
 	public void mouseDragged(MouseEvent evt)

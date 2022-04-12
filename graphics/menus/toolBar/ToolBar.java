@@ -116,7 +116,7 @@ public class ToolBar extends JToolBar{
 				sview.repaint();
 			}
 		});
-
+		
 		//AddText button
 		JButton addText = new Button("icon/addText.png","icon/addText.png",new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -125,6 +125,14 @@ public class ToolBar extends JToolBar{
 				sview.repaint();
 			}
 		});
+		
+		//AddTriangle 
+				JButton addTriangle = new Button("icon/addTriangle.png","icon/addTriangle.png",new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						AddTriangle addTriangle = new AddTriangle();
+						addTriangle.add(sview, color2, color1);
+						sview.repaint();
+					}});
 
 
 		//bucket button
@@ -147,6 +155,8 @@ public class ToolBar extends JToolBar{
 		jtoolBar.add(addCircle);
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(addText);
+		jtoolBar.addSeparator(new Dimension(10,0));
+		jtoolBar.add(addTriangle);
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(bucket);
 

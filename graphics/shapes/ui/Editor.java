@@ -6,8 +6,10 @@ import graphics.menus.toolBar.ToolBar;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SDraw;
+import graphics.shapes.SPoint;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
+import graphics.shapes.STriangle;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -94,6 +96,26 @@ public class Editor extends JFrame
 	
 		this.d.addAttributes(new SelectionAttributes());
 		this.model.add(this.d);
+		
+		/* 
+		//triangle à l'envers
+		STriangle tri = new STriangle(new Point(100, 200), new Point(175,300), new Point(250,200),3);
+		tri.addAttributes(new ColorAttributes(true,true,Color.PINK,Color.BLUE));
+		tri.addAttributes(new SelectionAttributes());
+		this.model.add(tri);
+		*/
+		
+		SPoint p= new SPoint(new Point(250,20),"(0;0)");
+        p.addAttributes(new ColorAttributes(true,true,Color.WHITE,Color.WHITE));
+        p.addAttributes(new FontAttributes());
+        p.addAttributes(new SelectionAttributes());
+        this.model.add(p);
+		
+		/*triangle à l'endroit*/
+		STriangle tri2 = new STriangle(new Point(175, 20), new Point(100,80), new Point(250,80),3);
+		tri2.addAttributes(new ColorAttributes(true,true,Color.DARK_GRAY,Color.PINK));
+		tri2.addAttributes(new SelectionAttributes());
+		this.model.add(tri2);
 		
 	}
 

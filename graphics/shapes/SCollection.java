@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import graphics.shapes.ui.ShapeVisitor;
 
@@ -37,6 +38,11 @@ public class SCollection extends Shape {
 		return this.collection.iterator();
 	}
 	
+	public List<Shape> getShapes() {
+		
+		return this.collection;
+	}
+
 	@Override
 	public Rectangle getBounds() {
 		Rectangle bounds = collection.get(0).getBounds();
