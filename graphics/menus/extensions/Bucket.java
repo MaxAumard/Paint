@@ -86,17 +86,33 @@ public class Bucket implements MouseListener {
 
     }
     private SText fillCircle(SText t) {
-        ColorAttributes caRect = (ColorAttributes) t.getAttributes("Color");
-        caRect.filled = true;
-        if (caRect.fillColor == caRect.strokeColor){
-            caRect.fillColor = newColor;
-            caRect.strokeColor = newColor;
+        ColorAttributes caCircle = (ColorAttributes) t.getAttributes("Color");
+        caCircle.filled = true;
+        if (caCircle.fillColor == caCircle.strokeColor){
+            caCircle.fillColor = newColor;
+            caCircle.strokeColor = newColor;
 
         }
         else{
-            caRect.fillColor = newColor;
+            caCircle.fillColor = newColor;
         }
         return t;
+
+    }
+    private STriangle fillTriangle(STriangle tr) {
+        System.out.println("ici");
+        ColorAttributes caTri = (ColorAttributes) tr.getAttributes("Color");
+        caTri.filled = true;
+        if (caTri.fillColor == caTri.strokeColor){
+            caTri.fillColor = newColor;
+            caTri.strokeColor = newColor;
+
+        }
+        else{
+            caTri.fillColor = newColor;
+        }
+        return tr;
+
 
     }
 
@@ -118,6 +134,9 @@ public class Bucket implements MouseListener {
                     }else if (s.getClass() == SText.class) {
                         fillCircle((SText) s);
                     }
+                    else if (s.getClass() == STriangle.class){
+                        fillTriangle((STriangle) s);
+                    }
                     else if (s.getClass() == SCollection.class){
                         Iterator<Shape> sInside = ((SCollection) s).iterator();
                         while (sInside.hasNext()){
@@ -130,6 +149,9 @@ public class Bucket implements MouseListener {
                                 } else if (shapeInside.getClass() == SText.class) {
                                     fillCircle((SText) shapeInside);
                                 }
+                                else if (shapeInside.getClass() == STriangle.class){
+                                    fillTriangle((STriangle) shapeInside);
+                                }
                             }
                         }
                     }
@@ -141,6 +163,8 @@ public class Bucket implements MouseListener {
         this.sview.setCursor(Cursor.getDefaultCursor());
         sview.removeMouseListener(this);
     }
+
+
 
 
     @Override

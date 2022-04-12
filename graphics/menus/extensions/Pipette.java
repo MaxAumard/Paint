@@ -30,7 +30,6 @@ public class Pipette implements MouseListener {
 
         this.sview.addMouseListener(this);
         ImageIcon im = new ImageIcon(new ImageIcon("icon/pipetteCursor.png").getImage().getScaledInstance(31,31, Image.SCALE_SMOOTH));
-
         this.sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2,im.getIconHeight() ), "pipette cursor"));
 
     }

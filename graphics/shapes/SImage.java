@@ -19,11 +19,12 @@ public class SImage extends Shape {
 	
 	public SImage(String path,Point point) throws IOException {
 		this.path=path;
-		Image image = new ImageIcon(this.getClass().getResource(path)).getImage();
+		ImageIcon image = new ImageIcon(path);
 		BufferedImage bimg = ImageIO.read(new File(path));
 		int width = bimg.getWidth();
 		int height = bimg.getHeight();
 		this.rect = new Rectangle(point.x,point.y,bimg.getWidth(),bimg.getHeight());
+
 	}
 	
 	@Override
