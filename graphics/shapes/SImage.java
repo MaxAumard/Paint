@@ -27,8 +27,7 @@ public class SImage extends Shape {
 			this.bimg = ImageIO.read(new File(path));
 
 		}
-		else if (isImage(path)) {
-			System.out.println("ici");
+		else {
 			URL imageURL = new URL(path);
 			HttpURLConnection connection = (HttpURLConnection) imageURL.openConnection();
 			connection.setRequestProperty(
@@ -36,10 +35,10 @@ public class SImage extends Shape {
 					"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0");
 			this.bimg = ImageIO.read(connection.getInputStream());
 		}
-		else{
-			this.bimg = ImageIO.read(new File("icon/NoImageAvailable.png"));
+		//else{
+		//	this.bimg = ImageIO.read(new File("icon/NoImageAvailable.png"));
 
-		}
+		//}
 		this.image = new ImageIcon(bimg);
 		this.rect = new Rectangle(point.x,point.y,bimg.getWidth(),bimg.getHeight());
 		this.sview = sview;

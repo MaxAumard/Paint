@@ -1,7 +1,6 @@
 package graphics.shapes.ui;
 
 import graphics.menus.menuBar.MenuBar;
-import graphics.menus.toolBar.ToggleButton;
 import graphics.menus.toolBar.ToolBar;
 import graphics.shapes.*;
 import graphics.shapes.attributes.ColorAttributes;
@@ -35,7 +34,7 @@ public class Editor extends JFrame
 		this.model = new SCollection();
 		this.sview = new ShapesView(this.model);
 		
-		this.menuBar = new MenuBar();
+		this.menuBar = new MenuBar(sview);
 		this.getContentPane().add(menuBar.getMyJMenuBar(), BorderLayout.NORTH);
 
 		this.toolBar = new ToolBar(menuBar.getMyJMenuBar(), sview);
@@ -93,8 +92,8 @@ public class Editor extends JFrame
 		this.model.add(tri);
 		*/
 		
-		SPoint p= new SPoint(new Point(250,20),"(0;0)");
-        p.addAttributes(new ColorAttributes(true,true,Color.WHITE,Color.WHITE));
+		SPoint p= new SPoint(new Point(20,20),"(0;0)");
+        p.addAttributes(new ColorAttributes(false,false,Color.WHITE,Color.WHITE));
         p.addAttributes(new FontAttributes());
         p.addAttributes(new SelectionAttributes());
         this.model.add(p);
@@ -107,7 +106,7 @@ public class Editor extends JFrame
 
 
 		//
-		SImage im = new SImage("https://www.baeldung.com/java-check-url-exists",new Point(10,10),sview);
+		SImage im = new SImage("https://c.tenor.com/mCiM7CmGGI4AAAAM/naruto.gif",new Point(10,10),sview);
 		//im.addAttributes(new ColorAttributes(true,true,Color.black,Color.black));
 		im.addAttributes(new SelectionAttributes());
 		this.model.add(im);
