@@ -31,9 +31,7 @@ public class Editor extends JFrame
 				System.exit(0);
 			}
 		});
-		
-		
-		
+
 		this.model = new SCollection();
 		this.sview = new ShapesView(this.model);
 		
@@ -50,9 +48,6 @@ public class Editor extends JFrame
 		this.sview.addMouseMotionListener(d);
 		this.sview.setPreferredSize(new Dimension(600,600));
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
-
-		
-
 	}
 	
 	private void buildModel() throws IOException {
@@ -86,7 +81,7 @@ public class Editor extends JFrame
 		c.addAttributes(new SelectionAttributes());
 		sc.add(c);
 		this.model.add(sc);
-	
+
 		this.d.addAttributes(new SelectionAttributes());
 		this.model.add(this.d);
 		
@@ -112,7 +107,7 @@ public class Editor extends JFrame
 
 
 		//
-		SImage im = new SImage("icon/bucket.png",new Point(10,10),sview);
+		SImage im = new SImage("https://www.baeldung.com/java-check-url-exists",new Point(10,10),sview);
 		//im.addAttributes(new ColorAttributes(true,true,Color.black,Color.black));
 		im.addAttributes(new SelectionAttributes());
 		this.model.add(im);

@@ -46,7 +46,6 @@ public class Bucket implements MouseListener {
 
     public Color getPixelColor(int x, int y){
         BufferedImage image = new BufferedImage(sview.getWidth(), sview.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
-        System.out.println(new Color(image.getRGB(x,y)));
         return new Color(image.getRGB(x,y));
     }
 
@@ -115,17 +114,15 @@ public class Bucket implements MouseListener {
 
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        SCollection c = (SCollection) sview.getModel();
+    public void paintShape(int x, int y, SCollection c){
         ColorAttributes co = (ColorAttributes) c.getAttributes("Color");
         Iterator<Shape> si = c.iterator();
 
         while (si.hasNext()) {
             Shape s = si.next();
 
-            if (s.getBounds() != null) { //TODO demander pourquoi il y a des getbounds NULL
-                if (s.getBounds().contains(e.getPoint().x, e.getPoint().y)) {
+            if (s.getBounds() != null) {
+                if (s.getBounds().contains(x, y)) {
                     if (s.getClass() == SRectangle.class) {
                         fillRect((SRectangle) s);
                     } else if (s.getClass() == SCircle.class) {
@@ -140,7 +137,7 @@ public class Bucket implements MouseListener {
                         Iterator<Shape> sInside = ((SCollection) s).iterator();
                         while (sInside.hasNext()){
                             Shape shapeInside = sInside.next();
-                            if (shapeInside.getBounds().contains(e.getPoint().x, e.getPoint().y)) {
+                            if (shapeInside.getBounds().contains(x, y)) {
                                 if (shapeInside.getClass() == SRectangle.class) {
                                     fillRect((SRectangle) shapeInside);
                                 } else if (shapeInside.getClass() == SCircle.class) {
@@ -151,6 +148,9 @@ public class Bucket implements MouseListener {
                                 else if (shapeInside.getClass() == STriangle.class){
                                     fillTriangle((STriangle) shapeInside);
                                 }
+                                else if(shapeInside.getClass() == SCollection.class){
+                                    paintShape(x,y,(SCollection) shapeInside);
+                                }
                             }
                         }
                     }
@@ -158,6 +158,13 @@ public class Bucket implements MouseListener {
 
             }
         }
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        SCollection c = (SCollection) sview.getModel();
+        paintShape(e.getX(),e.getY(),c);
         sview.repaint();
         this.sview.setCursor(Cursor.getDefaultCursor());
         sview.removeMouseListener(this);
