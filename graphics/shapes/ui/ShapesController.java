@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import graphics.shapes.SCollection;
+import graphics.shapes.SDraw;
 import graphics.shapes.SPoint;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -163,10 +164,11 @@ public class ShapesController extends Controller {
 	}
 
 	public Shape getTarget(MouseEvent e) {
-		for (Shape s : ((SCollection) getModel()).collection) {
-			if(!((s.getClass().toString())).contains("SDraw")) {
-				if(s.getBounds().contains(e.getPoint().x,e.getPoint().y)) {
-					return s;
+		ArrayList<Shape> list = ((SCollection) getModel()).collection;
+		for (int i=list.size()-1;i>=0;i--) {
+			if((list.get(i).getClass() != SDraw.class)) {
+				if(list.get(i).getBounds().contains(e.getPoint().x,e.getPoint().y)) {
+					return list.get(i);
 				}
 			}
 		}
