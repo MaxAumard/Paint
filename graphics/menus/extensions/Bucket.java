@@ -1,12 +1,11 @@
 package graphics.menus.extensions;
 
-import graphics.shapes.SCircle;
-import graphics.shapes.SCollection;
-import graphics.shapes.SRectangle;
+import graphics.shapes.*;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.ui.ShapesView;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,6 +23,9 @@ public class Bucket implements MouseListener {
         //this.oldColor = getPixelColor(x,y);
         this.newColor = color;
         this.sview.addMouseListener(this);
+        ImageIcon im = new ImageIcon(new ImageIcon("icon/bucket2.png").getImage().getScaledInstance(31,31, Image.SCALE_SMOOTH));
+        this.sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(im.getIconWidth()-2,2*im.getIconHeight()/3 ), "pipette cursor"));
+
 
         //setPixelColor(10,10, Color.BLACK);
     }
@@ -83,7 +85,20 @@ public class Bucket implements MouseListener {
         return c;
 
     }
+    private SText fillCircle(SText t) {
+        ColorAttributes caRect = (ColorAttributes) t.getAttributes("Color");
+        caRect.filled = true;
+        if (caRect.fillColor == caRect.strokeColor){
+            caRect.fillColor = newColor;
+            caRect.strokeColor = newColor;
 
+        }
+        else{
+            caRect.fillColor = newColor;
+        }
+        return t;
+
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -100,13 +115,31 @@ public class Bucket implements MouseListener {
                         fillRect((SRectangle) s);
                     } else if (s.getClass() == SCircle.class) {
                         fillCircle((SCircle) s);
+                    }else if (s.getClass() == SText.class) {
+                        fillCircle((SText) s);
+                    }
+                    else if (s.getClass() == SCollection.class){
+                        Iterator<Shape> sInside = ((SCollection) s).iterator();
+                        while (sInside.hasNext()){
+                            Shape shapeInside = sInside.next();
+                            if (shapeInside.getBounds().contains(e.getPoint().x, e.getPoint().y)) {
+                                if (shapeInside.getClass() == SRectangle.class) {
+                                    fillRect((SRectangle) shapeInside);
+                                } else if (shapeInside.getClass() == SCircle.class) {
+                                    fillCircle((SCircle) shapeInside);
+                                } else if (shapeInside.getClass() == SText.class) {
+                                    fillCircle((SText) shapeInside);
+                                }
+                            }
+                        }
                     }
                 }
 
             }
         }
         sview.repaint();
-        this.sview.removeMouseListener(this);
+        this.sview.setCursor(Cursor.getDefaultCursor());
+        sview.removeMouseListener(this);
     }
 
 
