@@ -13,12 +13,24 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
+import graphics.menus.extensions.AddImage;
+import graphics.shapes.SCollection;
+import graphics.shapes.attributes.SelectionAttributes;
+
+
+
+
+
+
 public class MenuBar extends java.awt.MenuBar {
     JMenuBar menuBar= new JMenuBar();
     private ShapesController controller;
+    ShapesView sview;
 
     public MenuBar(ShapesView sview) throws IOException {
         controller = (ShapesController) sview.getController();
+        this.sview = sview;
+
         Font fontMenu = new Font("Sans Serif", Font.PLAIN, 15);
         UIManager.put("Menu.font", fontMenu);
         menuBar = new  JMenuBar();
@@ -70,11 +82,21 @@ public class MenuBar extends java.awt.MenuBar {
         saveasItem.setIcon(setImageSize("icon/saveas.png"));
         saveasItem.setBorderPainted(false);
         file.add(saveasItem);
-
+        
+        file.addSeparator();
+        
+        JMenuItem openPictureItem = new JMenuItem("OpenPicture...");
+        openPictureItem.addActionListener(this::mnuOpenPictureListerner);
+        openPictureItem.setBackground(new Color(239, 239, 239));
+        openPictureItem.setForeground(Color.black);
+        openPictureItem.setIcon(setImageSize("icon/OpenPicture.png"));
+        openPictureItem.setBorderPainted(false);
+        file.add(openPictureItem); 
         JMenu home = new JMenu("Home");
         home.setForeground(Color.black);
         home.setMnemonic('H');
         home.setBorderPainted(false);
+        
         menuBar.add(home);
 
         JMenuItem CopyItem = new JMenuItem("Copy");
@@ -115,11 +137,26 @@ public class MenuBar extends java.awt.MenuBar {
 
     private void mnuNewListerner(ActionEvent event) {
     	System.out.println("Creation New file");
-
+    	newFile();
+    }
+    
+    private void mnuOpenPictureListerner(ActionEvent event) {
+    	System.out.println("Open Image");
+    	newFile();
+    	AddImage newImage = new AddImage();
+    	newImage.add(sview);
     }
     
     private void mnuSaveListerner(ActionEvent event) {
     	System.out.println("File save");
+    	
+    }
+    
+    private void newFile() {
+		SCollection tempModel = new SCollection();
+		tempModel.addAttributes(new SelectionAttributes());
+		sview.setModel(tempModel);
+		sview.repaint();
     }
 
 
