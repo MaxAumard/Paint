@@ -16,7 +16,7 @@ public class ToolBar extends JToolBar{
 	private static Color color2 = Color.WHITE ;
 	public JButton draw;
 
-	public ToolBar(JMenuBar menuBar, ShapesView sview) throws IOException {
+	public ToolBar(JMenuBar menuBar, ShapesView sview) {
 		super();
 		//creation of the toolBar
 		jtoolBar = new JToolBar();
@@ -77,17 +77,22 @@ public class ToolBar extends JToolBar{
 				cc2.setColorChooseed(Color.BLACK);
 				cc2.displayColorChooser(colorChooser2);
 				color2 = cc2.getColorChoosed() ;
-
 			}});
 
 
 		//pipette button
 		Button pipette = new Button("icon/pipette.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				Pipette pp = new Pipette(cc, colorChooser, sview);
+				Pipette pp = null;
+				try {
+					pp = new Pipette(cc, colorChooser, sview, menuBar);
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 				color1 = pp.getColorPicked();
 
 			}});
+
 		buttons.add(pipette);
 		pipette.setBackground(new Color(239, 239, 239));
 
@@ -137,6 +142,7 @@ public class ToolBar extends JToolBar{
 		//bucket button
 		Button bucket = new Button("icon/bucket.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(color1);
 				Bucket bu = new Bucket(color1,sview);
 
 			}});
@@ -178,7 +184,9 @@ public class ToolBar extends JToolBar{
 		}
 	}
 
-
+	public void setColor1(Color color1){
+		this.color1 = color1;
+	}
 
 	public JToolBar getJToolBar(){
 		return this.jtoolBar;
