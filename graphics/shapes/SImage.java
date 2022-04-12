@@ -1,10 +1,11 @@
 package graphics.shapes;
 
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -22,11 +23,34 @@ public class SImage extends Shape {
 	public SImage(String path,Point point, ShapesView sview) throws IOException {
 
 		this.path=path;
-		this.bimg = ImageIO.read(new File(path));
+		if (new File(path).exists()) {
+			this.bimg = ImageIO.read(new File(path));
+
+		}
+		else {
+			URL imageURL = new URL(path);
+			HttpURLConnection connection = (HttpURLConnection) imageURL.openConnection();
+			connection.setRequestProperty(
+					"User-Agent",
+					"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0");
+			this.bimg = ImageIO.read(connection.getInputStream());
+		}
+		//else{
+		//	this.bimg = ImageIO.read(new File("icon/NoImageAvailable.png"));
+
+		//}
 		this.image = new ImageIcon(bimg);
 		this.rect = new Rectangle(point.x,point.y,bimg.getWidth(),bimg.getHeight());
 		this.sview = sview;
 
+	}
+	boolean isImage(String image_path) {
+		Image image = new ImageIcon(image_path).getImage();
+		if (image.getWidth(null) == -1) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	@Override

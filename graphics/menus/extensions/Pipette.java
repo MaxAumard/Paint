@@ -34,6 +34,10 @@ public class Pipette implements MouseListener {
 
     }
 
+    public Color getColorPicked() {
+        return colorPicked;
+    }
+
     @Override
     public void mousePressed(MouseEvent e) {
         Graphics2D g = bi.createGraphics();

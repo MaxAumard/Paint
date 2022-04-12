@@ -61,7 +61,6 @@ public class ToolBar extends JToolBar{
 				ColorChooser cc = new ColorChooser();
 				cc.setColorChooseed(Color.BLACK);
 				cc.displayColorChooser(colorChooser);
-				System.out.println(cc.getColorChoosed());
 				color1 = cc.getColorChoosed() ;
 			}});
 
@@ -77,7 +76,6 @@ public class ToolBar extends JToolBar{
 				ColorChooser cc2 = new ColorChooser();
 				cc2.setColorChooseed(Color.BLACK);
 				cc2.displayColorChooser(colorChooser2);
-				System.out.println(cc.getColorChoosed());
 				color2 = cc2.getColorChoosed() ;
 
 			}});
@@ -87,6 +85,7 @@ public class ToolBar extends JToolBar{
 		Button pipette = new Button("icon/pipette.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				Pipette pp = new Pipette(cc, colorChooser, sview);
+				color1 = pp.getColorPicked();
 
 			}});
 		buttons.add(pipette);
@@ -141,8 +140,6 @@ public class ToolBar extends JToolBar{
 				Bucket bu = new Bucket(color1,sview);
 
 			}});
-		buttons.add(pipette);
-		pipette.setBackground(new Color(239, 239, 239));
 
 		//add icons to toolbar
 		jtoolBar.addSeparator(new Dimension(15,0));
@@ -171,18 +168,6 @@ public class ToolBar extends JToolBar{
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(draw);
 
-		/*// ////////////////////////////////////////////////////////////////////////////////
-        JButton btnWhite = createButton("icon/sunWhiteTheme.png");
-        btnWhite.setMargin(new Insets(0,0,0,0));
-        btnWhite.setBackground(new Color(240,240,240));
-        toolBar.add(btnWhite);
-        ///Button dark
-        JButton btnDark = createButton("icon/sunDarkTheme.png");
-        btnDark.setBackground(new Color(27,27,27));
-        btnDark.setForeground(Color.GRAY);
-        btnDark.setMargin(new Insets(0,0,0,0));
-        toolBar.add(btnDark);
-		 */
 
 		//Enlever le focus sur chaque bouttons 
 		for(int i=0; i<jtoolBar.getComponentCount();i++) {

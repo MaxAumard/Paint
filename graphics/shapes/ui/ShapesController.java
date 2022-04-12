@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SDraw;
 import graphics.shapes.SPoint;
 import graphics.shapes.SRectangle;
 import graphics.shapes.STriangle;
@@ -169,10 +170,11 @@ public class ShapesController extends Controller {
 	}
 
 	public Shape getTarget(MouseEvent e) {
-		for (Shape s : ((SCollection) getModel()).collection) {
-			if(!((s.getClass().toString())).contains("SDraw")) {
-				if(s.getBounds().contains(e.getPoint().x,e.getPoint().y)) {
-					return s;
+		ArrayList<Shape> list = ((SCollection) getModel()).collection;
+		for (int i=list.size()-1;i>=0;i--) {
+			if((list.get(i).getClass() != SDraw.class)) {
+				if(list.get(i).getBounds().contains(e.getPoint().x,e.getPoint().y)) {
+					return list.get(i);
 				}
 			}
 		}

@@ -7,10 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
-import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
-
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
@@ -23,8 +20,6 @@ import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
 public class ShapeDraftman implements ShapeVisitor{
 
@@ -131,8 +126,6 @@ public class ShapeDraftman implements ShapeVisitor{
 		}
 				
 	}
-	
-	
 	
 	public void visitCollection(SCollection c) {
 
