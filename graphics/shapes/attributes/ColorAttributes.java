@@ -20,24 +20,5 @@ public class ColorAttributes extends Attributes{
 	public String getID() {
 		return "Color";
 	}
-	
-	public boolean isFilled() 
-	{
-		return filled;
-	}
 
-	public Color getFilledColor()
-	{
-		return fillColor;
-	}
-
-	public boolean isStroked()
-	{
-		return stroked;
-	}
-	
-	public Color getStrokedColor()
-	{
-		return strokeColor;
-	}
 }
