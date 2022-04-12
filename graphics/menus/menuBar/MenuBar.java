@@ -1,6 +1,9 @@
 package graphics.menus.menuBar;
 
 
+import graphics.shapes.ui.ShapesController;
+import graphics.shapes.ui.ShapesView;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -12,7 +15,10 @@ import java.io.IOException;
 
 public class MenuBar extends java.awt.MenuBar {
     JMenuBar menuBar= new JMenuBar();
-    public MenuBar() throws IOException {
+    private ShapesController controller;
+
+    public MenuBar(ShapesView sview) throws IOException {
+        controller = (ShapesController) sview.getController();
         Font fontMenu = new Font("Sans Serif", Font.PLAIN, 15);
         UIManager.put("Menu.font", fontMenu);
         menuBar = new  JMenuBar();
@@ -63,15 +69,50 @@ public class MenuBar extends java.awt.MenuBar {
         saveasItem.setForeground(Color.black);
         saveasItem.setIcon(setImageSize("icon/saveas.png"));
         saveasItem.setBorderPainted(false);
-        file.add(saveasItem); 
+        file.add(saveasItem);
+
+        JMenu home = new JMenu("Home");
+        home.setForeground(Color.black);
+        home.setMnemonic('H');
+        home.setBorderPainted(false);
+        menuBar.add(home);
+
+        JMenuItem CopyItem = new JMenuItem("Copy");
+        CopyItem.addActionListener(this::copyShape);
+        CopyItem.setBackground(new Color(239, 239, 239));//fond
+        CopyItem.setForeground(Color.black);//text
+        CopyItem.setIcon(setImageSize("icon/copy.png"));
+        CopyItem.setMnemonic('C');
+        CopyItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
+        CopyItem.setBorderPainted(false);
+        home.add(CopyItem);
+
+        JMenuItem PasteItem = new JMenuItem("Paste");
+        PasteItem.addActionListener(this::pasteShape);
+        PasteItem.setBackground(new Color(239, 239, 239));//fond
+        PasteItem.setForeground(Color.black);//text
+        PasteItem.setIcon(setImageSize("icon/paste.png"));
+        PasteItem.setMnemonic('V');
+        PasteItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK));
+        PasteItem.setBorderPainted(false);
+        home.add(PasteItem);
+
     }
+
+
     public ImageIcon setImageSize(String path) throws IOException {
         return new ImageIcon(ImageIO.read(new File(path)).getScaledInstance(20,20,0));
     }
     public JMenuBar getMyJMenuBar(){
         return this.menuBar;
     }
-    
+
+
+    public void Menu(ShapesController controller) {
+        this.controller = controller;
+    }
+
+
     private void mnuNewListerner(ActionEvent event) {
     	System.out.println("Creation New file");
 
@@ -80,4 +121,16 @@ public class MenuBar extends java.awt.MenuBar {
     private void mnuSaveListerner(ActionEvent event) {
     	System.out.println("File save");
     }
+
+
+    private void copyShape(ActionEvent event) {
+        System.out.println("Shape copied");
+        controller.copy();
+    }
+
+    private void pasteShape(ActionEvent event) {
+        System.out.println("Shape pasted");
+        controller.paste();
+    }
 }
+

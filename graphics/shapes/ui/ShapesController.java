@@ -4,11 +4,10 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-import graphics.shapes.SCollection;
-import graphics.shapes.SDraw;
-import graphics.shapes.SPoint;
-import graphics.shapes.Shape;
+import graphics.shapes.*;
+import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
 
@@ -18,6 +17,8 @@ public class ShapesController extends Controller {
 	private boolean shiftHeld = false;
 	private Point lastPoint;
 	private SCollection selectColl = new SCollection();
+	private ArrayList<Shape> copy;
+	private ArrayList<Shape> cut;
 
 	public ShapesController(Object newModel) {
 		super(newModel);
@@ -220,5 +221,93 @@ public class ShapesController extends Controller {
 			}
 		}
 		this.getView().repaint();
+	}
+
+	public ArrayList<Shape> selected()
+	{
+		ArrayList<Shape> shapes = new ArrayList<Shape>();
+		SCollection Scol = (SCollection) this.getModel();
+		for (Iterator<Shape> it = Scol.iterator(); it.hasNext();) {
+			Shape shape = it.next();
+			SelectionAttributes selectAtt = (SelectionAttributes) shape.getAttributes("Selected");
+			if (selectAtt != null) {
+				if (selectAtt.isSelected()) {
+					shapes.add(shape);
+				}
+			}
+		}
+		return shapes;
+	}
+
+	public void delete()
+	{
+		SCollection Scol = (SCollection) this.getModel();
+		for(Shape s : this.selected()){
+			System.out.println(s);
+			Scol.getShapes().remove(s);
+		}
+		this.getView().repaint();
+	}
+
+	public void copy()
+	{
+		this.copy = selected();
+
+	}
+
+	public void paste()
+	{
+		SCollection Scol = (SCollection) this.getModel();
+
+		if (this.copy != null) {
+			for (Shape shape : this.copy) {
+				Shape s = duplicate(shape);
+				Scol.getShapes().add(s);
+			}
+			copy.clear();
+			getView().repaint();
+		}
+
+		if (this.cut != null) {
+			for (Shape shape : this.cut) {
+				Shape s = duplicate(shape);
+				Scol.getShapes().add(s);
+			}
+			cut.clear();
+			getView().repaint();
+		}
+	}
+
+
+	public void cut()
+	{
+		this.cut = selected();
+		this.delete();
+	}
+
+
+
+	private Shape duplicate(Shape s)
+	{
+		Shape newShape = null;
+
+		if (s instanceof SRectangle) {
+			SRectangle rectangle = (SRectangle) s;
+			newShape = new SRectangle(new Point(rectangle.getLoc().x, rectangle.getLoc().y), rectangle.getRect().width, rectangle.getRect().height);
+			ColorAttributes ca = (ColorAttributes) rectangle.getAttributes("Color");
+			newShape.addAttributes( new ColorAttributes(ca.filled, ca.stroked, ca.fillColor, ca.strokeColor));
+		}else if (s instanceof SCircle) {
+			SCircle circle = (SCircle) s;
+			newShape = new SCircle(new Point(circle.getLoc().x, circle.getLoc().y), circle.getRadius());
+			ColorAttributes ca = (ColorAttributes) circle.getAttributes("Color");
+			newShape.addAttributes( new ColorAttributes(ca.filled, ca.stroked, ca.fillColor, ca.strokeColor));
+		}else if (s instanceof STriangle) {
+			STriangle triangle = (STriangle) s;
+			newShape = new STriangle(new Point(triangle.p1), new Point(triangle.p2), new Point(triangle.p3), 3);
+			ColorAttributes ca = (ColorAttributes) triangle.getAttributes("Color");
+			newShape.addAttributes( new ColorAttributes(ca.filled, ca.stroked, ca.fillColor, ca.strokeColor));
+			newShape.addAttributes(new SelectionAttributes());
+		}
+		return newShape;
 	}
 }
