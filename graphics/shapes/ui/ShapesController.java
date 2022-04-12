@@ -56,15 +56,15 @@ public class ShapesController extends Controller {
 	public void mouseMoved(MouseEvent evt)
 	{
 		//System.out.println("mouse Move");
-		
-		 SCollection Scol = (SCollection) this.getModel();
-	        for(Shape s : new ArrayList<>(Scol.getShapes())) {
-	        	if(s instanceof SPoint) {
-	        		((SPoint) s).setText("("+evt.getX()+","+evt.getY()+")");
-	        		this.getView().repaint();
-	        	}
 
-	        }
+		SCollection Scol = (SCollection) this.getModel();
+		for(Shape s : new ArrayList<>(Scol.getShapes())) {
+			if(s instanceof SPoint) {
+				((SPoint) s).setText("("+evt.getX()+","+evt.getY()+")");
+				this.getView().repaint();
+			}
+
+		}
 	}
 
 	public void mouseDragged(MouseEvent evt)
@@ -96,6 +96,39 @@ public class ShapesController extends Controller {
 		if(evt.getKeyCode()==127) {
 			deleteShape();
 		}
+		if(evt.getKeyCode()==37) {
+			if(evt.isControlDown()){
+				translateArrow(-10,0);
+			}
+			else {
+				translateArrow(-1,0);
+			}
+		}
+		if(evt.getKeyCode()==38) {
+			if(evt.isControlDown()){
+				translateArrow(0,-10);
+			}
+			else {
+				translateArrow(0,-1);
+			}
+		}
+		if(evt.getKeyCode()==39) {
+			if(evt.isControlDown()){
+				translateArrow(10,0);
+			}
+			else {
+				translateArrow(1,0);
+			}
+		}
+		if(evt.getKeyCode()==40) {
+			if(evt.isControlDown()){
+				translateArrow(0,10);
+			}
+			else {
+				translateArrow(0,1);
+			}
+		}
+
 	}
 
 	public void keyReleased(KeyEvent evt)
@@ -174,6 +207,16 @@ public class ShapesController extends Controller {
 		}
 
 		this.getView().setModel(tempModel);
+		this.getView().repaint();
+	}
+
+	public void translateArrow(int x,int y) {
+		for (Shape s : ((SCollection) getModel()).collection) {
+			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
+			if( sAtt.isSelected() ) {
+				s.translate(x,y);
+			}
+		}
 		this.getView().repaint();
 	}
 }
