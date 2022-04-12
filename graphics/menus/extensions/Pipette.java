@@ -2,30 +2,29 @@ package graphics.menus.extensions;
 
 
 
-import graphics.menus.toolBar.ToolBar;
 import graphics.shapes.ui.ShapesView;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 
-public class Pipette extends ToolBar implements MouseListener {
-    Color colorPicked;
+
+public class Pipette implements MouseListener {
+    Color colorPicked = Color.BLACK;
     ShapesView sview;
     ColorChooser cc;
     JButton colorChooserBtn;
 
     BufferedImage bi;
 
-    public Pipette(ColorChooser cc, JButton colorChooserBtn, ShapesView sview, JMenuBar menuBar) throws IOException {
-        super(menuBar,sview);
-        this.colorPicked = Color.BLACK;
-        this.colorChooserBtn = colorChooserBtn;
+    public Pipette(ColorChooser cc, JButton colorChooserBtn, ShapesView sview) {
+
         this.cc = cc;
+        this.colorChooserBtn = colorChooserBtn;
         this.sview = sview;
         this.bi = new BufferedImage(sview.getWidth(), sview.getHeight(), BufferedImage.TYPE_INT_RGB);
 
@@ -34,23 +33,23 @@ public class Pipette extends ToolBar implements MouseListener {
         this.sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2,im.getIconHeight() ), "pipette cursor"));
 
     }
-
+    
+    public Pipette(JButton colorChooserBtn){
+    	this.colorPicked = colorChooserBtn.getBackground();
+    }
 
     public Color getColorPicked() {
         return colorPicked;
     }
-
 
     @Override
     public void mousePressed(MouseEvent e) {
         Graphics2D g = bi.createGraphics();
         sview.paint(g);
         colorPicked = new Color(bi.getRGB(e.getX(),e.getY()));
-        setColor1(colorPicked);
         colorChooserBtn.setBackground(colorPicked);
         this.sview.setCursor(Cursor.getDefaultCursor());
         sview.removeMouseListener(this);
-
     }
 
     @Override
