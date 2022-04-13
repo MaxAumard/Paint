@@ -111,7 +111,7 @@ public class Editor extends JFrame
 		this.model.add(tri2);
 
 
-		SImage im = new SImage("https://c.tenor.com/mCiM7CmGGI4AAAAM/naruto.gif",new Point(10,10),sview);
+		SImage im = new SImage("https://c.tenor.com/mCiM7CmGGI4AAAAM/naruto.gif",new Point(250,175),sview);
 		//im.addAttributes(new ColorAttributes(true,true,Color.black,Color.black));
 		im.addAttributes(new SelectionAttributes());
 		this.model.add(im);

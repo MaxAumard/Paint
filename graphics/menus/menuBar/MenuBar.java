@@ -170,4 +170,3 @@ public class MenuBar extends java.awt.MenuBar {
         controller.paste();
     }
 }
-
