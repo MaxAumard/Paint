@@ -19,7 +19,8 @@ public class ShapesController extends Controller {
 	private SCollection selectColl = new SCollection();
 	private ArrayList<Shape> copy;
 	private ArrayList<Shape> cut;
-
+	public ShapesView sview;
+	
 	public ShapesController(Object newModel) {
 		super(newModel);
 	}
@@ -296,19 +297,35 @@ public class ShapesController extends Controller {
 			SRectangle rectangle = (SRectangle) s;
 			newShape = new SRectangle(new Point(rectangle.getLoc().x, rectangle.getLoc().y), rectangle.getRect().width, rectangle.getRect().height);
 			ColorAttributes ca = (ColorAttributes) rectangle.getAttributes("Color");
-			newShape.addAttributes( new ColorAttributes(ca.filled, ca.stroked, ca.fillColor, ca.strokeColor));
+			newShape.addAttributes( new ColorAttributes( ca.stroked, ca.filled, ca.strokeColor,ca.fillColor));
+			newShape.addAttributes(new SelectionAttributes());
 		}else if (s instanceof SCircle) {
 			SCircle circle = (SCircle) s;
 			newShape = new SCircle(new Point(circle.getLoc().x, circle.getLoc().y), circle.getRadius());
 			ColorAttributes ca = (ColorAttributes) circle.getAttributes("Color");
-			newShape.addAttributes( new ColorAttributes(ca.filled, ca.stroked, ca.fillColor, ca.strokeColor));
+			newShape.addAttributes( new ColorAttributes( ca.stroked, ca.filled, ca.strokeColor,ca.fillColor));
+			newShape.addAttributes(new SelectionAttributes());
 		}else if (s instanceof STriangle) {
 			STriangle triangle = (STriangle) s;
 			newShape = new STriangle(new Point(triangle.p1), new Point(triangle.p2), new Point(triangle.p3), 3);
 			ColorAttributes ca = (ColorAttributes) triangle.getAttributes("Color");
-			newShape.addAttributes( new ColorAttributes(ca.filled, ca.stroked, ca.fillColor, ca.strokeColor));
+			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
 			newShape.addAttributes(new SelectionAttributes());
 		}
+		else if (s instanceof SText) {
+			SText txt = (SText) s;
+			newShape = new SText(new Point(txt.getLoc().x, txt.getLoc().y),txt.getText());
+			ColorAttributes ca = (ColorAttributes) txt.getAttributes("Color");
+			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+			newShape.addAttributes(new SelectionAttributes());
+		}else if (s instanceof SPoint) {
+			SPoint coor = (SPoint) s;
+			newShape = new SPoint(new Point(coor.getLoc().x, coor.getLoc().y),coor.getText());
+			ColorAttributes ca = (ColorAttributes) coor.getAttributes("Color");
+			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+			newShape.addAttributes(new SelectionAttributes());
+		}
+		
 		return newShape;
 	}
 

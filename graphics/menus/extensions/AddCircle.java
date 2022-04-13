@@ -2,7 +2,7 @@ package graphics.menus.extensions;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.Point;
+import java.awt.*;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;

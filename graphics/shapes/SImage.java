@@ -52,7 +52,7 @@ public class SImage extends Shape {
 			return true;
 		}
 	}
-	
+
 	@Override
 	public Point getLoc() {
 		return this.rect.getLocation();
