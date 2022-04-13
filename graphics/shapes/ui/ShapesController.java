@@ -324,7 +324,22 @@ public class ShapesController extends Controller {
 			ColorAttributes ca = (ColorAttributes) coor.getAttributes("Color");
 			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
 			newShape.addAttributes(new SelectionAttributes());
-		}
+		}/*else if (s instanceof SCollection) {
+			SCollection col = (SCollection) s;
+			newShape = new SCollection();
+			for(Shape forme:col.getCollection()) {
+				ColorAttributes ca = (ColorAttributes) forme.getAttributes("Color");
+				newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+				newShape.addAttributes(new SelectionAttributes());
+			}
+		}else if (s instanceof SImage) {
+			SImage image = (SImage) s;
+			newShape = new SImage(image.getPath(),new Point(image.getLoc().x, image.getLoc().y),sview);
+			ColorAttributes ca = (ColorAttributes) image.getAttributes("Color");
+			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+			newShape.addAttributes(new SelectionAttributes());
+		}*/
+		
 		
 		return newShape;
 	}

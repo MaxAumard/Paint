@@ -62,7 +62,7 @@ public class SCollection extends Shape {
 		visitor.visitCollection(this);
 	}
 	
-	public ArrayList getCollection() {
+	public ArrayList<Shape> getCollection() {
 		return this.collection;
 	}
 }
