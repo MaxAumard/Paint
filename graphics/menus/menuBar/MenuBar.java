@@ -23,7 +23,7 @@ import graphics.shapes.attributes.SelectionAttributes;
 
 
 public class MenuBar extends java.awt.MenuBar {
-    JMenuBar menuBar= new JMenuBar();
+    JMenuBar menuBar;
     private ShapesController controller;
     ShapesView sview;
 
@@ -48,7 +48,7 @@ public class MenuBar extends java.awt.MenuBar {
 
 
         JMenuItem newItem = new JMenuItem("New");
-        newItem.addActionListener(this::mnuNewListerner);
+        newItem.addActionListener( this::mnuNewListerner);
         newItem.setBackground(new Color(239, 239, 239));//fond
         newItem.setForeground(Color.black);//text
         newItem.setMnemonic('N');//demande d'ouvrir le menu
