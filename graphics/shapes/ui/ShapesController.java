@@ -93,6 +93,7 @@ public class ShapesController extends Controller {
 		if(evt.isControlDown()) {
 			if(evt.getKeyCode()==71 ) {
 				groupShape();
+				replaceCollec();
 			}
 		}
 		if(evt.getKeyCode()==127) {
@@ -309,5 +310,24 @@ public class ShapesController extends Controller {
 			newShape.addAttributes(new SelectionAttributes());
 		}
 		return newShape;
+	}
+
+
+	public void replaceCollec() {
+		SCollection sview = (SCollection) (this.getModel());
+		SCollection tempModel = new SCollection();
+		tempModel.addAttributes(new SelectionAttributes());
+		for(Shape s : sview.collection) {
+			if(s.getClass() == SCollection.class) {
+				tempModel.add(s);
+			}
+		}
+		for(Shape s : sview.collection) {
+			if(s.getClass() != SCollection.class) {
+				tempModel.add(s);
+			}
+		}
+		this.getView().setModel(tempModel);
+		this.getView().repaint();
 	}
 }

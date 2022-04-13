@@ -110,6 +110,8 @@ public class Editor extends JFrame
 		//im.addAttributes(new ColorAttributes(true,true,Color.black,Color.black));
 		im.addAttributes(new SelectionAttributes());
 		this.model.add(im);
+		
+		((ShapesController)this.sview.getController()).replaceCollec();
 	}
 
 	public static void main(String[] args) throws IOException {
