@@ -96,6 +96,9 @@ public class ShapesController extends Controller {
 				groupShape();
 				replaceCollec();
 			}
+			if(evt.getKeyChar()=='a'){
+				selectAll();
+			}
 		}
 		if(evt.getKeyCode()==127) {
 			deleteShape();
@@ -151,6 +154,15 @@ public class ShapesController extends Controller {
 		this.selectColl = new SCollection();
 	}
 
+
+	public void selectAll() {
+		for (Shape s : ((SCollection) getModel()).collection) {
+			SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
+			sAtt.select();
+		}
+		this.getView().repaint();
+		this.selectColl = new SCollection();
+	}
 	public void setSelection(Shape s) {
 		if(!this.shiftHeld){unselectAll();}
 		this.selectColl.add(s);
