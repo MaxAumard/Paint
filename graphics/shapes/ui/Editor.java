@@ -1,5 +1,6 @@
 package graphics.shapes.ui;
 
+import graphics.menus.layer.LayerMenu;
 import graphics.menus.menuBar.MenuBar;
 import graphics.menus.toolBar.ToolBar;
 import graphics.shapes.*;
@@ -18,6 +19,7 @@ public class Editor extends JFrame
 	private SDraw d;
 	private SCollection model;
 	private MenuBar menuBar;
+	private LayerMenu layerMenu;
 	private ToolBar toolBar;
 
 	public Editor() throws IOException {
@@ -36,6 +38,10 @@ public class Editor extends JFrame
 		
 		this.menuBar = new MenuBar(sview);
 		this.getContentPane().add(menuBar.getMyJMenuBar(), BorderLayout.NORTH);
+
+		this.layerMenu = new LayerMenu(sview);
+		this.getContentPane().add(layerMenu.getMyJMenuBar(), BorderLayout.EAST);
+
 
 		this.toolBar = new ToolBar(menuBar.getMyJMenuBar(), sview);
 		this.getContentPane().add(toolBar.getJToolBar(), BorderLayout.WEST);
@@ -105,7 +111,7 @@ public class Editor extends JFrame
 		this.model.add(tri2);
 
 
-		//
+
 		SImage im = new SImage("https://c.tenor.com/mCiM7CmGGI4AAAAM/naruto.gif",new Point(10,10),sview);
 		//im.addAttributes(new ColorAttributes(true,true,Color.black,Color.black));
 		im.addAttributes(new SelectionAttributes());

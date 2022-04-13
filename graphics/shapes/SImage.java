@@ -23,22 +23,7 @@ public class SImage extends Shape {
 	public SImage(String path,Point point, ShapesView sview) throws IOException {
 
 		this.path=path;
-		if (new File(path).exists()) {
-			this.bimg = ImageIO.read(new File(path));
-
-		}
-		else {
-			URL imageURL = new URL(path);
-			HttpURLConnection connection = (HttpURLConnection) imageURL.openConnection();
-			connection.setRequestProperty(
-					"User-Agent",
-					"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0");
-			this.bimg = ImageIO.read(connection.getInputStream());
-		}
-		//else{
-		//	this.bimg = ImageIO.read(new File("icon/NoImageAvailable.png"));
-
-		//}
+		setBImage();
 		this.image = new ImageIcon(bimg);
 		this.rect = new Rectangle(point.x,point.y,bimg.getWidth(),bimg.getHeight());
 		this.sview = sview;
@@ -46,13 +31,31 @@ public class SImage extends Shape {
 	}
 	boolean isImage(String image_path) {
 		Image image = new ImageIcon(image_path).getImage();
-		if (image.getWidth(null) == -1) {
-			return false;
-		} else {
-			return true;
-		}
+		return image.getWidth(null) == -1;
 	}
 
+	void setBImage() throws IOException {
+		String extension = "";
+		int index = path.lastIndexOf('.');
+		if (index > 0) {
+			extension = path.substring(index + 1);
+		}
+		if (new File(path).exists() &&
+				(extension.equals("png") || extension.equals("jpg") || extension.equals("jpeg") || extension.equals("gif"))) {
+				this.bimg = ImageIO.read(new File(path));
+		}
+		else if (isImage(path)){
+			URL imageURL = new URL(path);
+			HttpURLConnection connection = (HttpURLConnection) imageURL.openConnection();
+			connection.setRequestProperty(
+					"User-Agent",
+					"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0");
+			this.bimg = ImageIO.read(connection.getInputStream());
+		}
+		else{
+			this.bimg = ImageIO.read(new File("icon/NoImageAvailable.png"));
+		}
+	}
 	@Override
 	public Point getLoc() {
 		return this.rect.getLocation();
