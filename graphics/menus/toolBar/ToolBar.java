@@ -101,6 +101,7 @@ public class ToolBar extends JToolBar{
 		//AddRect button
 		JButton addRect = new Button("icon/addRect.png","icon/addRect.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
+				color1 = new Pipette(colorChooser).getColorPicked();
 				AddRect addRect = new AddRect();
 				addRect.add(sview, color2, color1);
 				sview.repaint();
@@ -109,6 +110,7 @@ public class ToolBar extends JToolBar{
 		//AddCircle button
 		JButton addCircle = new Button("icon/addCircle.png","icon/addCircle.png",new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				color1 = new Pipette(colorChooser).getColorPicked();
 				AddCircle addCircle = new AddCircle();
 				addCircle.add(sview,color1,color2);
 				sview.repaint();
@@ -118,8 +120,10 @@ public class ToolBar extends JToolBar{
 		//AddText button
 		JButton addText = new Button("icon/addText.png","icon/addText.png",new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				color1 = new Pipette(colorChooser).getColorPicked();
 				AddText addText = new AddText();
 				addText.add(sview,color1,color2);
+
 				sview.repaint();
 			}
 		});
@@ -127,6 +131,7 @@ public class ToolBar extends JToolBar{
 		//AddTriangle 
 				JButton addTriangle = new Button("icon/addTriangle.png","icon/addTriangle.png",new ActionListener(){
 					public void actionPerformed(ActionEvent e) {
+						color1 = new Pipette(colorChooser).getColorPicked();
 						AddTriangle addTriangle = new AddTriangle();
 						addTriangle.add(sview, color2, color1);
 						sview.repaint();
@@ -136,8 +141,7 @@ public class ToolBar extends JToolBar{
 		//bucket button
 		Button bucket = new Button("icon/bucket.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				Pipette pp = new Pipette(colorChooser);
-				color1 = pp.getColorPicked();
+				color1 = new Pipette(colorChooser).getColorPicked();
 				Bucket bu = new Bucket(color1,sview);
 
 			}});

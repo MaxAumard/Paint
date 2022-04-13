@@ -49,12 +49,10 @@ public class Bucket implements MouseListener {
     }
 
     public void setPixelColor(int x, int y, Color color) {
-        System.out.println("ici");
         Graphics2D g2d = (Graphics2D) new BufferedImage(1,1,1).getGraphics().create();
         SRectangle rectSelection = new SRectangle(new Point(x,y),1,1);
         g2d.setColor(color);
         g2d.drawRect(rectSelection.getLoc().x, rectSelection.getLoc().y, rectSelection.getRect().width ,rectSelection.getRect().height);
-        sview.repaint();
     }
 
     public SRectangle fillRect(SRectangle r){
