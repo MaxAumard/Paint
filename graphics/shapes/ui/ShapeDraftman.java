@@ -31,6 +31,8 @@ public class ShapeDraftman implements ShapeVisitor{
 		this.g = g;
 	}
 
+
+
 	public void drawSelected(Shape s){
 		Graphics2D g2d = (Graphics2D) g.create();
 

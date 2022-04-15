@@ -2,10 +2,11 @@ package graphics.menus.extensions;
 
 
 
+import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.ui.ShapesView;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.AttributeSet;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
