@@ -102,11 +102,7 @@ public class ShapeDraftman implements ShapeVisitor{
 	}
 
 	public void visitDraw(SDraw d) {
-
-		for(Point p:d.point) {
-			g.fillOval(p.x, p.y, 10, 10);
-		}
-
+		System.out.println("OK");
 	}
 	
 

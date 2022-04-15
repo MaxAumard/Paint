@@ -1,6 +1,7 @@
 package graphics.menus.toolBar;
 
 import graphics.menus.extensions.*;
+import graphics.shapes.ui.ShapesController;
 import graphics.shapes.ui.ShapesView;
 import javax.swing.*;
 import java.awt.*;
@@ -28,24 +29,20 @@ public class ToolBar extends JToolBar{
 
 
 		draw = new JButton();
-		draw.isSelected();
 		draw.setIcon(new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		draw.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println(draw.isSelected());
 				draw.setSelected(!draw.isSelected());
+				ShapesController controller = (ShapesController) sview.getController();
 				if(draw.isSelected()) {
-
-
 					ImageIcon im = new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(31,31, Image.SCALE_SMOOTH));
 					sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2,im.getIconHeight() ), "dessine cursor"));
+					controller.setCrayon();
 				}
 				else {
 					sview.setCursor(Cursor.getDefaultCursor());
-
+					controller.setCrayon();
 				}
 			}
 		});
@@ -177,7 +174,7 @@ public class ToolBar extends JToolBar{
 		//Enlever le focus sur chaque bouttons 
 		for(int i=0; i<jtoolBar.getComponentCount();i++) {
 			String className = (jtoolBar.getComponent(i).getClass()).toString();
-			if(className.equals("class javax.swing.JButton") || className.equals("class graphics.menus.toolBar.ToggleButton") || className.equals("class graphics.menus.toolBar.Button")) {
+			if(className.toString().contains("Button")) {
 				jtoolBar.getComponent(i).setFocusable(false);
 			}
 		}

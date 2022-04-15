@@ -1,39 +1,49 @@
 package graphics.shapes.ui;
 
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 
+import com.sun.source.tree.Scope;
 import graphics.shapes.*;
+import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
 
 public class ShapesController extends Controller {
 
-
 	private boolean shiftHeld = false;
 	private Point lastPoint;
 	private SCollection selectColl = new SCollection();
 	private ArrayList<Shape> copy;
 	private ArrayList<Shape> cut;
+	private boolean crayon;
 	public ShapesView sview;
+	private SCollection dessin;
 	
 	public ShapesController(Object newModel) {
 		super(newModel);
+		this.crayon = false;
+		this.dessin = new SDraw();
 	}
 
 	public void mousePressed(MouseEvent e)
 	{
 		lastPoint = new Point(e.getPoint());
-		//System.out.println("mouse Pressed");
+		if(this.crayon){
+			// this.dessin = new SCollection();
+			this.dessin.addAttributes(new SelectionAttributes());
+		}
 	}
 
 	public void mouseReleased(MouseEvent e)
 	{
-		//System.out.println("mouse Released");
 	}
 
 	public void mouseClicked(MouseEvent e)
@@ -70,12 +80,26 @@ public class ShapesController extends Controller {
 		}
 	}
 
-	public void mouseDragged(MouseEvent evt)
-	{
-		for (Shape s : ((SCollection) getModel()).collection) {
-			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
-			if( sAtt.isSelected() ) {
-				s.translate(evt.getX()-lastPoint.x, evt.getY()-lastPoint.y);
+	public void mouseDragged(MouseEvent evt) {
+		if (this.crayon) {
+			SCircle c = new SCircle(new Point(evt.getX(),evt.getY()),2);
+			c.addAttributes(new SelectionAttributes());
+			c.addAttributes(new ColorAttributes(false,true, Color.black,Color.black));
+			dessin.add(c);
+			SCollection view =  (SCollection)(getModel());
+			view.add(dessin);
+			//this.groupShape();
+		}
+		else {
+			for (Shape s : ((SCollection) getModel()).collection) {
+				SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
+				if (sAtt.isSelected()) {
+					if(s.getClass() == SCollection.class){
+					}
+					s.translate(evt.getX() - lastPoint.x, evt.getY() - lastPoint.y);
+					if(s.getClass() == SCollection.class){
+					}
+				}
 			}
 		}
 		this.lastPoint = evt.getPoint();
@@ -181,10 +205,9 @@ public class ShapesController extends Controller {
 	public Shape getTarget(MouseEvent e) {
 		ArrayList<Shape> list = ((SCollection) getModel()).collection;
 		for (int i=list.size()-1;i>=0;i--) {
-			if((list.get(i).getClass() != SDraw.class)) {
 				if(list.get(i).getBounds().contains(e.getPoint().x,e.getPoint().y)) {
+					System.out.println(list.get(i).getLoc());
 					return list.get(i);
-				}
 			}
 		}
 		unselectAll();
@@ -219,14 +242,13 @@ public class ShapesController extends Controller {
 		for (Shape s : ((SCollection) this.getModel()).collection) {
 			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
 			if( !sAtt.isSelected() ) {
-				tempModel.add(s);
+				((SCollection) this.getModel()).collection.add(s);
 			}
 		}
 
 		this.getView().setModel(tempModel);
 		this.getView().repaint();
 	}
-
 	public void translateArrow(int x,int y) {
 		for (Shape s : ((SCollection) getModel()).collection) {
 			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
@@ -373,5 +395,9 @@ public class ShapesController extends Controller {
 		}
 		this.getView().setModel(tempModel);
 		this.getView().repaint();
+	}
+
+	public void setCrayon(){
+		this.crayon = !crayon;
 	}
 }

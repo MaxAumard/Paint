@@ -6,7 +6,8 @@ public class SelectionAttributes extends Attributes{
 	public SelectionAttributes() {
 		this.selected = false;
 	}
-	
+
+	public SelectionAttributes(boolean bool) { this.selected = bool; }
 	public boolean isSelected() {
 		return this.selected;
 	}
