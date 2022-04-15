@@ -3,6 +3,7 @@ package graphics.shapes.ui;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -336,7 +337,7 @@ public class ShapesController extends Controller {
 			ColorAttributes ca = (ColorAttributes) coor.getAttributes("Color");
 			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
 			newShape.addAttributes(new SelectionAttributes());
-		}/*else if (s instanceof SCollection) {
+		}else if (s instanceof SCollection) {
 			SCollection col = (SCollection) s;
 			newShape = new SCollection();
 			for(Shape forme:col.getCollection()) {
@@ -346,11 +347,12 @@ public class ShapesController extends Controller {
 			}
 		}else if (s instanceof SImage) {
 			SImage image = (SImage) s;
-			newShape = new SImage(image.getPath(),new Point(image.getLoc().x, image.getLoc().y),sview);
-			ColorAttributes ca = (ColorAttributes) image.getAttributes("Color");
-			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+			try {
+				newShape = new SImage(image.getPath(),new Point(image.getLoc().x, image.getLoc().y),sview);
+			} catch (IOException e) {
+			}
 			newShape.addAttributes(new SelectionAttributes());
-		}*/
+		}
 		
 		
 		return newShape;
