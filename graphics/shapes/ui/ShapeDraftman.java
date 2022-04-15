@@ -104,9 +104,10 @@ public class ShapeDraftman implements ShapeVisitor{
 	}
 
 	public void visitDraw(SDraw d) {
-
 		for(Point p:d.point) {
+			g.setColor(d.getColor());
 			g.fillOval(p.x, p.y, 10, 10);
+
 		}
 
 	}

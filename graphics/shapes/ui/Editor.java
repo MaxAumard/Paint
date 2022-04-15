@@ -1,5 +1,6 @@
 package graphics.shapes.ui;
 
+import graphics.menus.extensions.Pipette;
 import graphics.menus.layer.LayerMenu;
 import graphics.menus.menuBar.MenuBar;
 import graphics.menus.toolBar.ToolBar;

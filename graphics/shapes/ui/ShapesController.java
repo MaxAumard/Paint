@@ -353,8 +353,7 @@ public class ShapesController extends Controller {
 			}
 			newShape.addAttributes(new SelectionAttributes());
 		}
-		
-		
+
 		return newShape;
 	}
 

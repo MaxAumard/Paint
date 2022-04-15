@@ -1,15 +1,11 @@
 package graphics.shapes;
 
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-
-import graphics.menus.toolBar.ToggleButton;
-import graphics.shapes.attributes.SelectionAttributes;
+import graphics.menus.toolBar.Button;
 import graphics.shapes.ui.ShapeVisitor;
 import graphics.shapes.ui.ShapesController;
 import graphics.shapes.ui.ShapesView;
@@ -20,14 +16,15 @@ public class SDraw extends Shape implements MouseMotionListener {
 	private int x;
 	private int y;
 	public ArrayList<Point> point;
-	JButton dessine;
+	Button dessine;
+	Color color;
 
 
-	public SDraw(ShapesView sview,JButton dessine ) {
+	public SDraw(ShapesView sview, Button dessine) {
 		this.sview=sview;
 		point = new ArrayList<>();
+		this.color = color;
 		this.dessine=dessine;
-		
 	}
 
 
@@ -90,5 +87,8 @@ public class SDraw extends Shape implements MouseMotionListener {
 	{
 		ShapesController sContr = (ShapesController) (this.sview.getController());
 		sContr.unselectAll();
+	}
+	public Color getColor(){
+		return this.color;
 	}
 }

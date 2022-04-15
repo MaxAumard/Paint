@@ -10,7 +10,6 @@ import javax.swing.JColorChooser;
 
 public class ColorChooser {
     Color color;
-    JColorChooser colorChooser;
 
     public Color getColorChoosed() {
         return this.color;

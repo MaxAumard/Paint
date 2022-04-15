@@ -14,8 +14,8 @@ public class ToolBar extends JToolBar{
 	JToolBar jtoolBar;
 	private static Color color1 = Color.BLACK ;
 	private static Color color2 = Color.WHITE ;
-	public JButton draw;
-	private static boolean pipette;
+	public Button draw;
+
 
 	public ToolBar(JMenuBar menuBar, ShapesView sview) throws IOException {
 		super();
@@ -27,28 +27,8 @@ public class ToolBar extends JToolBar{
 		Collection buttons = new ArrayList<Button>();
 
 
-		draw = new JButton();
-		draw.isSelected();
-		draw.setIcon(new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
-		draw.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println(draw.isSelected());
-				draw.setSelected(!draw.isSelected());
-				if(draw.isSelected()) {
 
 
-					ImageIcon im = new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(31,31, Image.SCALE_SMOOTH));
-					sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2,im.getIconHeight() ), "dessine cursor"));
-				}
-				else {
-					sview.setCursor(Cursor.getDefaultCursor());
-
-				}
-			}
-		});
 
 		//colorChooser button for color1
 		JButton colorChooser = new JButton();
@@ -80,6 +60,22 @@ public class ToolBar extends JToolBar{
 				color2 = cc2.getColorChoosed() ;
 
 			}});
+
+		draw = new Button("icon/dessine.png",new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				// TODO Auto-generated method stub
+				draw.setSelected(!draw.isSelected());
+				if (draw.isSelected()) {
+					color1 = new Pipette(colorChooser).getColorPicked();
+					ImageIcon im = new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(31, 31, Image.SCALE_SMOOTH));
+					//draw.setBackground(Color.gray);
+					sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2, im.getIconHeight()), "dessine cursor"));
+				} else {
+					sview.setCursor(Cursor.getDefaultCursor());
+
+				}
+			}
+		});
 
 
 		//pipette button
@@ -185,5 +181,8 @@ public class ToolBar extends JToolBar{
 
 	public JToolBar getJToolBar(){
 		return this.jtoolBar;
+	}
+	public Color getColor1(){
+		return color1;
 	}
 }

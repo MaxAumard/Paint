@@ -90,7 +90,6 @@ public class Bucket implements MouseListener {
         if (caCircle.fillColor == caCircle.strokeColor){
             caCircle.fillColor = newColor;
             caCircle.strokeColor = newColor;
-
         }
         else{
             caCircle.fillColor = newColor;

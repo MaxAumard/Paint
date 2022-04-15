@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Locale;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -41,7 +42,7 @@ public class SImage extends Shape {
 			extension = path.substring(index + 1);
 		}
 		if (new File(path).exists() &&
-				(extension.equals("png") || extension.equals("jpg") || extension.equals("jpeg") || extension.equals("gif"))) {
+				(extension.toLowerCase(Locale.ROOT).equals("png") || extension.toLowerCase(Locale.ROOT).equals("jpg") || extension.toLowerCase(Locale.ROOT).equals("jpeg") || extension.toLowerCase(Locale.ROOT).equals("gif"))) {
 				this.bimg = ImageIO.read(new File(path));
 		}
 		else if (isImage(path)){
