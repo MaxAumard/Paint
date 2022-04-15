@@ -84,7 +84,7 @@ public class Bucket implements MouseListener {
 
     }
 
-    private SText fillCircle(SText t) {
+    private SText fillText(SText t) {
         ColorAttributes caCircle = (ColorAttributes) t.getAttributes("Color");
         caCircle.filled = true;
         if (caCircle.fillColor == caCircle.strokeColor){
@@ -135,7 +135,7 @@ public class Bucket implements MouseListener {
                     } else if (s.getClass() == SCircle.class) {
                         fillCircle((SCircle) s);
                     }else if (s.getClass() == SText.class) {
-                        fillCircle((SText) s);
+                        fillText((SText) s);
                     }
                     else if (s.getClass() == STriangle.class){
                         fillTriangle((STriangle) s);
@@ -153,7 +153,7 @@ public class Bucket implements MouseListener {
                                 } else if (shapeInside.getClass() == SCircle.class) {
                                     fillCircle((SCircle) shapeInside);
                                 } else if (shapeInside.getClass() == SText.class) {
-                                    fillCircle((SText) shapeInside);
+                                    fillText((SText) shapeInside);
                                 }
                                 else if (shapeInside.getClass() == STriangle.class){
                                     fillTriangle((STriangle) shapeInside);
