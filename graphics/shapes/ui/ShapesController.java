@@ -305,6 +305,7 @@ public class ShapesController extends Controller {
 	private Shape duplicate(Shape s)
 	{
 		Shape newShape = null;
+		Shape newS =null;
 
 		if (s instanceof SRectangle) {
 			SRectangle rectangle = (SRectangle) s;
@@ -337,6 +338,7 @@ public class ShapesController extends Controller {
 			ColorAttributes ca = (ColorAttributes) coor.getAttributes("Color");
 			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
 			newShape.addAttributes(new SelectionAttributes());
+
 		}else if (s instanceof SCollection) {
 			SCollection col = (SCollection) s;
 			newShape = new SCollection();
@@ -345,14 +347,87 @@ public class ShapesController extends Controller {
 				newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
 				newShape.addAttributes(new SelectionAttributes());
 			}
+
 		}else if (s instanceof SImage) {
 			SImage image = (SImage) s;
 			try {
 				newShape = new SImage(image.getPath(),new Point(image.getLoc().x, image.getLoc().y),sview);
 			} catch (IOException e) {
+
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			newShape.addAttributes(new SelectionAttributes());
+		}else if (s instanceof SCollection) {
+			Iterator<Shape> sInside = ((SCollection) s).iterator();
+			newShape = new SCollection();
+			newShape.addAttributes(new SelectionAttributes());
+            while (sInside.hasNext()){
+                Shape shapeInside = sInside.next();
+                if (shapeInside.getBounds().contains(shapeInside.getLoc().x, shapeInside.getLoc().y)) {
+                    if (shapeInside.getClass() == SRectangle.class) {
+                    	SRectangle rectangle = (SRectangle) shapeInside;
+            			newS = new SRectangle(new Point(rectangle.getLoc().x, rectangle.getLoc().y), rectangle.getRect().width, rectangle.getRect().height);
+            			ColorAttributes ca = (ColorAttributes) rectangle.getAttributes("Color");
+            			newS.addAttributes( new ColorAttributes( ca.stroked, ca.filled, ca.strokeColor,ca.fillColor));
+            			newS.addAttributes(new SelectionAttributes());
+                    	newShape.add(newS);
+                    	
+                    } else if (shapeInside.getClass() == SCircle.class) {
+                    	SCircle circle = (SCircle) shapeInside;
+            			newS = new SCircle(new Point(circle.getLoc().x, circle.getLoc().y), circle.getRadius());
+            			ColorAttributes ca = (ColorAttributes) circle.getAttributes("Color");
+            			newS.addAttributes( new ColorAttributes( ca.stroked, ca.filled, ca.strokeColor,ca.fillColor));
+            			newS.addAttributes(new SelectionAttributes());
+            			newShape.add(newS);
+                    } else if (shapeInside.getClass() == SText.class) {
+                    	SText txt = (SText) shapeInside;
+            			newS = new SText(new Point(txt.getLoc().x, txt.getLoc().y),txt.getText());
+            			ColorAttributes ca = (ColorAttributes) txt.getAttributes("Color");
+            			newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+            			newS.addAttributes(new SelectionAttributes());
+            			newShape.add(newS);
+                    }
+                    else if (shapeInside.getClass() == STriangle.class){
+                    	STriangle triangle = (STriangle) shapeInside;
+            			newS = new STriangle(new Point(triangle.p1), new Point(triangle.p2), new Point(triangle.p3), 3);
+            			ColorAttributes ca = (ColorAttributes) triangle.getAttributes("Color");
+            			newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+            			newS.addAttributes(new SelectionAttributes());
+            			newShape.add(newS);
+                    }
+                    else if (shapeInside.getClass() == SPoint.class){
+                    	SPoint coor = (SPoint) shapeInside;
+            			newS = new SPoint(new Point(coor.getLoc().x, coor.getLoc().y),coor.getText());
+            			ColorAttributes ca = (ColorAttributes) coor.getAttributes("Color");
+            			newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+            			newS.addAttributes(new SelectionAttributes());
+            			newShape.add(newS);
+                    }
+                    else if (shapeInside.getClass() == SImage.class) {
+                    	SImage image = (SImage) shapeInside;
+            			try {
+            				newS = new SImage(image.getPath(),new Point(image.getLoc().x, image.getLoc().y),sview);
+            			} catch (IOException e) {
+            				// TODO Auto-generated catch block
+            				e.printStackTrace();
+            			}
+            			newShape.addAttributes(new SelectionAttributes());
+            			newShape.add(newS);
+                    }
+                    else if(shapeInside.getClass() == SCollection.class){
+                        //duplicate(shapeInside);
+                        newShape.add(duplicate(shapeInside));
+                    }
+                }
+            }
 		}
+		
+		
+			
+			newShape.addAttributes(new SelectionAttributes());
+		
+
 
 		return newShape;
 	}

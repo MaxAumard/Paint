@@ -91,4 +91,11 @@ public class SDraw extends Shape implements MouseMotionListener {
 	public Color getColor(){
 		return this.color;
 	}
+
+
+	@Override
+	public void add(Shape newS) {
+		// TODO Auto-generated method stub
+		
+	}
 }

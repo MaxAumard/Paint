@@ -33,4 +33,6 @@ public abstract class Shape {
 	public abstract Rectangle getBounds();
 	
 	public abstract void accept(ShapeVisitor visitor);
+
+	public abstract void add(Shape shape);
 }

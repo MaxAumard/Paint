@@ -54,6 +54,7 @@ public class SCollection extends Shape {
 		return bounds;
 	}
 	
+	@Override
 	public void add(Shape shape) {
 		collection.add(shape);
 	}

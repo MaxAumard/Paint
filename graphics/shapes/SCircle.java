@@ -42,4 +42,10 @@ public class SCircle extends Shape {
 	public void accept(ShapeVisitor visitor) {
 		visitor.visitCircle(this);
 	}
+
+	@Override
+	public void add(Shape newS) {
+		// TODO Auto-generated method stub
+		
+	}
 }

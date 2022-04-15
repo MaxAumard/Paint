@@ -102,4 +102,10 @@ public class STriangle extends Shape {
 	public void accept(ShapeVisitor visitor) {
 		visitor.visitTriangle(this);
 	}
+
+	@Override
+	public void add(Shape newS) {
+		// TODO Auto-generated method stub
+		
+	}
 }

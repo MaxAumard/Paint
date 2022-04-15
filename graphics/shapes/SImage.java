@@ -85,5 +85,10 @@ public class SImage extends Shape {
 	public String getPath() {
 		return this.path;
 	}
+	@Override
+	public void add(Shape newS) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
