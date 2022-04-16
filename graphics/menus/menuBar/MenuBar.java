@@ -174,23 +174,23 @@ public class MenuBar extends java.awt.MenuBar {
 		
 		menuBar.add(Extensions);
 		
-		final JCheckBoxMenuItem viewAddText = new JCheckBoxMenuItem("Add Text", false);
+		final JCheckBoxMenuItem viewAddText = new JCheckBoxMenuItem("Add Text", true);
 		viewAddText.setIcon(setImageSize("icon/addText.png"));
 		Extensions.add(viewAddText);
 		
-		final JCheckBoxMenuItem viewChangeTheme = new JCheckBoxMenuItem("Change Theme", false);
+		final JCheckBoxMenuItem viewChangeTheme = new JCheckBoxMenuItem("Change Theme", true);
 		viewChangeTheme.setIcon(setImageSize("icon/LightThemeIcon.png"));
 		Extensions.add(viewChangeTheme);
 		
-		final JCheckBoxMenuItem viewPippette = new JCheckBoxMenuItem("Pippette", false);
+		final JCheckBoxMenuItem viewPippette = new JCheckBoxMenuItem("Pippette", true);
 		viewPippette.setIcon(setImageSize("icon/pipette.png"));
 		Extensions.add(viewPippette);
 		
-		final JCheckBoxMenuItem viewBucket = new JCheckBoxMenuItem("Bucket", false);
+		final JCheckBoxMenuItem viewBucket = new JCheckBoxMenuItem("Bucket", true);
 		viewBucket.setIcon(setImageSize("icon/bucket.png"));
 		Extensions.add(viewBucket);
 		
-		final JCheckBoxMenuItem viewBrush = new JCheckBoxMenuItem("Brush", false);
+		final JCheckBoxMenuItem viewBrush = new JCheckBoxMenuItem("Brush", true);
 		viewBrush.setIcon(setImageSize("icon/dessine.png"));
 		Extensions.add(viewBrush);
 	}
