@@ -27,10 +27,10 @@ public class SCollection extends Shape {
 		}
 	}
 	public void setLocCollection(){
+		int x = this.getBounds().x;
+		int y = this.getBounds().y;
 		for( Shape s : collection) {
-			s.setLoc(new Point(s.getBounds().x-this.getBounds().x,s.getBounds().y - this.getBounds().y));
-			System.out.println(s.getBounds().x - this.getBounds().x);
-			System.out.println(s.getBounds().y - this.getBounds().y);
+			s.setLoc(new Point(s.getBounds().x - x,s.getBounds().y - y));
 		}
 	}
 
