@@ -48,9 +48,16 @@ public class Save {
 		try {
 			FileWriter fw = new FileWriter(path);
 			SCollection scoll = (SCollection) sview.getModel();
+			
 			for(Shape s : scoll.collection) {
 				System.out.println(s.getValues());
-
+				
+				String values = s.getValues();
+				String[] sclass = values.split(";");
+		        for(int i = 0 ; i< sclass.length ; i++) {
+		        	fw.write( sclass[i] + "\r\n");
+		        }
+		        fw.write("\r\n");
 			}
 			fw.close();
 			System.out.println("Successfully wrote to the file.");

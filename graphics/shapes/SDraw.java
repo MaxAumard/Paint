@@ -103,6 +103,6 @@ public class SDraw extends Shape implements MouseMotionListener {
 	@Override
 	public String getValues() {
 		// TODO Auto-generated method stub
-		return null;
+		return "sdraw";
 	}
 }
