@@ -185,4 +185,6 @@ public class ToolBar extends JToolBar{
 	public Color getColor1(){
 		return color1;
 	}
+
+	//Commentaire MAX
 }
