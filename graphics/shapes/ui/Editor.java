@@ -106,7 +106,7 @@ public class Editor extends JFrame
         this.model.add(p);
 		
 		/*triangle à l'endroit*/
-		STriangle tri2 = new STriangle(new Point(175, 20), new Point(100,80), new Point(250,80),3);
+		STriangle tri2 = new STriangle(new Point(75, 0), new Point(0,80), new Point(150,80),3);
 		tri2.addAttributes(new ColorAttributes(true,true,Color.DARK_GRAY,Color.PINK));
 		tri2.addAttributes(new SelectionAttributes());
 		this.model.add(tri2);
