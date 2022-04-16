@@ -18,11 +18,6 @@ import graphics.menus.extensions.Save;
 import graphics.shapes.SCollection;
 import graphics.shapes.attributes.SelectionAttributes;
 
-
-
-
-
-
 public class MenuBar extends java.awt.MenuBar {
 	JMenuBar menuBar;
 	private ShapesController controller;
@@ -102,7 +97,7 @@ public class MenuBar extends java.awt.MenuBar {
 		home.setBorderPainted(false);
 
 		menuBar.add(home);
-
+		
 		JMenuItem CopyItem = new JMenuItem("Copy");
 		CopyItem.addActionListener(this::copyShape);
 		CopyItem.setBackground(new Color(239, 239, 239));//fond
@@ -125,7 +120,7 @@ public class MenuBar extends java.awt.MenuBar {
 		
 		JMenu shapes = new JMenu("Shapes");
 		shapes.setForeground(Color.black);
-		shapes.setMnemonic('H');
+		shapes.setMnemonic('S');
 		shapes.setBorderPainted(false);
 		
 		menuBar.add(shapes);
@@ -172,21 +167,27 @@ public class MenuBar extends java.awt.MenuBar {
 		addText.setBorderPainted(false);
 		shapes.add(addText);
 
-	}
+		JMenu window = new JMenu("Window");
+		window.setForeground(Color.black);
+		window.setMnemonic('W');
+		window.setBorderPainted(false);
+		
+		menuBar.add(window);
+		
 
+	}
 
 	public ImageIcon setImageSize(String path) throws IOException {
 		return new ImageIcon(ImageIO.read(new File(path)).getScaledInstance(20,20,0));
 	}
+	
 	public JMenuBar getMyJMenuBar(){
 		return this.menuBar;
 	}
 
-
 	public void Menu(ShapesController controller) {
 		this.controller = controller;
 	}
-
 
 	private void mnuNewListerner(ActionEvent event) {
 		System.out.println("Creation New file");
@@ -248,7 +249,6 @@ public class MenuBar extends java.awt.MenuBar {
 		sview.setModel(tempModel);
 		sview.repaint();
 	}
-
 
 	private void copyShape(ActionEvent event) {
 		System.out.println("Shape copied");
