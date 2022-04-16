@@ -35,4 +35,7 @@ public abstract class Shape {
 	public abstract void accept(ShapeVisitor visitor);
 
 	public abstract void add(Shape shape);
+	
+	public abstract String getValues();
+
 }

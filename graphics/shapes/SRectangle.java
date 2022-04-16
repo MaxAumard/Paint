@@ -3,6 +3,7 @@ package graphics.shapes;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.ui.ShapeVisitor;
 
 public class SRectangle extends Shape {
@@ -45,5 +46,13 @@ public class SRectangle extends Shape {
 	public void add(Shape newS) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getValues() {
+		ColorAttributes colorAtt = (ColorAttributes)this.getAttributes("Color");
+		String sClass = this.getClass().toString().replace("class graphics.shapes.","");
+		return sClass + ";" + String.valueOf(this.getLoc().x) + ";" + String.valueOf(this.getLoc().y) + ";" + String.valueOf(this.getRect().width) + ";" + String.valueOf(this.getRect().height) + ";" + colorAtt.stroked + ";" + colorAtt.filled + ";" + colorAtt.strokeColor + ";" + colorAtt.fillColor;
+
 	}
 }

@@ -24,7 +24,7 @@ public class AddImage {
 		JFileChooser pathField =  new JFileChooser();
 		JPanel myPanel = new JPanel();
 		
-		myPanel.setLayout(new GridLayout(3,2,4,10));
+		myPanel.setLayout(new GridLayout(2,2,4,10));
 		myPanel.add(new JLabel("Position x:"));
 		myPanel.add(xField);
 		myPanel.add(new JLabel("Position y:"));

@@ -98,4 +98,11 @@ public class SDraw extends Shape implements MouseMotionListener {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public String getValues() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

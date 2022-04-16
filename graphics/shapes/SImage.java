@@ -11,6 +11,7 @@ import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.ui.ShapeVisitor;
 import graphics.shapes.ui.ShapesView;
 
@@ -89,6 +90,12 @@ public class SImage extends Shape {
 	public void add(Shape newS) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public String getValues() {
+		String sClass = this.getClass().toString().replace("class graphics.shapes.","");
+		return sClass + ";" + String.valueOf(this.getLoc().x) + ";" + String.valueOf(this.getLoc().y) + ";" + this.path;
+
 	}
 
 }

@@ -66,4 +66,13 @@ public class SCollection extends Shape {
 	public ArrayList<Shape> getCollection() {
 		return this.collection;
 	}
+
+	@Override
+	public String getValues() {
+		String values = "SCollection;\r\n";
+		for(Shape s : this.collection) {
+			values += s.getValues() + "\r\n";
+		}
+		return values;
+	}
 }
