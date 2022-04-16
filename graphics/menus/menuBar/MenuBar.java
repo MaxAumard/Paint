@@ -167,14 +167,32 @@ public class MenuBar extends java.awt.MenuBar {
 		addText.setBorderPainted(false);
 		shapes.add(addText);
 
-		JMenu window = new JMenu("Window");
-		window.setForeground(Color.black);
-		window.setMnemonic('W');
-		window.setBorderPainted(false);
+		JMenu Extensions = new JMenu("Extensions");
+		Extensions.setForeground(Color.black);
+		Extensions.setMnemonic('E');
+		Extensions.setBorderPainted(false);
 		
-		menuBar.add(window);
+		menuBar.add(Extensions);
 		
-
+		final JCheckBoxMenuItem viewAddText = new JCheckBoxMenuItem("Add Text", false);
+		viewAddText.setIcon(setImageSize("icon/addText.png"));
+		Extensions.add(viewAddText);
+		
+		final JCheckBoxMenuItem viewChangeTheme = new JCheckBoxMenuItem("Change Theme", false);
+		viewChangeTheme.setIcon(setImageSize("icon/LightThemeIcon.png"));
+		Extensions.add(viewChangeTheme);
+		
+		final JCheckBoxMenuItem viewPippette = new JCheckBoxMenuItem("Pippette", false);
+		viewPippette.setIcon(setImageSize("icon/pipette.png"));
+		Extensions.add(viewPippette);
+		
+		final JCheckBoxMenuItem viewBucket = new JCheckBoxMenuItem("Bucket", false);
+		viewBucket.setIcon(setImageSize("icon/bucket.png"));
+		Extensions.add(viewBucket);
+		
+		final JCheckBoxMenuItem viewBrush = new JCheckBoxMenuItem("Brush", false);
+		viewBrush.setIcon(setImageSize("icon/dessine.png"));
+		Extensions.add(viewBrush);
 	}
 
 	public ImageIcon setImageSize(String path) throws IOException {
@@ -213,7 +231,7 @@ public class MenuBar extends java.awt.MenuBar {
 	private void addTriangle(ActionEvent event) {
 		System.out.println("Add Triangle...");
 	}
-	
+
 	private void mnuOpenPictureListerner(ActionEvent event) {
 		System.out.println("Open Image");
 		newFile();
