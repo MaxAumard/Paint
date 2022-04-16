@@ -218,6 +218,8 @@ public class MenuBar extends java.awt.MenuBar {
 	
 	private void addPicture(ActionEvent event) {
 		System.out.println("Add Picture...");
+		AddImage newImage = new AddImage();
+		newImage.add(sview);
 	}
 	
 	private void addCircle(ActionEvent event) {
