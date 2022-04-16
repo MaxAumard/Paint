@@ -37,4 +37,8 @@ public class ShapesView extends View{
 		model.accept(draftman);
 	}
 
+	public ShapeDraftman getDraftman(){
+		return this.draftman;
+	}
+
 }

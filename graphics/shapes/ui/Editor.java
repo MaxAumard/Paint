@@ -40,10 +40,6 @@ public class Editor extends JFrame
 		this.menuBar = new MenuBar(sview);
 		this.getContentPane().add(menuBar.getMyJMenuBar(), BorderLayout.NORTH);
 
-		this.layerMenu = new LayerMenu(sview);
-		this.getContentPane().add(layerMenu.getMyJMenuBar(), BorderLayout.EAST);
-
-
 		this.toolBar = new ToolBar(menuBar.getMyJMenuBar(), sview);
 		this.getContentPane().add(toolBar.getJToolBar(), BorderLayout.WEST);
 		toolBar.getJToolBar().setOrientation(SwingConstants.VERTICAL);
@@ -54,6 +50,15 @@ public class Editor extends JFrame
 		this.sview.addMouseMotionListener(d);
 		this.sview.setPreferredSize(new Dimension(600,600));
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
+
+		this.layerMenu = new LayerMenu(sview);
+		this.getContentPane().add(layerMenu.getMyJMenuBar(), BorderLayout.EAST);
+		layerMenu.getMyJMenuBar().setFocusable(false);
+		this.layerMenu.getMyJMenuBar().setVisible(false);
+
+
+
+
 	}
 	
 	private void buildModel() throws IOException {
@@ -106,7 +111,7 @@ public class Editor extends JFrame
         this.model.add(p);
 		
 		/*triangle à l'endroit*/
-		STriangle tri2 = new STriangle(new Point(75, 0), new Point(0,80), new Point(150,80),3);
+		STriangle tri2 = new STriangle(new Point(175, 20), new Point(100,80), new Point(250,80),3);
 		tri2.addAttributes(new ColorAttributes(true,true,Color.DARK_GRAY,Color.PINK));
 		tri2.addAttributes(new SelectionAttributes());
 		this.model.add(tri2);

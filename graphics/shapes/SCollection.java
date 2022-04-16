@@ -26,6 +26,13 @@ public class SCollection extends Shape {
 			s.setLoc(p);
 		}
 	}
+	public void setLocCollection(){
+		for( Shape s : collection) {
+			s.setLoc(new Point(s.getBounds().x-this.getBounds().x,s.getBounds().y - this.getBounds().y));
+			System.out.println(s.getBounds().x - this.getBounds().x);
+			System.out.println(s.getBounds().y - this.getBounds().y);
+		}
+	}
 
 	@Override
 	public void translate(int x, int y) {

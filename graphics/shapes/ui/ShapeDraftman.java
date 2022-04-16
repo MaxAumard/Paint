@@ -149,4 +149,25 @@ public class ShapeDraftman implements ShapeVisitor{
 			drawSelected(i);
 		}
 	}
+
+	public void visitShape(Shape s){
+		//TODO switch case
+		if (s.getClass() == SRectangle.class) {
+			visitRectangle((SRectangle) s);
+		} else if (s.getClass() == SCircle.class) {
+			visitCircle((SCircle) s);
+		}else if (s.getClass() == SText.class) {
+			visitText((SText) s);
+		}
+		else if (s.getClass() == STriangle.class){
+			visitTriangle((STriangle) s);
+		}
+		else if (s.getClass() == SImage.class){
+			visitImage((SImage)s);
+		}
+		else if (s.getClass() == SCollection.class){
+			visitCollection((SCollection) s);
+		}
+	}
+
 }

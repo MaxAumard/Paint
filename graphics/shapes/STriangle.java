@@ -19,7 +19,7 @@ public class STriangle extends Shape {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.p3 = p3;
-		loc = new Point(p1);
+		this.loc = new Point(p1);
 		
 	}
 	
@@ -30,8 +30,8 @@ public class STriangle extends Shape {
 
 	@Override
 	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		
+		this.loc.setLocation(this.getBounds().getLocation());
+
 	}
 
 	@Override
