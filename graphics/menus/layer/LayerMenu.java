@@ -10,12 +10,15 @@ import graphics.shapes.ui.ShapesView;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Iterator;
 
+import static java.awt.Image.SCALE_SMOOTH;
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
-public class LayerMenu extends java.awt.MenuBar{
+public class LayerMenu extends java.awt.MenuBar implements MouseListener, KeyListener {
     JToolBar layerMenu= new JToolBar();
     SCollection model;
     ShapesView cpsview;
@@ -28,16 +31,17 @@ public class LayerMenu extends java.awt.MenuBar{
         layerMenu.setBorder( new EtchedBorder());
         layerMenu.setBorderPainted(true);
         layerMenu.setBackground(new Color(239, 239, 239));
-        layerMenu.setLayout(new GridLayout(5,2));
+        layerMenu.setLayout(new GridLayout(20,1));
 
 
         Iterator<Shape> shapeIterator = this.model.iterator();
-
+        ArrayList<JButton> buttons = new ArrayList<JButton>();
         while(shapeIterator.hasNext()) {
             Shape s = shapeIterator.next();
             if (s.getBounds() != null && s.getClass() != SPoint.class) {
-                BufferedImage bi = new BufferedImage(s.getBounds().width+1, s.getBounds().height+1, TYPE_INT_RGB);
-                System.out.println(s.getClass().getName().toString());
+                int max = Math.max(s.getBounds().width+1,s.getBounds().height+1);
+                BufferedImage bi = new BufferedImage(max, max, TYPE_INT_RGB);
+
                 Point p = s.getLoc();
                 if (s.getClass() == SCollection.class){
                     ((SCollection) s).setLocCollection();
@@ -47,14 +51,19 @@ public class LayerMenu extends java.awt.MenuBar{
                 }
                 if (s.getClass() == STriangle.class) {
                     STriangle tri =(STriangle) s;
-                    STriangle triZero = new STriangle(new Point(tri.p1.x-tri.p2.x,0),new Point(0,tri.p2.y-tri.p1.y),new Point(tri.p3.x-tri.p2.x,tri.p3.y-tri.p1.y),3);
-                    triZero.addAttributes(new ColorAttributes(true,true,Color.DARK_GRAY,Color.PINK));
+                    STriangle triZero = new STriangle(new Point(50,0),new Point(0,100),new Point(100,100),3);
+                    ColorAttributes co = (ColorAttributes)tri.getAttributes("Color");
+                    triZero.addAttributes(new ColorAttributes(co.stroked,co.filled,co.strokeColor,co.fillColor));
                     triZero.addAttributes(new SelectionAttributes());
 
                     bi = new BufferedImage(triZero.getBounds().width, triZero.getBounds().height, TYPE_INT_RGB);
                     Graphics g = bi.getGraphics();
+                    g.setColor(new Color(239, 239, 239));
+                    g.fillRect(0, 0,100, 100);
+
                     draftman.setGraphics(g);
                     draftman.visitShape(triZero);
+
                 }
                 else {
                     if (s.getClass() == SText.class){
@@ -62,15 +71,36 @@ public class LayerMenu extends java.awt.MenuBar{
                     }
 
                     Graphics g = bi.getGraphics();
-                    g.setColor(Color.WHITE);
-                    g.fillRect(0, 0, s.getBounds().width, s.getBounds().height);
+                    g.setColor(new Color(239, 239, 239));
+                    g.fillRect(0, 0,max, max);
                     draftman.setGraphics(g);
                     draftman.visitShape(s);
                 }
-                s.setLoc(p);
-                layerMenu.add(new JButton(s.getClass().getName().toString(),new ImageIcon(bi)));
+                if (s.getClass() != SCollection.class){s.setLoc(p);}
+                JButton btn = new JButton(nameShape(s),new ImageIcon(new ImageIcon(bi).getImage().getScaledInstance(40,40,SCALE_SMOOTH)));
+                buttons.add(btn);
+                btn.setHorizontalAlignment(SwingConstants.LEFT);
+                layerMenu.add(btn);
+                //TODO ACTION LISTENER ON BUTTONS ! en attendant bonne nuit
             }
         }
+    }
+
+    public String nameShape(Shape s) {
+        if (s.getClass() == SRectangle.class) {
+            return "Rectangle";
+        } else if (s.getClass() == SCircle.class) {
+            return "Circle";
+        } else if (s.getClass() == SText.class) {
+            return "Text";
+        } else if (s.getClass() == STriangle.class) {
+            return "Triangle";
+        } else if (s.getClass() == SImage.class) {
+            return "Image";
+        } else if (s.getClass() == SCollection.class) {
+            return "Collection";
+        }
+        return null;
     }
 
     public JToolBar getMyJMenuBar(){
@@ -78,4 +108,43 @@ public class LayerMenu extends java.awt.MenuBar{
     }
 
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }

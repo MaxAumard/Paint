@@ -54,7 +54,7 @@ public class Editor extends JFrame
 		this.layerMenu = new LayerMenu(sview);
 		this.getContentPane().add(layerMenu.getMyJMenuBar(), BorderLayout.EAST);
 		layerMenu.getMyJMenuBar().setFocusable(false);
-		this.layerMenu.getMyJMenuBar().setVisible(false);
+		this.layerMenu.getMyJMenuBar().setVisible(true);
 
 
 
@@ -96,13 +96,13 @@ public class Editor extends JFrame
 		this.d.addAttributes(new SelectionAttributes());
 		this.model.add(this.d);
 		
-		/* 
+
 		//triangle à l'envers
 		STriangle tri = new STriangle(new Point(100, 200), new Point(175,300), new Point(250,200),3);
 		tri.addAttributes(new ColorAttributes(true,true,Color.PINK,Color.BLUE));
 		tri.addAttributes(new SelectionAttributes());
 		this.model.add(tri);
-		*/
+
 		
 		SPoint p= new SPoint(new Point(20,20),"(0;0)");
         p.addAttributes(new ColorAttributes(false,false,Color.WHITE,Color.WHITE));
