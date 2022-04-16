@@ -338,15 +338,6 @@ public class ShapesController extends Controller {
 			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
 			newShape.addAttributes(new SelectionAttributes());
 
-		}else if (s instanceof SCollection) {
-			SCollection col = (SCollection) s;
-			newShape = new SCollection();
-			for(Shape forme:col.getCollection()) {
-				ColorAttributes ca = (ColorAttributes) forme.getAttributes("Color");
-				newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
-				newShape.addAttributes(new SelectionAttributes());
-			}
-
 		}else if (s instanceof SImage) {
 			SImage image = (SImage) s;
 			try {
@@ -411,7 +402,7 @@ public class ShapesController extends Controller {
             				// TODO Auto-generated catch block
             				e.printStackTrace();
             			}
-            			newShape.addAttributes(new SelectionAttributes());
+            			newS.addAttributes(new SelectionAttributes());
             			newShape.add(newS);
                     }
                     else if(shapeInside.getClass() == SCollection.class){
