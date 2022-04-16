@@ -20,7 +20,8 @@ import graphics.shapes.ui.ShapesView;
 
 import java.util.regex.*;
 public class Save {
-
+	private String path;
+	
 	public void saveAs(ShapesView sview) {
 
 		JFileChooser pathField =  new JFileChooser();
@@ -40,7 +41,7 @@ public class Save {
 		}
 		//SCollection coll = (SCollection) sview.getModel();
 		System.out.println("Save As... fonction");
-
+		this.path = path;
 
 	}
 
@@ -64,5 +65,14 @@ public class Save {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void save(ShapesView sview , String path) {
+		
+		this.transcript(sview, path);
+	}
+
+	public String getpath() {
+		return this.path;
 	}
 }

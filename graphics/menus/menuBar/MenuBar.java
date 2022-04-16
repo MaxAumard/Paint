@@ -95,6 +95,7 @@ public class MenuBar extends java.awt.MenuBar {
 		openPictureItem.setIcon(setImageSize("icon/OpenPicture.png"));
 		openPictureItem.setBorderPainted(false);
 		file.add(openPictureItem); 
+		
 		JMenu home = new JMenu("Home");
 		home.setForeground(Color.black);
 		home.setMnemonic('H');
@@ -121,6 +122,55 @@ public class MenuBar extends java.awt.MenuBar {
 		PasteItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK));
 		PasteItem.setBorderPainted(false);
 		home.add(PasteItem);
+		
+		JMenu shapes = new JMenu("Shapes");
+		shapes.setForeground(Color.black);
+		shapes.setMnemonic('H');
+		shapes.setBorderPainted(false);
+		
+		menuBar.add(shapes);
+
+		JMenuItem addPicture = new JMenuItem("Add Picture...");
+		addPicture.addActionListener(this::addPicture);
+		addPicture.setBackground(new Color(239, 239, 239));//fond
+		addPicture.setForeground(Color.black);//text
+		addPicture.setIcon(setImageSize("icon/addPicture.png"));
+		addPicture.setBorderPainted(false);
+		shapes.add(addPicture);
+		
+		shapes.addSeparator();
+		
+		JMenuItem addRectangle = new JMenuItem("Add Rectangle");
+		addRectangle.addActionListener(this::addRectangle);
+		addRectangle.setBackground(new Color(239, 239, 239));//fond
+		addRectangle.setForeground(Color.black);//text
+		addRectangle.setIcon(setImageSize("icon/addRect.png"));
+		addRectangle.setBorderPainted(false);
+		shapes.add(addRectangle);
+		
+		JMenuItem addCircle = new JMenuItem("Add Circle");
+		addCircle.addActionListener(this::addCircle);
+		addCircle.setBackground(new Color(239, 239, 239));//fond
+		addCircle.setForeground(Color.black);//text
+		addCircle.setIcon(setImageSize("icon/addCircle.png"));
+		addCircle.setBorderPainted(false);
+		shapes.add(addCircle);
+		
+		JMenuItem addTriangle = new JMenuItem("Add Triangle");
+		addTriangle.addActionListener(this::addTriangle);
+		addTriangle.setBackground(new Color(239, 239, 239));//fond
+		addTriangle.setForeground(Color.black);//text
+		addTriangle.setIcon(setImageSize("icon/addTriangle.png"));
+		addTriangle.setBorderPainted(false);
+		shapes.add(addTriangle);
+		
+		JMenuItem addText = new JMenuItem("Add Text");
+		addText.addActionListener(this::addText);
+		addText.setBackground(new Color(239, 239, 239));//fond
+		addText.setForeground(Color.black);//text
+		addText.setIcon(setImageSize("icon/addText.png"));
+		addText.setBorderPainted(false);
+		shapes.add(addText);
 
 	}
 
@@ -143,6 +193,26 @@ public class MenuBar extends java.awt.MenuBar {
 		newFile();
 	}
 
+	private void addRectangle(ActionEvent event) {
+		System.out.println("Add Rectangle...");
+	}
+	
+	private void addPicture(ActionEvent event) {
+		System.out.println("Add Picture...");
+	}
+	
+	private void addCircle(ActionEvent event) {
+		System.out.println("Add Circle...");
+	}
+	
+	private void addText(ActionEvent event) {
+		System.out.println("Add Text...");
+	}
+	
+	private void addTriangle(ActionEvent event) {
+		System.out.println("Add Triangle...");
+	}
+	
 	private void mnuOpenPictureListerner(ActionEvent event) {
 		System.out.println("Open Image");
 		newFile();
@@ -152,12 +222,15 @@ public class MenuBar extends java.awt.MenuBar {
 
 	private void mnuSaveListerner(ActionEvent event) {
 		System.out.println("File save");
+		Save save = new Save();
+
 		if(fileName == null) {
-			//saveAs(sview);
+			save.saveAs(sview);
+			this.fileName = save.getpath();
 		}
 		else
 		{
-			//save(sview);
+			save.save(sview,fileName);
 		}
 	}
 
@@ -165,6 +238,8 @@ public class MenuBar extends java.awt.MenuBar {
 		System.out.println("File save as...");
 		Save save = new Save();
 		save.saveAs(sview);
+		this.fileName = save.getpath();
+
 	}
 
 	private void newFile() {
