@@ -54,7 +54,8 @@ public class SCircle extends Shape {
 	public String getValues() {
 		ColorAttributes colorAtt = (ColorAttributes)this.getAttributes("Color");
 		String sClass = this.getClass().toString().replace("class graphics.shapes.","");
-		
-		return sClass + ";" + String.valueOf(this.getLoc().x) + ";" + String.valueOf(this.getLoc().y) + ";" + String.valueOf(this.getRadius()) + ";" + colorAtt.stroked + ";" + colorAtt.filled + ";" + colorAtt.strokeColor + ";" + colorAtt.fillColor;
+		String strokeColor = String.valueOf(colorAtt.strokeColor).replaceAll("[^0-9,]","");
+		String fillColor = String.valueOf(colorAtt.fillColor).replaceAll("[^0-9,]","");
+		return sClass + ";" + String.valueOf(this.getLoc().x) + ";" + String.valueOf(this.getLoc().y) + ";" + String.valueOf(this.getRadius()) + ";" + colorAtt.stroked + ";" + colorAtt.filled + ";" + strokeColor + ";" + fillColor;
 	}
 }

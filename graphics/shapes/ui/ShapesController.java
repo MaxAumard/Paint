@@ -97,7 +97,7 @@ public class ShapesController extends Controller {
 				groupShape();
 				replaceCollec();
 			}
-			if(evt.getKeyChar()=='a'){
+			if(evt.getKeyCode()==65){
 				selectAll();
 			}
 		}
@@ -136,7 +136,6 @@ public class ShapesController extends Controller {
 				translateArrow(0,1);
 			}
 		}
-
 	}
 
 	public void keyReleased(KeyEvent evt)
@@ -240,18 +239,18 @@ public class ShapesController extends Controller {
 
 	public ArrayList<Shape> selected()
 	{
-		ArrayList<Shape> shapes = new ArrayList<Shape>();
+		ArrayList<Shape> shapeList = new ArrayList<>();
 		SCollection Scol = (SCollection) this.getModel();
 		for (Iterator<Shape> it = Scol.iterator(); it.hasNext();) {
 			Shape shape = it.next();
 			SelectionAttributes selectAtt = (SelectionAttributes) shape.getAttributes("Selected");
 			if (selectAtt != null) {
 				if (selectAtt.isSelected()) {
-					shapes.add(shape);
+					shapeList.add(shape);
 				}
 			}
 		}
-		return shapes;
+		return shapeList;
 	}
 
 	public void delete()
