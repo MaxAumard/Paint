@@ -1,7 +1,6 @@
 package graphics.menus.extensions;
 
-import java.awt.GridLayout;
-import java.awt.Point;
+import java.awt.*;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
@@ -24,14 +23,34 @@ public class AddImage {
 		JFileChooser pathField =  new JFileChooser();
 		JPanel myPanel = new JPanel();
 		
-		myPanel.setLayout(new GridLayout(2,2,4,10));
-		myPanel.add(new JLabel("Position x:"));
-		myPanel.add(xField);
-		myPanel.add(new JLabel("Position y:"));
-		myPanel.add(yField);
-		
-		myPanel.add(pathField);
+		myPanel.setLayout(new GridBagLayout());
+		GridBagConstraints gc = new GridBagConstraints();
+		gc.anchor = GridBagConstraints.LINE_START;
 
+		gc.weightx = 0.5;
+		gc.gridx = 0;
+		gc.gridy = 0;
+		myPanel.add(new JLabel("Position x:"),gc);
+
+		gc.weightx = 0.5;
+		gc.gridx = 0;
+		gc.gridy = 1;
+		myPanel.add(xField,gc);
+
+		gc.anchor = GridBagConstraints.LINE_START;
+		gc.weightx = 0.5;
+		gc.gridx = 1;
+		gc.gridy = 0;
+		myPanel.add(new JLabel("Position y:"),gc);
+
+		gc.weightx = 0.5;
+		gc.gridx = 1;
+		gc.gridy = 1;
+		myPanel.add(yField,gc);
+
+		gc.gridx = 0;
+		gc.gridy = 3;
+		myPanel.add(pathField,gc);
 		int result = JOptionPane.showConfirmDialog(null, myPanel,"New Image", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION && this.tester(myPanel)) {
 			int x = Integer.valueOf(xField.getText());
