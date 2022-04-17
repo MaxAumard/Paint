@@ -1,6 +1,7 @@
 package graphics.menus.toolBar;
 
 import graphics.menus.extensions.*;
+import graphics.menus.layer.LayerMenu;
 import graphics.shapes.ui.ShapesController;
 import graphics.shapes.ui.ShapesView;
 import javax.swing.*;
@@ -21,7 +22,7 @@ public class ToolBar extends JToolBar{
 
 
 
-	public ToolBar(JMenuBar menuBar, ShapesView sview) throws IOException {
+	public ToolBar(JMenuBar menuBar, ShapesView sview, LayerMenu layerMenu) throws IOException {
 		super();
 		
 		
@@ -99,7 +100,7 @@ public class ToolBar extends JToolBar{
 		//darktheme button
 		ToggleButton darkTheme = new ToggleButton("icon/LightThemeIcon.png","icon/DarkThemeIcon.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				DarkTheme dt = new DarkTheme(e, jtoolBar, menuBar, sview, buttons, colorChooser);
+				DarkTheme dt = new DarkTheme(e, jtoolBar, menuBar,layerMenu, sview, buttons, colorChooser);
 			}});
 
 

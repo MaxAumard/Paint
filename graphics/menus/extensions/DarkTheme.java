@@ -1,5 +1,6 @@
 package graphics.menus.extensions;
 
+import graphics.menus.layer.LayerMenu;
 import graphics.menus.toolBar.Button;
 import graphics.menus.toolBar.ToggleButton;
 import graphics.shapes.ui.ShapesView;
@@ -12,8 +13,10 @@ import java.util.Iterator;
 
 public class DarkTheme {
 
-    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, ShapesView sview, Collection<Button> buttons, JButton cc){
-        Iterator<Button> iterator = buttons.iterator();
+    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, LayerMenu layerMenu, ShapesView sview, Collection<Button> tbButtons, JButton cc){
+        Iterator<Button> iterator = tbButtons.iterator();
+        Iterator<JButton> iteratorlm = layerMenu.getButtons().iterator();
+
         // Darkmode
         if (((JToggleButton)e.getSource()).isSelected()){
             Color interfaceDarkColor = new Color(31,31,31);
@@ -43,6 +46,17 @@ public class DarkTheme {
             ImageIcon icon = new ImageIcon(new ImageIcon("icon/darkColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
             cc.setIcon(icon);
 
+            //layerMenu
+            layerMenu.getMyJMenuBar().setBackground(interfaceDarkColor);
+            while (iteratorlm.hasNext()) {
+                JButton bt = iteratorlm.next();
+                bt.setBackground(interfaceDarkColor);
+                bt.setForeground(Color.white);
+                //layerMenu.setBackgroundColor(interfaceDarkColor);
+                //layerMenu.refreshLayer(sview);
+
+
+            }
         }
         //LightMode
         else{
@@ -73,6 +87,16 @@ public class DarkTheme {
             //colorchooser picture
             ImageIcon icon = new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
             cc.setIcon(icon);
+
+            //layerMenu
+            layerMenu.getMyJMenuBar().setBackground(interfaceLightColor);
+            while (iteratorlm.hasNext()) {
+                JButton bt = iteratorlm.next();
+                bt.setBackground(interfaceLightColor);
+                bt.setForeground(Color.black);
+                //layerMenu.setBackgroundColor(interfaceLightColor);
+                //layerMenu.refreshLayer(sview);
+            }
         }
     }
 
