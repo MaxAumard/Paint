@@ -1,6 +1,7 @@
 package graphics.menus.toolBar;
 
 import graphics.menus.extensions.*;
+import graphics.shapes.ui.ShapesController;
 import graphics.shapes.ui.ShapesView;
 import javax.swing.*;
 import java.awt.*;
@@ -9,16 +10,21 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.lang.Object;
 
 public class ToolBar extends JToolBar{
 	JToolBar jtoolBar;
 	private static Color color1 = Color.BLACK ;
 	private static Color color2 = Color.WHITE ;
 	public Button draw;
+	
+
 
 
 	public ToolBar(JMenuBar menuBar, ShapesView sview) throws IOException {
 		super();
+		
+		
 		//creation of the toolBar
 		jtoolBar = new JToolBar();
 		//prevent flotability
@@ -65,14 +71,17 @@ public class ToolBar extends JToolBar{
 			public void actionPerformed(ActionEvent e){
 				// TODO Auto-generated method stub
 				draw.setSelected(!draw.isSelected());
+				ShapesController controller = (ShapesController)sview.getController();
 				if (draw.isSelected()) {
-					color1 = new Pipette(colorChooser).getColorPicked();
+					
+					//color1 = new Pipette(colorChooser).getColorPicked();
 					ImageIcon im = new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(31, 31, Image.SCALE_SMOOTH));
 					//draw.setBackground(Color.gray);
 					sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2, im.getIconHeight()), "dessine cursor"));
+					controller.setCrayon();
 				} else {
 					sview.setCursor(Cursor.getDefaultCursor());
-
+					controller.setCrayon();
 				}
 			}
 		});

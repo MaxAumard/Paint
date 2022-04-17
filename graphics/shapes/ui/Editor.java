@@ -17,7 +17,6 @@ import java.io.IOException;
 public class Editor extends JFrame
 {
 	private ShapesView sview;
-	private SDraw d;
 	private SCollection model;
 	private MenuBar menuBar;
 	private LayerMenu layerMenu;
@@ -44,10 +43,8 @@ public class Editor extends JFrame
 		this.getContentPane().add(toolBar.getJToolBar(), BorderLayout.WEST);
 		toolBar.getJToolBar().setOrientation(SwingConstants.VERTICAL);
 		
-		this.d = new SDraw(this.sview, this.toolBar.draw);
 		this.buildModel();
 		
-		this.sview.addMouseMotionListener(d);
 		this.sview.setPreferredSize(new Dimension(600,600));
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
 
@@ -92,11 +89,7 @@ public class Editor extends JFrame
 		c.addAttributes(new SelectionAttributes());
 		sc.add(c);
 		this.model.add(sc);
-
-		this.d.addAttributes(new SelectionAttributes());
-		this.model.add(this.d);
 		
-
 		//triangle à l'envers
 		STriangle tri = new STriangle(new Point(100, 200), new Point(175,300), new Point(250,200),3);
 		tri.addAttributes(new ColorAttributes(true,true,Color.PINK,Color.BLUE));

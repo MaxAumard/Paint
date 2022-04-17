@@ -13,8 +13,8 @@ import graphics.shapes.ui.ShapesView;
 public class SDraw extends Shape implements MouseMotionListener {
 
 	ShapesView sview;
-	private int x;
-	private int y;
+	public int x;
+	public int y;
 	public ArrayList<Point> point;
 	Button dessine;
 	Color color;
