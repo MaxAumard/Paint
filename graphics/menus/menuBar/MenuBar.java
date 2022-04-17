@@ -1,6 +1,7 @@
 package graphics.menus.menuBar;
 
 
+import graphics.menus.toolBar.ToolBar;
 import graphics.shapes.ui.ShapesController;
 import graphics.shapes.ui.ShapesView;
 
@@ -193,6 +194,24 @@ public class MenuBar extends java.awt.MenuBar {
 		final JCheckBoxMenuItem viewBrush = new JCheckBoxMenuItem("Brush", true);
 		viewBrush.setIcon(setImageSize("icon/dessine.png"));
 		Extensions.add(viewBrush);
+
+		JMenu layer = new JMenu("Layer");
+		layer.setForeground(Color.black);
+		layer.setMnemonic('L');
+		layer.setBorderPainted(false);
+		menuBar.add(layer);
+
+		JMenuItem setUp = new JMenuItem("Move layer up");
+		setUp.addActionListener(this::addText);
+		setUp.setBackground(new Color(239, 239, 239));//fond
+		setUp.setForeground(Color.black);//text
+		layer.add(setUp);
+
+		JMenuItem setDown = new JMenuItem("Move layer down");
+		setDown.addActionListener(this::addText);
+		setDown.setBackground(new Color(239, 239, 239));//fond
+		setDown.setForeground(Color.black);//text
+		layer.add(setDown);
 	}
 
 	public ImageIcon setImageSize(String path) throws IOException {
