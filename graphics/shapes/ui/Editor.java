@@ -39,9 +39,7 @@ public class Editor extends JFrame
 		this.menuBar = new MenuBar(sview);
 		this.getContentPane().add(menuBar.getMyJMenuBar(), BorderLayout.NORTH);
 
-		this.toolBar = new ToolBar(menuBar.getMyJMenuBar(), sview);
-		this.getContentPane().add(toolBar.getJToolBar(), BorderLayout.WEST);
-		toolBar.getJToolBar().setOrientation(SwingConstants.VERTICAL);
+
 		
 		this.buildModel();
 		
@@ -52,6 +50,10 @@ public class Editor extends JFrame
 		this.getContentPane().add(layerMenu.getMyJMenuBar(), BorderLayout.EAST);
 		layerMenu.getMyJMenuBar().setFocusable(false);
 		this.layerMenu.getMyJMenuBar().setVisible(true);
+
+		this.toolBar = new ToolBar(menuBar.getMyJMenuBar(), sview, layerMenu);
+		this.getContentPane().add(toolBar.getJToolBar(), BorderLayout.WEST);
+		toolBar.getJToolBar().setOrientation(SwingConstants.VERTICAL);
 
 
 
@@ -85,7 +87,7 @@ public class Editor extends JFrame
 		r.addAttributes(new SelectionAttributes());
 		sc.add(r);
 		c = new SCircle(new Point(150,100),20);
-		c.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.DARK_GRAY));
+		c.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.YELLOW));
 		c.addAttributes(new SelectionAttributes());
 		sc.add(c);
 		this.model.add(sc);
