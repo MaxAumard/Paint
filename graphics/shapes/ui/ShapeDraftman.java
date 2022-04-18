@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.util.Iterator;
 
+import java.awt.geom.Line2D;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SDraw;
@@ -121,6 +122,8 @@ public class ShapeDraftman implements ShapeVisitor{
 		if(ca.stroked) {
 			g.setColor(ca.strokeColor);
 			g.drawLine(l.getP1().x,l.getP1().y,l.getP2().x,l.getP2().y);
+			((Graphics2D) g).setStroke(new BasicStroke(2));
+           // ((Graphics2D) g).draw(new Line2D.Float(l.getP1().x,l.getP1().y,l.getP2().x,l.getP2().y));
 		}
 		if (selectAtt.isSelected()) {
 			drawSelected(l);
