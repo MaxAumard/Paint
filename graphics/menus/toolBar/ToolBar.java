@@ -101,7 +101,7 @@ public class ToolBar extends JToolBar{
 		//darktheme button
 		ToggleButton darkTheme = new ToggleButton("icon/LightThemeIcon.png","icon/DarkThemeIcon.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				DarkTheme dt = new DarkTheme(e, jtoolBar, menuBar,layerMenu, sview, buttons, colorChooser);
+				DarkTheme dt = new DarkTheme(e, jtoolBar, menuBar,layerMenu, sview, buttons, colorChooser,colorChooser2);
 			}});
 
 
