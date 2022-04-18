@@ -92,6 +92,16 @@ public class MenuBar extends java.awt.MenuBar {
 		openPictureItem.setBorderPainted(false);
 		file.add(openPictureItem); 
 		
+		JMenuItem exportToPng = new JMenuItem("Export to PNG");
+		exportToPng.addActionListener( this::exportToPng);
+		exportToPng.setBackground(new Color(239, 239, 239));//fond
+		exportToPng.setForeground(Color.black);//text
+		exportToPng.setMnemonic('P');//demande d'ouvrir le menu
+		exportToPng.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));//pas besoin d'ouvrir le menu
+		exportToPng.setIcon(new ImageIcon(new ImageIcon("icon/save.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
+		exportToPng.setBorderPainted(false);
+		file.add(exportToPng);
+		
 		JMenu home = new JMenu("Home");
 		home.setForeground(Color.black);
 		home.setMnemonic('H');
@@ -269,6 +279,10 @@ public class MenuBar extends java.awt.MenuBar {
 		save.saveAs(sview);
 		this.fileName = save.getpath();
 
+	}
+	
+	private void exportToPng(ActionEvent e) {
+		
 	}
 
 	private void newFile() {
