@@ -18,6 +18,7 @@ public class ToolBar extends JToolBar{
 	private static Color color1 = Color.BLACK ;
 	private static Color color2 = Color.WHITE ;
 	public Button draw;
+	public Button repere;
 	
 
 
@@ -88,6 +89,20 @@ public class ToolBar extends JToolBar{
 			}
 		});
 
+		repere = new Button("icon/repere.png",new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				// TODO Auto-generated method stub
+				repere.setSelected(!repere.isSelected());
+				ShapesController controller = (ShapesController)sview.getController();
+				if (repere.isSelected()) {
+					
+					ImageIcon im = new ImageIcon(new ImageIcon("icon/repere.png").getImage().getScaledInstance(31, 31, Image.SCALE_SMOOTH));
+					controller.setRepere();
+				} else {
+					controller.cutRepere();
+				}
+			}
+		});
 
 		//pipette button
 		Button pipette = new Button("icon/pipette.png",new ActionListener(){
@@ -179,6 +194,9 @@ public class ToolBar extends JToolBar{
 
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(draw);
+		
+		jtoolBar.addSeparator(new Dimension(10,0));
+		jtoolBar.add(repere);
 
 
 		//Enlever le focus sur chaque bouttons 

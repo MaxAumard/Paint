@@ -13,6 +13,7 @@ import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SDraw;
 import graphics.shapes.SImage;
+import graphics.shapes.SLine;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 import graphics.shapes.STriangle;
@@ -112,7 +113,21 @@ public class ShapeDraftman implements ShapeVisitor{
 
 	}
 	
+	@Override
+	public void visitLine(SLine l) {
+		// TODO Auto-generated method stub
+		ColorAttributes ca = (ColorAttributes) l.getAttributes("Color");
+		SelectionAttributes selectAtt = (SelectionAttributes) l.getAttributes("Selected");
+		if(ca.stroked) {
+			g.setColor(ca.strokeColor);
+			g.drawLine(l.getP1().x,l.getP1().y,l.getP2().x,l.getP2().y);
+		}
+		if (selectAtt.isSelected()) {
+			drawSelected(l);
+		}
+	}
 
+	
 	public void visitTriangle(STriangle t) {
 		ColorAttributes ca = (ColorAttributes) t.getAttributes("Color");
 		SelectionAttributes selectAtt = (SelectionAttributes) t.getAttributes("Selected");
@@ -170,4 +185,7 @@ public class ShapeDraftman implements ShapeVisitor{
 		}
 	}
 
+
+
+	
 }

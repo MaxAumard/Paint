@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 
 import graphics.menus.extensions.AddImage;
-import graphics.menus.extensions.OpenFile;
 import graphics.menus.extensions.Save;
 import graphics.shapes.SCollection;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -246,8 +245,8 @@ public class MenuBar extends java.awt.MenuBar {
 	private void openFile(ActionEvent event) {
 		System.out.println("Open File...");
 		newFile();
-		OpenFile OpenFile = new OpenFile();
-		OpenFile.add(sview);
+		//OpenFile OpenFile = new OpenFile();
+	//	OpenFile.add(sview);
 	}
 
 	private void mnuSaveListerner(ActionEvent event) {
