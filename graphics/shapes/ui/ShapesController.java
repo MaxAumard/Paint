@@ -362,6 +362,12 @@ public class ShapesController extends Controller {
 			ColorAttributes ca = (ColorAttributes) triangle.getAttributes("Color");
 			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
 			newShape.addAttributes(new SelectionAttributes());
+		}else if (s instanceof SLine) {
+			SLine line = (SLine) s;
+			newShape = new SLine(new Point((line.p1)), new Point(line.p2));
+			ColorAttributes ca = (ColorAttributes) line.getAttributes("Color");
+			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+			newShape.addAttributes(new SelectionAttributes());
 		}
 		else if (s instanceof SText) {
 			SText txt = (SText) s;
@@ -428,6 +434,14 @@ public class ShapesController extends Controller {
 						SPoint coor = (SPoint) shapeInside;
 						newS = new SPoint(new Point(coor.getLoc().x, coor.getLoc().y),coor.getText());
 						ColorAttributes ca = (ColorAttributes) coor.getAttributes("Color");
+						newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+						newS.addAttributes(new SelectionAttributes());
+						newShape.add(newS);
+					}
+					else if (shapeInside.getClass() == SLine.class){
+						SLine line = (SLine) shapeInside;
+						newS = new SLine(new Point(line.p1),new Point(line.p2));
+						ColorAttributes ca = (ColorAttributes) line.getAttributes("Color");
 						newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
 						newS.addAttributes(new SelectionAttributes());
 						newShape.add(newS);
