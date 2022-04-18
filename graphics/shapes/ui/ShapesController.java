@@ -26,6 +26,7 @@ public class ShapesController extends Controller {
 	public SCollection dessin;
 	public SCollection repere1;
 	public SCollection repere2;
+	private int currentX, currentY, oldX, oldY;
 
 	public ShapesController(Object newModel) {
 		super(newModel);
@@ -40,7 +41,10 @@ public class ShapesController extends Controller {
 
 	public void mousePressed(MouseEvent e)
 	{
+		
 		lastPoint = new Point(e.getPoint());
+		oldX = e.getX();
+		oldY = e.getY();
 		//System.out.println("mouse Pressed");
 	}
 
@@ -87,13 +91,18 @@ public class ShapesController extends Controller {
 
 	public void mouseDragged(MouseEvent evt)
 	{
+		currentX = evt.getX();
+        currentY = evt.getY();
 		if(this.crayon) {
-			SCircle c = new SCircle(new Point(evt.getX(),evt.getY()),2);
+			SLine c = new SLine(new Point(oldX, oldY), new Point( currentX, currentY));
 			c.addAttributes(new SelectionAttributes());
 			c.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
 			dessin.add(c);
+			oldX = currentX;
+	        oldY = currentY;
 			SCollection view = (SCollection)(getModel());
 			view.add(dessin);
+			
 
 
 		}
@@ -108,6 +117,7 @@ public class ShapesController extends Controller {
 		}
 		this.lastPoint = evt.getPoint();
 		this.getView().repaint();
+		
 		
 	}
 
