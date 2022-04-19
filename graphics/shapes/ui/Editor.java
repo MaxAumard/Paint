@@ -35,14 +35,14 @@ public class Editor extends JFrame
 
 		this.model = new SCollection();
 		this.sview = new ShapesView(this.model);
-		
+
 		this.menuBar = new MenuBar(sview);
 		this.getContentPane().add(menuBar.getMyJMenuBar(), BorderLayout.NORTH);
 
 
-		
+
 		this.buildModel();
-		
+
 		this.sview.setPreferredSize(new Dimension(600,600));
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
 
@@ -57,11 +57,12 @@ public class Editor extends JFrame
 
 
 
+		this.menuBar.setToolBar(toolBar);
 
 	}
-	
+
 	private void buildModel() throws IOException {
-		
+
 		this.model.addAttributes(new SelectionAttributes());
 
 		SRectangle r = new SRectangle(new Point(10,10),20,30);
@@ -91,42 +92,32 @@ public class Editor extends JFrame
 		c.addAttributes(new SelectionAttributes());
 		sc.add(c);
 		this.model.add(sc);
-		
+
 		//triangle à l'envers
 		STriangle tri = new STriangle(new Point(100, 200), new Point(175,300), new Point(250,200),3);
 		tri.addAttributes(new ColorAttributes(true,true,Color.PINK,Color.BLUE));
 		tri.addAttributes(new SelectionAttributes());
 		this.model.add(tri);
 
-		
+
 		SPoint p= new SPoint(new Point(20,20),"(0;0)");
-        p.addAttributes(new ColorAttributes(false,false,Color.WHITE,Color.WHITE));
-        p.addAttributes(new FontAttributes());
-        p.addAttributes(new SelectionAttributes());
-        this.model.add(p);
-		
+		p.addAttributes(new ColorAttributes(false,false,Color.WHITE,Color.WHITE));
+		p.addAttributes(new FontAttributes());
+		p.addAttributes(new SelectionAttributes());
+		this.model.add(p);
+
 		/*triangle à l'endroit*/
 		STriangle tri2 = new STriangle(new Point(175, 20), new Point(100,80), new Point(250,80),3);
 		tri2.addAttributes(new ColorAttributes(true,true,Color.DARK_GRAY,Color.PINK));
 		tri2.addAttributes(new SelectionAttributes());
 		this.model.add(tri2);
-		
-		/*SLine line1 = new SLine(new Point(300, 0), new Point(300,1000));
-		line1.addAttributes(new ColorAttributes(true,true,Color.BLACK,Color.BLACK));
-		line1.addAttributes(new SelectionAttributes());
-		this.model.add(line1);
-		
-		SLine line2 = new SLine(new Point(0, 334), new Point(1700,334));
-		line2.addAttributes(new ColorAttributes(true,true,Color.BLACK,Color.BLACK));
-		line2.addAttributes(new SelectionAttributes());
-		this.model.add(line2);
-		*/
+
 
 		SImage im = new SImage("https://c.tenor.com/mCiM7CmGGI4AAAAM/naruto.gif",new Point(250,175),sview);
 		//im.addAttributes(new ColorAttributes(true,true,Color.black,Color.black));
 		im.addAttributes(new SelectionAttributes());
 		this.model.add(im);
-		
+
 		((ShapesController)this.sview.getController()).replaceCollec();
 	}
 
