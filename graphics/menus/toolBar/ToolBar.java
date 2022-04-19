@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.lang.Object;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ToolBar extends JToolBar{
 	JToolBar jtoolBar;
@@ -19,6 +21,7 @@ public class ToolBar extends JToolBar{
 	private static Color color2 = Color.WHITE ;
 	public Button draw;
 	public Button repere;
+	private Map<String,Component> buttonMap = new HashMap<String,Component>();
 	
 
 
@@ -168,17 +171,17 @@ public class ToolBar extends JToolBar{
 
 			}});
 
-		addRect.setName("AddRect");
-		addText.setName("AddText");
-		addTriangle.setName("AddTriangle");
-		addCircle.setName("AddCircle");
-		bucket.setName("Bucket");
-		pipette.setName("Pipette");
-		darkTheme.setName("DarkTheme");
-		colorChooser.setName("Color1");
-		colorChooser2.setName("Color2");
-		draw.setName("Draw");
-		repere.setName("Repere");
+		buttonMap.put("AddRect",addRect);
+		buttonMap.put("AddText",addText);
+		buttonMap.put("AddTriangle",addTriangle);
+		buttonMap.put("AddCircle",addCircle);
+		buttonMap.put("Bucket",bucket);
+		buttonMap.put("Pipette",pipette);
+		buttonMap.put("DarkTheme",darkTheme);
+		buttonMap.put("ColorChooser",colorChooser);
+		buttonMap.put("ColorChooser2",colorChooser2);
+		buttonMap.put("Draw",draw);
+		buttonMap.put("Repere",repere);
 
 		//add icons to toolbar
 		jtoolBar.addSeparator(new Dimension(15,0));
@@ -218,6 +221,10 @@ public class ToolBar extends JToolBar{
 				jtoolBar.getComponent(i).setFocusable(false);
 			}
 		}
+	}
+
+	public Map getButtonMap(){
+		return this.buttonMap;
 	}
 
 	public JToolBar getJToolBar(){

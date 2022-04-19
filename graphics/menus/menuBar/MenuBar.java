@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -179,6 +180,12 @@ public class MenuBar extends java.awt.MenuBar {
 		final JCheckBoxMenuItem viewAddText = new JCheckBoxMenuItem("Add Text", true);
 		viewAddText.setIcon(setImageSize("icon/addText.png"));
 		Extensions.add(viewAddText);
+		viewAddText.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible("AddText",viewAddText.getState());
+			}
+		});
 
 		final JCheckBoxMenuItem viewChangeTheme = new JCheckBoxMenuItem("Change Theme", true);
 		viewChangeTheme.setIcon(setImageSize("icon/LightThemeIcon.png"));
@@ -215,6 +222,10 @@ public class MenuBar extends java.awt.MenuBar {
 		layer.add(setDown);
 	}
 
+	private void setVisible(ActionEvent actionEvent) {
+
+	}
+
 	public ImageIcon setImageSize(String path) throws IOException {
 		return new ImageIcon(ImageIO.read(new File(path)).getScaledInstance(20,20,0));
 	}
@@ -234,10 +245,6 @@ public class MenuBar extends java.awt.MenuBar {
 
 	private void addRectangle(ActionEvent event) {
 		System.out.println("Add Rectangle...");
-		for(int i=0; i<toolbar.getJToolBar().getComponentCount();i++){
-			System.out.println(toolbar.getJToolBar().getComponentAtIndex(i).getName());
-		}
-
 	}
 
 	private void addPicture(ActionEvent event) {
@@ -306,5 +313,10 @@ public class MenuBar extends java.awt.MenuBar {
 
 	public void setToolBar(ToolBar t){
 		this.toolbar = t;
+	}
+
+	public void setVisible(String s, boolean bool){
+		JButton button = (JButton) toolbar.getButtonMap().get("AddText");
+		button.setVisible(bool);
 	}
 }
