@@ -53,6 +53,7 @@ public class DarkTheme {
                 JButton bt = iteratorlm.next();
                 bt.setBackground(interfaceDarkColor);
                 bt.setForeground(Color.white);
+                layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceDarkColor));
                 //layerMenu.setBackgroundColor(interfaceDarkColor);
                 //layerMenu.refreshLayer(sview);
 
@@ -92,6 +93,8 @@ public class DarkTheme {
             
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceLightColor);
+            layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceLightColor));
+
             while (iteratorlm.hasNext()) {
                 JButton bt = iteratorlm.next();
                 bt.setBackground(interfaceLightColor);
