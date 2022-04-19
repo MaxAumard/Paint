@@ -149,7 +149,7 @@ public class ToolBar extends JToolBar{
 				sview.repaint();
 			}
 		});
-		
+
 		//AddTriangle 
 				JButton addTriangle = new Button("icon/addTriangle.png","icon/addTriangle.png",new ActionListener(){
 					public void actionPerformed(ActionEvent e) {
@@ -167,6 +167,18 @@ public class ToolBar extends JToolBar{
 				Bucket bu = new Bucket(color1,sview);
 
 			}});
+
+		addRect.setName("AddRect");
+		addText.setName("AddText");
+		addTriangle.setName("AddTriangle");
+		addCircle.setName("AddCircle");
+		bucket.setName("Bucket");
+		pipette.setName("Pipette");
+		darkTheme.setName("DarkTheme");
+		colorChooser.setName("Color1");
+		colorChooser2.setName("Color2");
+		draw.setName("Draw");
+		repere.setName("Repere");
 
 		//add icons to toolbar
 		jtoolBar.addSeparator(new Dimension(15,0));

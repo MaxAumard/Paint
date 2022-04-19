@@ -234,6 +234,10 @@ public class MenuBar extends java.awt.MenuBar {
 
 	private void addRectangle(ActionEvent event) {
 		System.out.println("Add Rectangle...");
+		for(int i=0; i<toolbar.getJToolBar().getComponentCount();i++){
+			System.out.println(toolbar.getJToolBar().getComponentAtIndex(i).getName());
+		}
+
 	}
 
 	private void addPicture(ActionEvent event) {
