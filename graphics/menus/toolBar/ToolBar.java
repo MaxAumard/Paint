@@ -170,6 +170,14 @@ public class ToolBar extends JToolBar{
 				Bucket bu = new Bucket(color1,sview);
 
 			}});
+		
+		JButton sizeChooser = new Button("icon/addRect.png","icon/addRect.png",new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				color1 = new Pipette(colorChooser).getColorPicked();
+				SizeChooser sizeChooser = new SizeChooser();
+				sizeChooser.add(sview);
+				sview.repaint();
+			}});
 
 		buttonMap.put("AddRect",addRect);
 		buttonMap.put("Add Text",addText);
@@ -212,6 +220,9 @@ public class ToolBar extends JToolBar{
 		
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(repere);
+		
+		jtoolBar.addSeparator(new Dimension(10,0));
+		jtoolBar.add(sizeChooser);
 
 
 		//Enlever le focus sur chaque bouttons 

@@ -12,11 +12,20 @@ public class SLine extends Shape{
 	public Point p1;
 	public Point p2;
 	private int minx,miny,maxx,maxy;
+	int size;
 	
 	public SLine(Point p1, Point p2) {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.location = new Point(p1);
+	}
+	
+	public void setSize(int size) {
+		this.size = size;
+	}
+	
+	public int getSize() {
+		return this.size;
 	}
 	
 	@Override

@@ -21,6 +21,7 @@ import graphics.shapes.STriangle;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
+import graphics.shapes.attributes.SizeAttributes;
 
 
 public class ShapeDraftman implements ShapeVisitor{
@@ -119,10 +120,11 @@ public class ShapeDraftman implements ShapeVisitor{
 		// TODO Auto-generated method stub
 		ColorAttributes ca = (ColorAttributes) l.getAttributes("Color");
 		SelectionAttributes selectAtt = (SelectionAttributes) l.getAttributes("Selected");
+		SizeAttributes sa = (SizeAttributes) l.getAttributes("Size");
 		if(ca.stroked) {
 			g.setColor(ca.strokeColor);
 			g.drawLine(l.getP1().x,l.getP1().y,l.getP2().x,l.getP2().y);
-			((Graphics2D) g).setStroke(new BasicStroke(2));
+			((Graphics2D) g).setStroke(new BasicStroke(l.getSize()));
            // ((Graphics2D) g).draw(new Line2D.Float(l.getP1().x,l.getP1().y,l.getP2().x,l.getP2().y));
 		}
 		if (selectAtt.isSelected()) {

@@ -73,7 +73,7 @@ public class MenuBar extends java.awt.MenuBar {
 		exportToPng.setForeground(Color.black);//text
 		exportToPng.setMnemonic('P');//demande d'ouvrir le menu
 		exportToPng.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));//pas besoin d'ouvrir le menu
-		exportToPng.setIcon(setImageSize("icon/new.png"));//icone
+		exportToPng.setIcon(setImageSize("icon/export.png"));//icone
 		exportToPng.setBorderPainted(false);
 		file.add(exportToPng);
 
