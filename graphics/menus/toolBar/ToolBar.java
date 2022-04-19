@@ -172,15 +172,15 @@ public class ToolBar extends JToolBar{
 			}});
 
 		buttonMap.put("AddRect",addRect);
-		buttonMap.put("AddText",addText);
+		buttonMap.put("Add Text",addText);
 		buttonMap.put("AddTriangle",addTriangle);
 		buttonMap.put("AddCircle",addCircle);
 		buttonMap.put("Bucket",bucket);
-		buttonMap.put("Pipette",pipette);
-		buttonMap.put("DarkTheme",darkTheme);
+		buttonMap.put("Pippette",pipette);
+		buttonMap.put("Change Theme",darkTheme);
 		buttonMap.put("ColorChooser",colorChooser);
 		buttonMap.put("ColorChooser2",colorChooser2);
-		buttonMap.put("Draw",draw);
+		buttonMap.put("Brush",draw);
 		buttonMap.put("Repere",repere);
 
 		//add icons to toolbar

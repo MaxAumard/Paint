@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.security.cert.Extension;
 
 import graphics.menus.extensions.AddImage;
 import graphics.menus.extensions.Save;
@@ -180,12 +181,6 @@ public class MenuBar extends java.awt.MenuBar {
 		final JCheckBoxMenuItem viewAddText = new JCheckBoxMenuItem("Add Text", true);
 		viewAddText.setIcon(setImageSize("icon/addText.png"));
 		Extensions.add(viewAddText);
-		viewAddText.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible("AddText",viewAddText.getState());
-			}
-		});
 
 		final JCheckBoxMenuItem viewChangeTheme = new JCheckBoxMenuItem("Change Theme", true);
 		viewChangeTheme.setIcon(setImageSize("icon/LightThemeIcon.png"));
@@ -202,6 +197,16 @@ public class MenuBar extends java.awt.MenuBar {
 		final JCheckBoxMenuItem viewBrush = new JCheckBoxMenuItem("Brush", true);
 		viewBrush.setIcon(setImageSize("icon/dessine.png"));
 		Extensions.add(viewBrush);
+
+		for(int i = 0; i<5;i++){
+			JCheckBoxMenuItem chckbx = (JCheckBoxMenuItem) Extensions.getItem(i);
+			chckbx.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					setVisible(chckbx.getText(),chckbx.getState());
+				}
+			});
+		}
 
 		JMenu layer = new JMenu("Layer");
 		layer.setForeground(Color.black);
@@ -220,10 +225,6 @@ public class MenuBar extends java.awt.MenuBar {
 		setDown.setBackground(new Color(239, 239, 239));//fond
 		setDown.setForeground(Color.black);//text
 		layer.add(setDown);
-	}
-
-	private void setVisible(ActionEvent actionEvent) {
-
 	}
 
 	public ImageIcon setImageSize(String path) throws IOException {
@@ -316,7 +317,7 @@ public class MenuBar extends java.awt.MenuBar {
 	}
 
 	public void setVisible(String s, boolean bool){
-		JButton button = (JButton) toolbar.getButtonMap().get("AddText");
+		Component button = (Component) toolbar.getButtonMap().get(s);
 		button.setVisible(bool);
 	}
 }
