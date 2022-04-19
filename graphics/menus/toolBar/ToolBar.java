@@ -171,7 +171,7 @@ public class ToolBar extends JToolBar{
 
 			}});
 		
-		JButton sizeChooser = new Button("icon/addRect.png","icon/addRect.png",new ActionListener(){
+		JButton sizeChooser = new Button("icon/size.png","icon/size.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				color1 = new Pipette(colorChooser).getColorPicked();
 				SizeChooser sizeChooser = new SizeChooser();

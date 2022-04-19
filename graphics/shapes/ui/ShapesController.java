@@ -171,6 +171,11 @@ public class ShapesController extends Controller {
 				translateArrow(0,1);
 			}
 		}
+		if(evt.getKeyCode()==88) {
+			if(evt.isControlDown()){
+				deleteShape();
+			}
+		}
 	}
 
 	public void keyReleased(KeyEvent evt)
