@@ -511,7 +511,7 @@ public class ShapesController extends Controller {
 		l.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
 
 		
-		SOrthonormal l2 = new SOrthonormal(new Point(0, 334), new Point(1700,334));
+		SOrthonormal l2 = new SOrthonormal(new Point(0, 350), new Point(1700,350));
 		l2.addAttributes(new SelectionAttributes());
 		l2.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
 		

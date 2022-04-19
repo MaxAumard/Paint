@@ -2,6 +2,7 @@ package graphics.menus.menuBar;
 
 
 import graphics.menus.toolBar.ToolBar;
+import graphics.shapes.ui.ShapeDraftman;
 import graphics.shapes.ui.ShapesController;
 import graphics.shapes.ui.ShapesView;
 
@@ -12,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.security.cert.Extension;
@@ -27,7 +29,7 @@ public class MenuBar extends java.awt.MenuBar {
 	ShapesView sview;
 	private String fileName;
 	private ToolBar toolbar;
-
+	
 	public MenuBar(ShapesView sview) throws IOException {
 		controller = (ShapesController) sview.getController();
 		this.sview = sview;
@@ -64,6 +66,16 @@ public class MenuBar extends java.awt.MenuBar {
 		openItem.setIcon(setImageSize("icon/open.png"));
 		openItem.setBorderPainted(false);
 		file.add(openItem);
+		
+		JMenuItem exportToPng = new JMenuItem("Export to PNG");
+		exportToPng.addActionListener( this::exportToPng);
+		exportToPng.setBackground(new Color(239, 239, 239));//fond
+		exportToPng.setForeground(Color.black);//text
+		exportToPng.setMnemonic('P');//demande d'ouvrir le menu
+		exportToPng.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));//pas besoin d'ouvrir le menu
+		exportToPng.setIcon(setImageSize("icon/new.png"));//icone
+		exportToPng.setBorderPainted(false);
+		file.add(exportToPng);
 
 		file.addSeparator();
 
@@ -319,5 +331,29 @@ public class MenuBar extends java.awt.MenuBar {
 	public void setVisible(String s, boolean bool){
 		Component button = (Component) toolbar.getButtonMap().get(s);
 		button.setVisible(bool);
+	}
+	
+	public void exportToPng(ActionEvent e) {
+		
+		BufferedImage bufferedImage = new BufferedImage(sview.getWidth(), sview.getHeight(), BufferedImage.TYPE_INT_RGB);
+		
+		Graphics2D graphics = bufferedImage.createGraphics();
+		
+		sview.printAll(graphics);
+		graphics.dispose();
+		
+		JFileChooser pathField =  new JFileChooser();
+		pathField.showSaveDialog(pathField);
+
+		String path = pathField.getSelectedFile().getAbsolutePath() + ".png";
+		
+		File file = new File(path);
+		try {
+			ImageIO.write(bufferedImage, "PNG", file);
+			System.out.println(file.getAbsolutePath());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }
