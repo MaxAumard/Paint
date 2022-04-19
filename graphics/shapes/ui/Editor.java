@@ -118,7 +118,7 @@ public class Editor extends JFrame
 		im.addAttributes(new SelectionAttributes());
 		this.model.add(im);
 
-		((ShapesController)this.sview.getController()).replaceCollec();
+		((ShapesController)this.sview.getController()).replaceCollec(SCollection.class);
 	}
 
 	public static void main(String[] args) throws IOException {

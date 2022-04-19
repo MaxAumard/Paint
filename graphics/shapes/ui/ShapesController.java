@@ -24,19 +24,16 @@ public class ShapesController extends Controller {
 	public ShapesView sview;
 	public boolean crayon;
 	public SCollection dessin;
-	public SCollection repere1;
-	public SCollection repere2;
+	public SCollection repere;
 	private int currentX, currentY, oldX, oldY;
 
 	public ShapesController(Object newModel) {
 		super(newModel);
 		this.crayon = false;
 		this.dessin = new SCollection();
-		this.repere1 = new SCollection();
-		this.repere2 = new SCollection();
+		this.repere = new SCollection();
 		dessin.addAttributes(new SelectionAttributes());
-		repere1.addAttributes(new SelectionAttributes());
-		repere2.addAttributes(new SelectionAttributes());
+		repere.addAttributes(new SelectionAttributes());
 	}
 
 	public void mousePressed(MouseEvent e)
@@ -133,7 +130,7 @@ public class ShapesController extends Controller {
 		if(evt.isControlDown()) {
 			if(evt.getKeyCode()==71 ) {
 				groupShape();
-				replaceCollec();
+				replaceCollec(SCollection.class);
 			}
 			if(evt.getKeyCode()==65){
 				selectAll();
@@ -475,17 +472,17 @@ public class ShapesController extends Controller {
 	}
 
 
-	public void replaceCollec() {
+	public void replaceCollec(Class c) {
 		SCollection sview = (SCollection) (this.getModel());
 		SCollection tempModel = new SCollection();
 		tempModel.addAttributes(new SelectionAttributes());
 		for(Shape s : sview.collection) {
-			if(s.getClass() == SCollection.class) {
+			if(s.getClass() == c) {
 				tempModel.add(s);
 			}
 		}
 		for(Shape s : sview.collection) {
-			if(s.getClass() != SCollection.class) {
+			if(s.getClass() != c) {
 				tempModel.add(s);
 			}
 		}
@@ -498,6 +495,7 @@ public class ShapesController extends Controller {
 	}
 	
 	public void setRepere() {
+		System.out.println("setrepere");
 		/*SLine line1 = new SLine(new Point(300, 0), new Point(300,1000));
 		line1.addAttributes(new ColorAttributes(true,true,Color.BLACK,Color.BLACK));
 		line1.addAttributes(new SelectionAttributes());
@@ -508,31 +506,44 @@ public class ShapesController extends Controller {
 		line2.addAttributes(new SelectionAttributes());
 	*/
 		
-		SLine l = new SLine(new Point(300, 0), new Point(300,1000));
+		SOrthonormal l = new SOrthonormal(new Point(300, 0), new Point(300,1000));
 		l.addAttributes(new SelectionAttributes());
 		l.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
-		repere1.add(l);
+
 		
-		SLine l2 = new SLine(new Point(0, 334), new Point(1700,334));
+		SOrthonormal l2 = new SOrthonormal(new Point(0, 334), new Point(1700,334));
 		l2.addAttributes(new SelectionAttributes());
 		l2.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
-		repere2.add(l2);
 		
 		SCollection view = (SCollection)(getModel());
-		view.add(repere1);
-		view.add(repere2);
-		this.getView().repaint();
+		view.add(l);
+		view.add(l2);
+		replaceCollec(SOrthonormal.class);
+	
 	}
 	
 	public void cutRepere() {
-		
-		for (Shape s :  repere1.collection) {
+	System.out.println("cutrepere");
+	/*	for (Shape s :  repere1.collection) {
 			System.out.println(s);
 			repere1.getShapes().remove(s);
 	}
 		for (Shape s :  repere2.collection) {
 			System.out.println(s);
 			repere2.getShapes().remove(s);
-	}	
+	}*/	
+		
+		SCollection tempModel = new SCollection();
+		tempModel.addAttributes(new SelectionAttributes());
+		
+		for (Shape s : ((SCollection) this.getModel()).collection) {
+			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
+			if( s.getClass()!=SOrthonormal.class ) {
+				tempModel.add(s);
+			}
+		}
+		
+		this.getView().setModel(tempModel);
+		this.getView().repaint();
 	}
 }

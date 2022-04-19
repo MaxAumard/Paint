@@ -82,7 +82,7 @@ public class ToolBar extends JToolBar{
 					//color1 = new Pipette(colorChooser).getColorPicked();
 					ImageIcon im = new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(31, 31, Image.SCALE_SMOOTH));
 					//draw.setBackground(Color.gray);
-					ImageIcon brush = new ImageIcon(new ImageIcon("icon/brush.png").getImage().getScaledInstance(96,96, Image.SCALE_SMOOTH));
+					ImageIcon brush = new ImageIcon(new ImageIcon("icon/stylo.png").getImage().getScaledInstance(96,96, Image.SCALE_SMOOTH));
 					sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(brush.getImage(), new Point(2, im.getIconHeight()), "dessine cursor"));
 					controller.setCrayon();
 				} else {
