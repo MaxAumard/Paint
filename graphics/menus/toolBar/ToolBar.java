@@ -18,6 +18,7 @@ public class ToolBar extends JToolBar{
 	private static Color color1 = Color.BLACK ;
 	private static Color color2 = Color.WHITE ;
 	public Button draw;
+	public Button repere;
 	
 
 
@@ -78,7 +79,8 @@ public class ToolBar extends JToolBar{
 					//color1 = new Pipette(colorChooser).getColorPicked();
 					ImageIcon im = new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(31, 31, Image.SCALE_SMOOTH));
 					//draw.setBackground(Color.gray);
-					sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(im.getImage(), new Point(2, im.getIconHeight()), "dessine cursor"));
+					ImageIcon brush = new ImageIcon(new ImageIcon("icon/brush.png").getImage().getScaledInstance(96,96, Image.SCALE_SMOOTH));
+					sview.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(brush.getImage(), new Point(2, im.getIconHeight()), "dessine cursor"));
 					controller.setCrayon();
 				} else {
 					sview.setCursor(Cursor.getDefaultCursor());
@@ -87,6 +89,20 @@ public class ToolBar extends JToolBar{
 			}
 		});
 
+		repere = new Button("icon/repere.png",new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				// TODO Auto-generated method stub
+				repere.setSelected(!repere.isSelected());
+				ShapesController controller = (ShapesController)sview.getController();
+				if (repere.isSelected()) {
+					
+					ImageIcon im = new ImageIcon(new ImageIcon("icon/repere.png").getImage().getScaledInstance(31, 31, Image.SCALE_SMOOTH));
+					controller.setRepere();
+				} else {
+					controller.cutRepere();
+				}
+			}
+		});
 
 		//pipette button
 		Button pipette = new Button("icon/pipette.png",new ActionListener(){
@@ -100,7 +116,7 @@ public class ToolBar extends JToolBar{
 		//darktheme button
 		ToggleButton darkTheme = new ToggleButton("icon/LightThemeIcon.png","icon/DarkThemeIcon.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				DarkTheme dt = new DarkTheme(e, jtoolBar, menuBar,layerMenu, sview, buttons, colorChooser);
+				DarkTheme dt = new DarkTheme(e, jtoolBar, menuBar,layerMenu, sview, buttons, colorChooser,colorChooser2);
 			}});
 
 
@@ -178,6 +194,9 @@ public class ToolBar extends JToolBar{
 
 		jtoolBar.addSeparator(new Dimension(10,0));
 		jtoolBar.add(draw);
+		
+		jtoolBar.addSeparator(new Dimension(10,0));
+		jtoolBar.add(repere);
 
 
 		//Enlever le focus sur chaque bouttons 

@@ -24,17 +24,27 @@ public class ShapesController extends Controller {
 	public ShapesView sview;
 	public boolean crayon;
 	public SCollection dessin;
+	public SCollection repere1;
+	public SCollection repere2;
+	private int currentX, currentY, oldX, oldY;
 
 	public ShapesController(Object newModel) {
 		super(newModel);
 		this.crayon = false;
 		this.dessin = new SCollection();
+		this.repere1 = new SCollection();
+		this.repere2 = new SCollection();
 		dessin.addAttributes(new SelectionAttributes());
+		repere1.addAttributes(new SelectionAttributes());
+		repere2.addAttributes(new SelectionAttributes());
 	}
 
 	public void mousePressed(MouseEvent e)
 	{
+		
 		lastPoint = new Point(e.getPoint());
+		oldX = e.getX();
+		oldY = e.getY();
 		//System.out.println("mouse Pressed");
 	}
 
@@ -81,13 +91,18 @@ public class ShapesController extends Controller {
 
 	public void mouseDragged(MouseEvent evt)
 	{
+		currentX = evt.getX();
+        currentY = evt.getY();
 		if(this.crayon) {
-			SCircle c = new SCircle(new Point(evt.getX(),evt.getY()),2);
+			SLine c = new SLine(new Point(oldX, oldY), new Point( currentX, currentY));
 			c.addAttributes(new SelectionAttributes());
 			c.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
 			dessin.add(c);
+			oldX = currentX;
+	        oldY = currentY;
 			SCollection view = (SCollection)(getModel());
 			view.add(dessin);
+			
 
 
 		}
@@ -102,6 +117,7 @@ public class ShapesController extends Controller {
 		}
 		this.lastPoint = evt.getPoint();
 		this.getView().repaint();
+		
 		
 	}
 
@@ -346,6 +362,12 @@ public class ShapesController extends Controller {
 			ColorAttributes ca = (ColorAttributes) triangle.getAttributes("Color");
 			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
 			newShape.addAttributes(new SelectionAttributes());
+		}else if (s instanceof SLine) {
+			SLine line = (SLine) s;
+			newShape = new SLine(new Point((line.p1)), new Point(line.p2));
+			ColorAttributes ca = (ColorAttributes) line.getAttributes("Color");
+			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+			newShape.addAttributes(new SelectionAttributes());
 		}
 		else if (s instanceof SText) {
 			SText txt = (SText) s;
@@ -416,6 +438,14 @@ public class ShapesController extends Controller {
 						newS.addAttributes(new SelectionAttributes());
 						newShape.add(newS);
 					}
+					else if (shapeInside.getClass() == SLine.class){
+						SLine line = (SLine) shapeInside;
+						newS = new SLine(new Point(line.p1),new Point(line.p2));
+						ColorAttributes ca = (ColorAttributes) line.getAttributes("Color");
+						newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+						newS.addAttributes(new SelectionAttributes());
+						newShape.add(newS);
+					}
 					else if (shapeInside.getClass() == SImage.class) {
 						SImage image = (SImage) shapeInside;
 						try {
@@ -465,5 +495,44 @@ public class ShapesController extends Controller {
 
 	public void setCrayon() {
 		this.crayon=!crayon;
+	}
+	
+	public void setRepere() {
+		/*SLine line1 = new SLine(new Point(300, 0), new Point(300,1000));
+		line1.addAttributes(new ColorAttributes(true,true,Color.BLACK,Color.BLACK));
+		line1.addAttributes(new SelectionAttributes());
+		
+		
+		SLine line2 = new SLine(new Point(0, 334), new Point(1700,334));
+		line2.addAttributes(new ColorAttributes(true,true,Color.BLACK,Color.BLACK));
+		line2.addAttributes(new SelectionAttributes());
+	*/
+		
+		SLine l = new SLine(new Point(300, 0), new Point(300,1000));
+		l.addAttributes(new SelectionAttributes());
+		l.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
+		repere1.add(l);
+		
+		SLine l2 = new SLine(new Point(0, 334), new Point(1700,334));
+		l2.addAttributes(new SelectionAttributes());
+		l2.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		repere2.add(l2);
+		
+		SCollection view = (SCollection)(getModel());
+		view.add(repere1);
+		view.add(repere2);
+		this.getView().repaint();
+	}
+	
+	public void cutRepere() {
+		
+		for (Shape s :  repere1.collection) {
+			System.out.println(s);
+			repere1.getShapes().remove(s);
+	}
+		for (Shape s :  repere2.collection) {
+			System.out.println(s);
+			repere2.getShapes().remove(s);
+	}	
 	}
 }

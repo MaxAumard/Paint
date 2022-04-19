@@ -24,7 +24,7 @@ public class MenuBar extends java.awt.MenuBar {
 	private ShapesController controller;
 	ShapesView sview;
 	private String fileName; 
-
+	int iconSize = 30;
 	public MenuBar(ShapesView sview) throws IOException {
 		controller = (ShapesController) sview.getController();
 		this.sview = sview;
@@ -51,16 +51,17 @@ public class MenuBar extends java.awt.MenuBar {
 		newItem.setForeground(Color.black);//text
 		newItem.setMnemonic('N');//demande d'ouvrir le menu
 		newItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));//pas besoin d'ouvrir le menu
-		newItem.setIcon(setImageSize("icon/new.png"));//icone
+		newItem.setIcon(new ImageIcon(new ImageIcon("icon/new.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		newItem.setBorderPainted(false);
 		file.add(newItem);
 
-		JMenuItem openItem = new JMenuItem("Open File...");
-		openItem.setBackground(new Color(239, 239, 239));//fond
-		openItem.setForeground(Color.black);//text
-		openItem.setIcon(setImageSize("icon/open.png"));
-		openItem.setBorderPainted(false);
-		file.add(openItem);
+		JMenuItem openFile = new JMenuItem("Open File...");
+		openFile.addActionListener( this::openFile);
+		openFile.setBackground(new Color(239, 239, 239));//fond
+		openFile.setForeground(Color.black);//text
+		openFile.setIcon(new ImageIcon(new ImageIcon("icon/open.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
+		openFile.setBorderPainted(false);
+		file.add(openFile);
 
 		file.addSeparator();
 
@@ -70,7 +71,7 @@ public class MenuBar extends java.awt.MenuBar {
 		saveItem.setForeground(Color.black);
 		saveItem.setMnemonic('S');
 		saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
-		saveItem.setIcon(setImageSize("icon/save.png"));
+		saveItem.setIcon(new ImageIcon(new ImageIcon("icon/save.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		saveItem.setBorderPainted(false);
 		file.add(saveItem); 
 
@@ -78,7 +79,7 @@ public class MenuBar extends java.awt.MenuBar {
 		saveasItem.addActionListener(this::mnuSaveAsListerner);
 		saveasItem.setBackground(new Color(239, 239, 239));
 		saveasItem.setForeground(Color.black);
-		saveasItem.setIcon(setImageSize("icon/saveas.png"));
+		saveasItem.setIcon(new ImageIcon(new ImageIcon("icon/saveas.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		saveasItem.setBorderPainted(false);
 		file.add(saveasItem);
 
@@ -88,9 +89,19 @@ public class MenuBar extends java.awt.MenuBar {
 		openPictureItem.addActionListener(this::mnuOpenPictureListerner);
 		openPictureItem.setBackground(new Color(239, 239, 239));
 		openPictureItem.setForeground(Color.black);
-		openPictureItem.setIcon(setImageSize("icon/OpenPicture.png"));
+		openPictureItem.setIcon(new ImageIcon(new ImageIcon("icon/OpenPicture.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		openPictureItem.setBorderPainted(false);
 		file.add(openPictureItem); 
+		
+		JMenuItem exportToPng = new JMenuItem("Export to PNG");
+		exportToPng.addActionListener( this::exportToPng);
+		exportToPng.setBackground(new Color(239, 239, 239));//fond
+		exportToPng.setForeground(Color.black);//text
+		exportToPng.setMnemonic('P');//demande d'ouvrir le menu
+		exportToPng.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));//pas besoin d'ouvrir le menu
+		exportToPng.setIcon(new ImageIcon(new ImageIcon("icon/save.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
+		exportToPng.setBorderPainted(false);
+		file.add(exportToPng);
 		
 		JMenu home = new JMenu("Home");
 		home.setForeground(Color.black);
@@ -103,7 +114,7 @@ public class MenuBar extends java.awt.MenuBar {
 		CopyItem.addActionListener(this::copyShape);
 		CopyItem.setBackground(new Color(239, 239, 239));//fond
 		CopyItem.setForeground(Color.black);//text
-		CopyItem.setIcon(setImageSize("icon/copy.png"));
+		CopyItem.setIcon(new ImageIcon(new ImageIcon("icon/copy.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		CopyItem.setMnemonic('C');
 		CopyItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
 		CopyItem.setBorderPainted(false);
@@ -113,7 +124,7 @@ public class MenuBar extends java.awt.MenuBar {
 		PasteItem.addActionListener(this::pasteShape);
 		PasteItem.setBackground(new Color(239, 239, 239));//fond
 		PasteItem.setForeground(Color.black);//text
-		PasteItem.setIcon(setImageSize("icon/paste.png"));
+		PasteItem.setIcon(new ImageIcon(new ImageIcon("icon/paste.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		PasteItem.setMnemonic('V');
 		PasteItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK));
 		PasteItem.setBorderPainted(false);
@@ -130,7 +141,7 @@ public class MenuBar extends java.awt.MenuBar {
 		addPicture.addActionListener(this::addPicture);
 		addPicture.setBackground(new Color(239, 239, 239));//fond
 		addPicture.setForeground(Color.black);//text
-		addPicture.setIcon(setImageSize("icon/addPicture.png"));
+		addPicture.setIcon(new ImageIcon(new ImageIcon("icon/addPicture.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		addPicture.setBorderPainted(false);
 		shapes.add(addPicture);
 		
@@ -140,7 +151,7 @@ public class MenuBar extends java.awt.MenuBar {
 		addRectangle.addActionListener(this::addRectangle);
 		addRectangle.setBackground(new Color(239, 239, 239));//fond
 		addRectangle.setForeground(Color.black);//text
-		addRectangle.setIcon(setImageSize("icon/addRect.png"));
+		addRectangle.setIcon(new ImageIcon(new ImageIcon("icon/addRect.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		addRectangle.setBorderPainted(false);
 		shapes.add(addRectangle);
 		
@@ -148,7 +159,7 @@ public class MenuBar extends java.awt.MenuBar {
 		addCircle.addActionListener(this::addCircle);
 		addCircle.setBackground(new Color(239, 239, 239));//fond
 		addCircle.setForeground(Color.black);//text
-		addCircle.setIcon(setImageSize("icon/addCircle.png"));
+		addCircle.setIcon(new ImageIcon(new ImageIcon("icon/addCircle.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		addCircle.setBorderPainted(false);
 		shapes.add(addCircle);
 		
@@ -156,7 +167,7 @@ public class MenuBar extends java.awt.MenuBar {
 		addTriangle.addActionListener(this::addTriangle);
 		addTriangle.setBackground(new Color(239, 239, 239));//fond
 		addTriangle.setForeground(Color.black);//text
-		addTriangle.setIcon(setImageSize("icon/addTriangle.png"));
+		addTriangle.setIcon(new ImageIcon(new ImageIcon("icon/addTriangle.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		addTriangle.setBorderPainted(false);
 		shapes.add(addTriangle);
 		
@@ -164,7 +175,7 @@ public class MenuBar extends java.awt.MenuBar {
 		addText.addActionListener(this::addText);
 		addText.setBackground(new Color(239, 239, 239));//fond
 		addText.setForeground(Color.black);//text
-		addText.setIcon(setImageSize("icon/addText.png"));
+		addText.setIcon(new ImageIcon(new ImageIcon("icon/addText.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		addText.setBorderPainted(false);
 		shapes.add(addText);
 
@@ -176,23 +187,23 @@ public class MenuBar extends java.awt.MenuBar {
 		menuBar.add(Extensions);
 		
 		final JCheckBoxMenuItem viewAddText = new JCheckBoxMenuItem("Add Text", true);
-		viewAddText.setIcon(setImageSize("icon/addText.png"));
+		viewAddText.setIcon(new ImageIcon(new ImageIcon("icon/addText.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		Extensions.add(viewAddText);
 		
 		final JCheckBoxMenuItem viewChangeTheme = new JCheckBoxMenuItem("Change Theme", true);
-		viewChangeTheme.setIcon(setImageSize("icon/LightThemeIcon.png"));
+		viewChangeTheme.setIcon(new ImageIcon(new ImageIcon("icon/LightThemeIcon.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		Extensions.add(viewChangeTheme);
 		
 		final JCheckBoxMenuItem viewPippette = new JCheckBoxMenuItem("Pippette", true);
-		viewPippette.setIcon(setImageSize("icon/pipette.png"));
+		viewPippette.setIcon(new ImageIcon(new ImageIcon("icon/pipette.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		Extensions.add(viewPippette);
 		
 		final JCheckBoxMenuItem viewBucket = new JCheckBoxMenuItem("Bucket", true);
-		viewBucket.setIcon(setImageSize("icon/bucket.png"));
+		viewBucket.setIcon(new ImageIcon(new ImageIcon("icon/Bucket.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		Extensions.add(viewBucket);
 		
 		final JCheckBoxMenuItem viewBrush = new JCheckBoxMenuItem("Brush", true);
-		viewBrush.setIcon(setImageSize("icon/dessine.png"));
+		viewBrush.setIcon(new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_AREA_AVERAGING)));//icone
 		Extensions.add(viewBrush);
 
 		JMenu layer = new JMenu("Layer");
@@ -260,6 +271,13 @@ public class MenuBar extends java.awt.MenuBar {
 		newImage.add(sview);
 	}
 
+	private void openFile(ActionEvent event) {
+		System.out.println("Open File...");
+		newFile();
+		//OpenFile OpenFile = new OpenFile();
+	//	OpenFile.add(sview);
+	}
+
 	private void mnuSaveListerner(ActionEvent event) {
 		System.out.println("File save");
 		Save save = new Save();
@@ -280,6 +298,10 @@ public class MenuBar extends java.awt.MenuBar {
 		save.saveAs(sview);
 		this.fileName = save.getpath();
 
+	}
+	
+	private void exportToPng(ActionEvent e) {
+		
 	}
 
 	private void newFile() {

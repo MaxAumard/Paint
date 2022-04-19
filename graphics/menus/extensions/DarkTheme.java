@@ -13,7 +13,7 @@ import java.util.Iterator;
 
 public class DarkTheme {
 
-    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, LayerMenu layerMenu, ShapesView sview, Collection<Button> tbButtons, JButton cc){
+    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, LayerMenu layerMenu, ShapesView sview, Collection<Button> tbButtons, JButton cc, JButton cc2){
         Iterator<Button> iterator = tbButtons.iterator();
         Iterator<JButton> iteratorlm = layerMenu.getButtons().iterator();
 
@@ -45,13 +45,15 @@ public class DarkTheme {
             //colorchooser picture
             ImageIcon icon = new ImageIcon(new ImageIcon("icon/darkColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
             cc.setIcon(icon);
-
+            cc2.setIcon(icon);
+            
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceDarkColor);
             while (iteratorlm.hasNext()) {
                 JButton bt = iteratorlm.next();
                 bt.setBackground(interfaceDarkColor);
                 bt.setForeground(Color.white);
+                layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceDarkColor));
                 //layerMenu.setBackgroundColor(interfaceDarkColor);
                 //layerMenu.refreshLayer(sview);
 
@@ -87,9 +89,12 @@ public class DarkTheme {
             //colorchooser picture
             ImageIcon icon = new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
             cc.setIcon(icon);
-
+            cc2.setIcon(icon);
+            
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceLightColor);
+            layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceLightColor));
+
             while (iteratorlm.hasNext()) {
                 JButton bt = iteratorlm.next();
                 bt.setBackground(interfaceLightColor);

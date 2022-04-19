@@ -110,7 +110,17 @@ public class Editor extends JFrame
 		tri2.addAttributes(new ColorAttributes(true,true,Color.DARK_GRAY,Color.PINK));
 		tri2.addAttributes(new SelectionAttributes());
 		this.model.add(tri2);
-
+		
+		/*SLine line1 = new SLine(new Point(300, 0), new Point(300,1000));
+		line1.addAttributes(new ColorAttributes(true,true,Color.BLACK,Color.BLACK));
+		line1.addAttributes(new SelectionAttributes());
+		this.model.add(line1);
+		
+		SLine line2 = new SLine(new Point(0, 334), new Point(1700,334));
+		line2.addAttributes(new ColorAttributes(true,true,Color.BLACK,Color.BLACK));
+		line2.addAttributes(new SelectionAttributes());
+		this.model.add(line2);
+		*/
 
 		SImage im = new SImage("https://c.tenor.com/mCiM7CmGGI4AAAAM/naruto.gif",new Point(250,175),sview);
 		//im.addAttributes(new ColorAttributes(true,true,Color.black,Color.black));

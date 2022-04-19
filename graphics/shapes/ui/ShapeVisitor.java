@@ -17,4 +17,6 @@ public interface ShapeVisitor {
 	public void visitImage(SImage image);
 	
 	public void visitTriangle(STriangle t);
+
+	public void visitLine(SLine l);
 }
