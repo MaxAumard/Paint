@@ -2,8 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 
-import graphics.shapes.ui.ShapeVisitor;
-
 public class SOrthonormal extends SLine {
 	
 	private boolean horizontal;

@@ -17,6 +17,7 @@ import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.attributes.SizeAttributes;
 import graphics.shapes.ui.ShapesView;
+import graphics.shapes.ui.ShapesController;
 
 public class SizeChooser {
 	
@@ -40,8 +41,7 @@ public class SizeChooser {
 		if (result == JOptionPane.OK_OPTION && this.tester(sizeChooser)) {
 			int s = Integer.valueOf(sizeChooser.getText());
 			
-			//SizeAttributes sa = new SizeAttributes(s);
-			
+			((ShapesController)sview.getController()).setPenSize(s);
 			
 		}
 		else if(result == JOptionPane.CANCEL_OPTION || result == JOptionPane.CLOSED_OPTION) {

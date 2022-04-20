@@ -12,6 +12,7 @@ import java.util.Iterator;
 import graphics.shapes.*;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
+import graphics.shapes.attributes.SizeAttributes;
 import graphics.ui.Controller;
 
 public class ShapesController extends Controller {
@@ -28,6 +29,7 @@ public class ShapesController extends Controller {
 	public SCollection dessin;
 	public SCollection repere;
 	private int currentX, currentY, oldX, oldY;
+	private int paintSize = 4;
 
 	public ShapesController(Object newModel) {
 		super(newModel);
@@ -97,6 +99,7 @@ public class ShapesController extends Controller {
 			SLine c = new SLine(new Point(oldX, oldY), new Point( currentX, currentY));
 			c.addAttributes(new SelectionAttributes());
 			c.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
+			c.addAttributes(new SizeAttributes(paintSize));
 			dessin.add(c);
 			oldX = currentX;
 			oldY = currentY;
@@ -671,5 +674,10 @@ public class ShapesController extends Controller {
 
 		this.getView().setModel(tempModel);
 		this.getView().repaint();
+	}
+
+	public void setPenSize(int s) {
+		// TODO Auto-generated method stub
+		this.paintSize  = s;
 	}
 }
