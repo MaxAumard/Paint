@@ -2,6 +2,7 @@ package graphics.menus.menuBar;
 
 
 import graphics.menus.toolBar.ToolBar;
+import graphics.shapes.Shape;
 import graphics.shapes.ui.ShapeDraftman;
 import graphics.shapes.ui.ShapesController;
 import graphics.shapes.ui.ShapesView;
@@ -66,21 +67,21 @@ public class MenuBar extends java.awt.MenuBar {
 		openItem.setIcon(new ImageIcon(new ImageIcon("icon/open.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		openItem.setBorderPainted(false);
 		file.add(openItem);
-		
+
 		JMenuItem exportToPng = new JMenuItem("Export to PNG");
 		exportToPng.addActionListener(e ->{  // e->  : expression lambda remplacement de new ActionEvent
 			BufferedImage bufferedImage = new BufferedImage(sview.getWidth(), sview.getHeight(), BufferedImage.TYPE_INT_RGB);
-			
+
 			Graphics2D graphics = bufferedImage.createGraphics();
-			
+
 			sview.printAll(graphics);
 			graphics.dispose();
-			
+
 			JFileChooser pathField =  new JFileChooser();
 			pathField.showSaveDialog(pathField);
 
 			String path = pathField.getSelectedFile().getAbsolutePath() + ".png";
-			
+
 			File f2 = new File(path);
 			try {
 				ImageIO.write(bufferedImage, "PNG", f2);
@@ -231,7 +232,7 @@ public class MenuBar extends java.awt.MenuBar {
 		viewBrush.setIcon(new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		Extensions.add(viewBrush);
 
-		for(int i = 0; i<5;i++){
+		for(int i = 0; i<Extensions.getComponents().length;i++){
 			JCheckBoxMenuItem chckbx = (JCheckBoxMenuItem) Extensions.getItem(i);
 			chckbx.addActionListener(new ActionListener() {
 				@Override
@@ -248,16 +249,54 @@ public class MenuBar extends java.awt.MenuBar {
 		menuBar.add(layer);
 
 		JMenuItem setUp = new JMenuItem("Move layer up");
-		setUp.addActionListener(this::addText);
 		setUp.setBackground(new Color(239, 239, 239));//fond
 		setUp.setForeground(Color.black);//text
 		layer.add(setUp);
+		setUp.addActionListener(this::moveUp);
+
 
 		JMenuItem setDown = new JMenuItem("Move layer down");
-		setDown.addActionListener(this::addText);
 		setDown.setBackground(new Color(239, 239, 239));//fond
 		setDown.setForeground(Color.black);//text
 		layer.add(setDown);
+		setDown.addActionListener(this::moveDown);
+
+	}
+
+	public void moveUp(ActionEvent event) {
+		SCollection view = (SCollection) sview.getModel();
+		SCollection tempColl = (SCollection) sview.getModel();
+		for(int i=0;i<view.collection.size();i++){
+			Shape s = view.collection.get(i);
+			SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
+			if(sAtt.isSelected()){
+				if(i+1<view.collection.size()) {
+					Shape temp = tempColl.collection.get(i + 1);
+					tempColl.collection.set(i + 1, s);
+					tempColl.collection.set(i, temp);
+				}
+			}
+			sview.setModel(tempColl);
+			sview.repaint();
+		}
+	}
+
+	public void moveDown(ActionEvent e) {
+		SCollection view = (SCollection) sview.getModel();
+		SCollection tempColl = (SCollection) sview.getModel();
+		for(int i=0;i<view.collection.size();i++){
+			Shape s = view.collection.get(i);
+			SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
+			if(sAtt.isSelected()){
+				if(i-1>0) {
+					Shape temp = tempColl.collection.get(i-1);
+					tempColl.collection.set(i-1, s);
+					tempColl.collection.set(i, temp);
+				}
+			}
+			sview.setModel(tempColl);
+			sview.repaint();
+		}
 	}
 
 	public ImageIcon setImageSize(String path) throws IOException {
@@ -353,6 +392,5 @@ public class MenuBar extends java.awt.MenuBar {
 		Component button = (Component) toolbar.getButtonMap().get(s);
 		button.setVisible(bool);
 	}
-	
 
 }
