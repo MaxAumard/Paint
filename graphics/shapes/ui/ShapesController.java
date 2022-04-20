@@ -24,6 +24,7 @@ public class ShapesController extends Controller {
 	private ArrayList<Shape> cut;
 	public ShapesView sview;
 	public boolean crayon;
+	public boolean rep;
 	public SCollection dessin;
 	public SCollection repere;
 	private int currentX, currentY, oldX, oldY;
@@ -31,6 +32,7 @@ public class ShapesController extends Controller {
 	public ShapesController(Object newModel) {
 		super(newModel);
 		this.crayon = false;
+		this.rep = false;
 		this.dessin = new SCollection();
 		this.repere = new SCollection();
 		dessin.addAttributes(new SelectionAttributes());
@@ -185,6 +187,7 @@ public class ShapesController extends Controller {
 		if(evt.getKeyCode() == evt.VK_ESCAPE) {
 			unselectAll();
 			this.crayon=false;
+			this.rep=false;
 			getView().setCursor(Cursor.getDefaultCursor());
 
 			
@@ -625,13 +628,15 @@ public class ShapesController extends Controller {
 
 	public void setRepere() {
 		System.out.println("setrepere");
-
-		SOrthonormal l = new SOrthonormal(new Point(300, 0), new Point(300,1000));
+		
+		this.rep = true;
+		
+		SOrthonormal l = new SOrthonormal(new Point(getView().getWidth()/2, 0), new Point(getView().getWidth()/2,getView().getHeight()), true);
 		l.addAttributes(new SelectionAttributes());
 		l.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
 
 
-		SOrthonormal l2 = new SOrthonormal(new Point(0, 350), new Point(1700,350));
+		SOrthonormal l2 = new SOrthonormal(new Point(0, getView().getHeight()/2), new Point(getView().getWidth(),getView().getHeight()/2), false);
 		l2.addAttributes(new SelectionAttributes());
 		l2.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
 
@@ -644,6 +649,7 @@ public class ShapesController extends Controller {
 
 	public void cutRepere() {
 		System.out.println("cutrepere");
+		this.rep = false;
 		/*	for (Shape s :  repere1.collection) {
 			System.out.println(s);
 			repere1.getShapes().remove(s);
