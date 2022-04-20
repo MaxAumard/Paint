@@ -488,8 +488,6 @@ public class ShapesController extends Controller {
 			}
 		}
 
-
-
 		newShape.addAttributes(new SelectionAttributes());
 
 
@@ -501,14 +499,14 @@ public class ShapesController extends Controller {
 		Shape newS =null;
 		SCollection view = (SCollection)(getModel());
 		ArrayList<Shape> shapes = new ArrayList<Shape>();
-		
+
 		for(Shape s : ((SCollection) this.getModel()).collection) {
 			shapes.add(s);
 		}
-		
+
 		for(Shape s : shapes) {
 			SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
-			
+
 			if(sAtt.isSelected() && s.getClass()==SCollection.class ) {
 				Iterator<Shape> sInside = ((SCollection) s).iterator();
 				System.out.println(((SCollection) s).getCollection().size());
@@ -535,8 +533,8 @@ public class ShapesController extends Controller {
 							newS.addAttributes(new SelectionAttributes());
 							newS.addAttributes(new SelectionAttributes());
 							view.add(newS);
-							
-						} 
+
+						}
 						else if (shapeInside.getClass() == SText.class) {
 							System.out.println("ajout txt");
 							SText txt = (SText) shapeInside;
@@ -597,11 +595,11 @@ public class ShapesController extends Controller {
 				}
 				shapes.remove(s);
 			}
-			
+
 
 		}
 		((SCollection)this.getModel()).collection = shapes;
-		
+
 		return newS;
 	}
 	*/
@@ -653,14 +651,6 @@ public class ShapesController extends Controller {
 	public void cutRepere() {
 		System.out.println("cutrepere");
 		this.rep = false;
-		/*	for (Shape s :  repere1.collection) {
-			System.out.println(s);
-			repere1.getShapes().remove(s);
-	}
-		for (Shape s :  repere2.collection) {
-			System.out.println(s);
-			repere2.getShapes().remove(s);
-	}*/	
 
 		SCollection tempModel = new SCollection();
 		tempModel.addAttributes(new SelectionAttributes());

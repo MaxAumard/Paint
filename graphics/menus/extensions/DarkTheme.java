@@ -3,6 +3,7 @@ package graphics.menus.extensions;
 import graphics.menus.layer.LayerMenu;
 import graphics.menus.toolBar.Button;
 import graphics.menus.toolBar.ToggleButton;
+import graphics.shapes.SCollection;
 import graphics.shapes.ui.ShapesView;
 
 import javax.swing.*;
@@ -16,7 +17,6 @@ public class DarkTheme {
     public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, LayerMenu layerMenu, ShapesView sview, Collection<Button> tbButtons, JButton cc, JButton cc2){
         Iterator<Button> iterator = tbButtons.iterator();
         Iterator<JButton> iteratorlm = layerMenu.getButtons().iterator();
-
         // Darkmode
         if (((JToggleButton)e.getSource()).isSelected()){
             Color interfaceDarkColor = new Color(31,31,31);
@@ -46,6 +46,8 @@ public class DarkTheme {
             ImageIcon icon = new ImageIcon(new ImageIcon("icon/darkColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
             cc.setIcon(icon);
             cc2.setIcon(icon);
+
+            layerMenu.printbuttonsarray(layerMenu.getButtons());
             
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceDarkColor);
@@ -54,11 +56,9 @@ public class DarkTheme {
                 bt.setBackground(interfaceDarkColor);
                 bt.setForeground(Color.white);
                 layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceDarkColor));
-                //layerMenu.setBackgroundColor(interfaceDarkColor);
-                //layerMenu.refreshLayer(sview);
-
-
             }
+            layerMenu.refreshLayer(sview);
+            //TODO pk refresh menu clear et ne refresh pas la layerbar
         }
         //LightMode
         else{
@@ -92,15 +92,16 @@ public class DarkTheme {
             cc2.setIcon(icon);
             
             //layerMenu
-            layerMenu.getMyJMenuBar().setBackground(interfaceLightColor);
-            layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceLightColor));
+            layerMenu.printbuttonsarray(layerMenu.getButtons());
 
+            //layerMenu
+            layerMenu.getMyJMenuBar().setBackground(interfaceLightColor);
             while (iteratorlm.hasNext()) {
                 JButton bt = iteratorlm.next();
                 bt.setBackground(interfaceLightColor);
                 bt.setForeground(Color.black);
-                //layerMenu.setBackgroundColor(interfaceLightColor);
-                //layerMenu.refreshLayer(sview);
+                layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceLightColor));
+
             }
         }
     }
