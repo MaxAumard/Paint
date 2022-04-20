@@ -80,7 +80,7 @@ public class Editor extends JFrame
 		t.addAttributes(new FontAttributes());
 		t.addAttributes(new SelectionAttributes());
 		this.model.add(t);
-
+		
 		SCollection sc = new SCollection();
 		sc.addAttributes(new SelectionAttributes());
 		r= new SRectangle(new Point(20,30),30,30);
@@ -99,6 +99,12 @@ public class Editor extends JFrame
 		tri.addAttributes(new SelectionAttributes());
 		this.model.add(tri);
 
+		
+		/*triangle à l'endroit*/
+		STriangle tri2 = new STriangle(new Point(175, 20), new Point(100,80), new Point(250,80),3);
+		tri2.addAttributes(new ColorAttributes(true,true,Color.DARK_GRAY,Color.PINK));
+		tri2.addAttributes(new SelectionAttributes());
+		this.model.add(tri2);
 
 		SPoint p= new SPoint(new Point(20,20),"(0;0)");
 		p.addAttributes(new ColorAttributes(false,false,Color.WHITE,Color.WHITE));
@@ -106,11 +112,7 @@ public class Editor extends JFrame
 		p.addAttributes(new SelectionAttributes());
 		this.model.add(p);
 
-		/*triangle à l'endroit*/
-		STriangle tri2 = new STriangle(new Point(175, 20), new Point(100,80), new Point(250,80),3);
-		tri2.addAttributes(new ColorAttributes(true,true,Color.DARK_GRAY,Color.PINK));
-		tri2.addAttributes(new SelectionAttributes());
-		this.model.add(tri2);
+		
 
 
 		SImage im = new SImage("https://c.tenor.com/mCiM7CmGGI4AAAAM/naruto.gif",new Point(250,175),sview);

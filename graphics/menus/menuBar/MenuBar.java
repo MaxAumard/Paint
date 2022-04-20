@@ -51,7 +51,7 @@ public class MenuBar extends java.awt.MenuBar {
 
 
 		JMenuItem newItem = new JMenuItem("New");
-		newItem.addActionListener( this::mnuNewListerner);
+		newItem.addActionListener(this::mnuNewListerner);
 		newItem.setBackground(new Color(239, 239, 239));//fond
 		newItem.setForeground(Color.black);//text
 		newItem.setMnemonic('N');//demande d'ouvrir le menu
@@ -68,7 +68,28 @@ public class MenuBar extends java.awt.MenuBar {
 		file.add(openItem);
 		
 		JMenuItem exportToPng = new JMenuItem("Export to PNG");
-		exportToPng.addActionListener( this::exportToPng);
+		exportToPng.addActionListener(e ->{  // e->  : expression lambda remplacement de new ActionEvent
+			BufferedImage bufferedImage = new BufferedImage(sview.getWidth(), sview.getHeight(), BufferedImage.TYPE_INT_RGB);
+			
+			Graphics2D graphics = bufferedImage.createGraphics();
+			
+			sview.printAll(graphics);
+			graphics.dispose();
+			
+			JFileChooser pathField =  new JFileChooser();
+			pathField.showSaveDialog(pathField);
+
+			String path = pathField.getSelectedFile().getAbsolutePath() + ".png";
+			
+			File f2 = new File(path);
+			try {
+				ImageIO.write(bufferedImage, "PNG", f2);
+				System.out.println(f2.getAbsolutePath());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		exportToPng.setBackground(new Color(239, 239, 239));//fond
 		exportToPng.setForeground(Color.black);//text
 		exportToPng.setMnemonic('P');//demande d'ouvrir le menu
@@ -333,27 +354,5 @@ public class MenuBar extends java.awt.MenuBar {
 		button.setVisible(bool);
 	}
 	
-	public void exportToPng(ActionEvent e) {
-		
-		BufferedImage bufferedImage = new BufferedImage(sview.getWidth(), sview.getHeight(), BufferedImage.TYPE_INT_RGB);
-		
-		Graphics2D graphics = bufferedImage.createGraphics();
-		
-		sview.printAll(graphics);
-		graphics.dispose();
-		
-		JFileChooser pathField =  new JFileChooser();
-		pathField.showSaveDialog(pathField);
 
-		String path = pathField.getSelectedFile().getAbsolutePath() + ".png";
-		
-		File file = new File(path);
-		try {
-			ImageIO.write(bufferedImage, "PNG", file);
-			System.out.println(file.getAbsolutePath());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
 }
