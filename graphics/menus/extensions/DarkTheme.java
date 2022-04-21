@@ -51,12 +51,8 @@ public class DarkTheme {
             
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceDarkColor);
-            while (iteratorlm.hasNext()) {
-                JButton bt = iteratorlm.next();
-                bt.setBackground(interfaceDarkColor);
-                bt.setForeground(Color.white);
-                layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceDarkColor));
-            }
+            layerMenu.setBackgroundColor(interfaceDarkColor);
+            layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceDarkColor));
             layerMenu.refreshLayer(sview);
             //TODO pk refresh menu clear et ne refresh pas la layerbar
         }
@@ -96,13 +92,10 @@ public class DarkTheme {
 
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceLightColor);
-            while (iteratorlm.hasNext()) {
-                JButton bt = iteratorlm.next();
-                bt.setBackground(interfaceLightColor);
-                bt.setForeground(Color.black);
-                layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceLightColor));
+            layerMenu.setBackgroundColor(interfaceLightColor);
+            layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceLightColor));
+            layerMenu.refreshLayer(sview);
 
-            }
         }
     }
 

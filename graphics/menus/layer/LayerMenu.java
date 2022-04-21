@@ -69,7 +69,7 @@ public class LayerMenu {
 
                 Point p = s.getLoc();
                 if (s.getClass() == SCollection.class){
-                    ((SCollection) s).setLocCollection();
+                    ((SCollection) s).setLocCollectionZero();
                 }
                 else if(s.getClass() == SText.class){
                     s.setLoc(new Point(0,16));
@@ -86,18 +86,15 @@ public class LayerMenu {
 
                     bi = new BufferedImage(triZero.getBounds().width, triZero.getBounds().height, TYPE_INT_RGB);
                     displayBackgroundColor(bi,max);
-
-                    draftman.setGraphics(g);
                     draftman.visitShape(triZero);
                 }
                 else {
 
                     displayBackgroundColor(bi,max);
-
-                    draftman.setGraphics(g);
                     draftman.visitShape(s);
                 }
                 if (s.getClass() != SCollection.class){s.setLoc(p);}
+                else {((SCollection) s).setLocCollection(p.x,p.y);}
 
 
                 JButton btn = new JButton(nameShape(s,count),new ImageIcon(new ImageIcon(bi).getImage().getScaledInstance(30,30,SCALE_SMOOTH)));
@@ -160,7 +157,7 @@ public class LayerMenu {
     }
     public void setBackgroundColor(Color c){
         this.bcolor = c;
-        if (c == new Color(239, 239, 239)){
+        if (c.getGreen() > 200 && c.getGreen() > 200 && c.getRed() > 200 &&c.getBlue() > 200 ){
             this.fcolor = Color.black;
         }
         else{
@@ -172,6 +169,7 @@ public class LayerMenu {
         g = bi.getGraphics();
         g.setColor(bcolor);
         g.fillRect(0, 0,max, max);
+        draftman.setGraphics(g);
     }
 
     public void printbuttonsarray(ArrayList btns){

@@ -195,10 +195,10 @@ public class ShapesController extends Controller {
 			this.rep=false;
 			getView().setCursor(Cursor.getDefaultCursor());
 
-			
-			
+
+
 		}
-		
+
 	}
 
 	public void keyReleased(KeyEvent evt)
@@ -245,7 +245,6 @@ public class ShapesController extends Controller {
 		ArrayList<Shape> list = ((SCollection) getModel()).collection;
 		for (int i=list.size()-1;i>=0;i--) {
 				if(list.get(i).getBounds().contains(e.getPoint().x,e.getPoint().y)) {
-					System.out.println(((SCollection)list.get(i)).collection.get(2));
 					return list.get(i);
 				}
 		}
@@ -630,9 +629,9 @@ public class ShapesController extends Controller {
 
 	public void setRepere() {
 		System.out.println("setrepere");
-		
+
 		this.rep = true;
-		
+
 		SOrthonormal l = new SOrthonormal(new Point(getView().getWidth()/2, 0), new Point(getView().getWidth()/2,getView().getHeight()), true);
 		l.addAttributes(new SelectionAttributes());
 		l.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
@@ -671,4 +670,6 @@ public class ShapesController extends Controller {
 		// TODO Auto-generated method stub
 		this.paintSize  = s;
 	}
+
+
 }

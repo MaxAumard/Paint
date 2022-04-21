@@ -26,7 +26,14 @@ public class SCollection extends Shape {
 			s.setLoc(p);
 		}
 	}
-	public void setLocCollection(){
+	public void setLocCollection(int x, int y){
+		setLocCollectionZero();
+		for( Shape s : collection) {
+			s.setLoc(new Point(s.getBounds().x+ x, s.getBounds().y + y));
+		}
+	}
+
+	public void setLocCollectionZero(){
 		int x = this.getBounds().x;
 		int y = this.getBounds().y;
 		for( Shape s : collection) {
