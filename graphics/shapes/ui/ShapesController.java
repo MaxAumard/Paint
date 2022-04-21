@@ -6,8 +6,10 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 
 import graphics.shapes.*;
 import graphics.shapes.attributes.ColorAttributes;
@@ -47,14 +49,16 @@ public class ShapesController extends Controller {
 		lastPoint = new Point(e.getPoint());
 		oldX = e.getX();
 		oldY = e.getY();
-		//System.out.println("mouse Pressed");
+		if(this.crayon){
+			dessin = new SCollection();
+			dessin.addAttributes(new SelectionAttributes());
+			((SCollection)getModel()).add(dessin);
+		}
 	}
 
 	public void mouseReleased(MouseEvent e)
 	{
 		//System.out.println("mouse Released");
-		dessin = new SCollection();
-		dessin.addAttributes(new SelectionAttributes());
 	}
 
 	public void mouseClicked(MouseEvent e)
@@ -96,18 +100,18 @@ public class ShapesController extends Controller {
 		currentX = evt.getX();
 		currentY = evt.getY();
 		if(this.crayon) {
-			SLine c = new SLine(new Point(oldX, oldY), new Point( currentX, currentY));
-			c.addAttributes(new SelectionAttributes());
-			c.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
-			c.addAttributes(new SizeAttributes(paintSize));
-			dessin.add(c);
+			SLine line = new SLine(new Point(oldX, oldY), new Point( currentX, currentY));
+			line.addAttributes(new SelectionAttributes());
+			line.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
+			line.addAttributes(new SizeAttributes(paintSize));
 			oldX = currentX;
 			oldY = currentY;
-			SCollection view = (SCollection)(getModel());
-			view.add(dessin);
-
-
-
+			SCollection oldDessin = dessin;
+			dessin.add(line);
+			if(oldDessin == ((SCollection)this.getModel()).collection.get(((SCollection)this.getModel()).collection.size()-1)){
+				((SCollection)this.getModel()).collection.remove(((SCollection)this.getModel()).collection.size()-1);
+				((SCollection)getModel()).add(dessin);
+			}
 		}
 		else {
 			for (Shape s : ((SCollection) getModel()).collection) {
@@ -120,8 +124,6 @@ public class ShapesController extends Controller {
 		}
 		this.lastPoint = evt.getPoint();
 		this.getView().repaint();
-
-
 	}
 
 	public void keyTyped(KeyEvent evt)
@@ -242,11 +244,10 @@ public class ShapesController extends Controller {
 	public Shape getTarget(MouseEvent e) {
 		ArrayList<Shape> list = ((SCollection) getModel()).collection;
 		for (int i=list.size()-1;i>=0;i--) {
-			if((list.get(i).getClass() != SDraw.class)) {
 				if(list.get(i).getBounds().contains(e.getPoint().x,e.getPoint().y)) {
+					System.out.println(((SCollection)list.get(i)).collection.get(2));
 					return list.get(i);
 				}
-			}
 		}
 		unselectAll();
 		return null;

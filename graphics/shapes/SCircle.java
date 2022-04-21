@@ -45,10 +45,10 @@ public class SCircle extends Shape {
 	}
 
 	@Override
-	public void add(Shape newS) {
-		// TODO Auto-generated method stub
-		
+	public void add(Shape shape) {
+
 	}
+
 
 	@Override
 	public String getValues() {
@@ -56,6 +56,9 @@ public class SCircle extends Shape {
 		String sClass = this.getClass().toString().replace("class graphics.shapes.","");
 		String strokeColor = String.valueOf(colorAtt.strokeColor).replaceAll("[^0-9,]","");
 		String fillColor = String.valueOf(colorAtt.fillColor).replaceAll("[^0-9,]","");
-		return sClass + ";" + String.valueOf(this.getLoc().x) + ";" + String.valueOf(this.getLoc().y) + ";" + String.valueOf(this.getRadius()) + ";" + colorAtt.stroked + ";" + colorAtt.filled + ";" + strokeColor + ";" + fillColor;
+		sClass += ";" + String.valueOf(this.getLoc().x) + ";" + String.valueOf(this.getLoc().y) + ";";
+		sClass += String.valueOf(this.getRadius()) + ";";
+		sClass += colorAtt.stroked + ";" + colorAtt.filled + ";" + strokeColor + ";" + fillColor;
+		return sClass;
 	}
 }

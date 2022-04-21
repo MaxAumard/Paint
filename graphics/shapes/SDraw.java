@@ -93,8 +93,4 @@ public class SDraw extends SCollection implements MouseMotionListener {
 	}
 
 
-	@Override
-	public void add(Shape newS) {
-		// TODO Auto-generated method stub
-	}
 }

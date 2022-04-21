@@ -111,8 +111,7 @@ public class SLine extends Shape{
 
 	@Override
 	public void add(Shape shape) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

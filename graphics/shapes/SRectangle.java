@@ -43,9 +43,8 @@ public class SRectangle extends Shape {
 	}
 
 	@Override
-	public void add(Shape newS) {
-		// TODO Auto-generated method stub
-		
+	public void add(Shape shape) {
+
 	}
 
 	@Override

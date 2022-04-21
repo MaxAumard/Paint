@@ -82,15 +82,16 @@ public class SImage extends Shape {
 	public void accept(ShapeVisitor visitor) {
 		visitor.visitImage(this);
 	}
-	
+
+	@Override
+	public void add(Shape shape) {
+
+	}
+
 	public String getPath() {
 		return this.path;
 	}
-	@Override
-	public void add(Shape newS) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	@Override
 	public String getValues() {
 		String sClass = this.getClass().toString().replace("class graphics.shapes.","");
