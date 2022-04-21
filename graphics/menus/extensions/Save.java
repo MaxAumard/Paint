@@ -27,7 +27,7 @@ public class Save {
 		JFileChooser pathField =  new JFileChooser();
 		pathField.showSaveDialog(pathField);
 
-		String path = pathField.getSelectedFile().getAbsolutePath() + ".txt";
+		String path = pathField.getSelectedFile().getAbsolutePath() + ".view";
 		System.out.println(path);
 
 		File myFile = new File(path);

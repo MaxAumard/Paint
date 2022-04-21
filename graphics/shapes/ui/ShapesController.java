@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.nio.file.StandardCopyOption;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -177,11 +178,11 @@ public class ShapesController extends Controller {
 				deleteShape();
 			}
 		}
-		/*if(evt.getKeyCode()==85) {
-			if(evt.isControlDown()){
-				ungroupCollec();
+		if(evt.getKeyCode()==85) {
+			if(evt.isAltDown()){
+				ungroupLastAdd();
 			}
-		}*/
+		}
 		if(evt.getKeyCode() == evt.VK_ESCAPE) {
 			unselectAll();
 			this.crayon=false;
@@ -488,6 +489,27 @@ public class ShapesController extends Controller {
 		return newShape;
 	}
 
+	public void ungroupLastAdd() {
+		SCollection newColl = new SCollection();
+		SCollection tempModel = new SCollection();
+		newColl.addAttributes(new SelectionAttributes());
+		tempModel.addAttributes(new SelectionAttributes());
+
+		for (Shape s : ((SCollection) this.getModel()).collection) {
+			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
+			if( sAtt.isSelected() && s.getClass() == SCollection.class) {
+				Shape s2 = ((SCollection) s).collection.get(((SCollection)s).collection.size()-1);
+				((SCollection) s).collection.remove(((SCollection)s).collection.size()-1);
+				sAtt.unselect();
+				tempModel.add(s2);
+			}
+			tempModel.add(s);
+		}
+		
+		this.getView().setModel(tempModel);
+		this.getView().repaint();
+	}
+	
 /*	public Shape ungroupCollec() {
 		Shape newS =null;
 		SCollection view = (SCollection)(getModel());
@@ -548,7 +570,7 @@ public class ShapesController extends Controller {
 							newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
 							newS.addAttributes(new SelectionAttributes());
 							view.add(newS);
-							System.out.println("triangle ajouté 😍");
+							System.out.println("triangle ajouter");
 						}
 						else if (shapeInside.getClass() == SPoint.class){
 							System.out.println("ajout point");
