@@ -649,11 +649,13 @@ public class ShapesController extends Controller {
 
 		SOrthonormal l = new SOrthonormal(new Point(getView().getWidth()/2, 0), new Point(getView().getWidth()/2,getView().getHeight()), true);
 		l.addAttributes(new SelectionAttributes());
+		l.addAttributes(new SizeAttributes(1));
 		l.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
 
 
 		SOrthonormal l2 = new SOrthonormal(new Point(0, getView().getHeight()/2), new Point(getView().getWidth(),getView().getHeight()/2), false);
 		l2.addAttributes(new SelectionAttributes());
+		l2.addAttributes(new SizeAttributes(2));
 		l2.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
 
 		SCollection view = (SCollection)(getModel());
