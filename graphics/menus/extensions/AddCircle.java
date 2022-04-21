@@ -41,9 +41,9 @@ public class AddCircle {
 
 		int result = JOptionPane.showConfirmDialog(null, myPanel,"New Circle", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION && this.tester(myPanel,tFill,tBorder,colorBorder)) {
-			int x = Integer.valueOf(xField.getText());
-			int y = Integer.valueOf(yField.getText());
-			int r = Integer.valueOf(rayon.getText());
+			int x = Integer.parseInt(xField.getText());
+			int y = Integer.parseInt(yField.getText());
+			int r = Integer.parseInt(rayon.getText());
 			
 			SCircle circle = new SCircle(new Point(x,y),r);
 			circle.addAttributes(new ColorAttributes(!tBorder.isSelected(),!tFill.isSelected(),colorBorder,colorFill));

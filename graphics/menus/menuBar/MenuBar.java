@@ -276,6 +276,7 @@ public class MenuBar extends java.awt.MenuBar {
 					tempColl.collection.set(i, temp);
 				}
 			}
+			sAtt.unselect();
 			sview.setModel(tempColl);
 			sview.repaint();
 		}
@@ -294,6 +295,7 @@ public class MenuBar extends java.awt.MenuBar {
 					tempColl.collection.set(i, temp);
 				}
 			}
+			sAtt.unselect();
 			sview.setModel(tempColl);
 			sview.repaint();
 		}

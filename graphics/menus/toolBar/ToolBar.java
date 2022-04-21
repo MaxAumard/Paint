@@ -137,7 +137,7 @@ public class ToolBar extends JToolBar{
 			public void actionPerformed(ActionEvent e) {
 				color1 = new Pipette(colorChooser).getColorPicked();
 				AddCircle addCircle = new AddCircle();
-				addCircle.add(sview,color1,color2);
+				addCircle.add(sview,color2,color1);
 				sview.repaint();
 			}
 		});
