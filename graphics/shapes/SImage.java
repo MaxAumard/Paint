@@ -94,8 +94,8 @@ public class SImage extends Shape {
 	@Override
 	public String getValues() {
 		String sClass = this.getClass().toString().replace("class graphics.shapes.","");
-		return sClass + ";" + String.valueOf(this.getLoc().x) + ";" + String.valueOf(this.getLoc().y) + ";" + this.path;
-
+		sClass += ";" + String.valueOf(this.getLoc().x) + ";" + String.valueOf(this.getLoc().y) + ";" + this.path;
+		return sClass;
 	}
 
 }

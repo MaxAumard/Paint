@@ -253,6 +253,7 @@ public class MenuBar extends java.awt.MenuBar {
 		setUp.setForeground(Color.black);//text
 		layer.add(setUp);
 		setUp.addActionListener(this::moveUp);
+		setUp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP,0));
 
 
 		JMenuItem setDown = new JMenuItem("Move layer down");
@@ -260,7 +261,7 @@ public class MenuBar extends java.awt.MenuBar {
 		setDown.setForeground(Color.black);//text
 		layer.add(setDown);
 		setDown.addActionListener(this::moveDown);
-
+		setDown.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN,0));
 	}
 
 	public void moveUp(ActionEvent event) {

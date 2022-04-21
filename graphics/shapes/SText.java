@@ -60,7 +60,9 @@ public class SText extends Shape {
 		String sClass = this.getClass().toString().replace("class graphics.shapes.","");
 		String strokeColor = String.valueOf(colorAtt.strokeColor).replaceAll("[^0-9,]","");
 		String fillColor = String.valueOf(colorAtt.fillColor).replaceAll("[^0-9,]","");
-		return sClass + ";" + String.valueOf(this.getLoc().x) + ";" + String.valueOf(this.getLoc().y) + ";" + this.text + ";" + colorAtt.stroked + ";" + colorAtt.filled + ";" + strokeColor + ";" + fillColor;
+		sClass += ";" + String.valueOf(this.getLoc().x) + ";" + String.valueOf(this.getLoc().y) + ";";
+		sClass += this.text + ";" + colorAtt.stroked + ";" + colorAtt.filled + ";" + strokeColor + ";" + fillColor;
+		return sClass;
 
 	}
 }

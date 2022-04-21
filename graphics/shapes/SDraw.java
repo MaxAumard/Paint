@@ -10,7 +10,7 @@ import graphics.shapes.ui.ShapeVisitor;
 import graphics.shapes.ui.ShapesController;
 import graphics.shapes.ui.ShapesView;
 
-public class SDraw extends Shape implements MouseMotionListener {
+public class SDraw extends SCollection implements MouseMotionListener {
 
 	ShapesView sview;
 	public int x;
@@ -96,13 +96,5 @@ public class SDraw extends Shape implements MouseMotionListener {
 	@Override
 	public void add(Shape newS) {
 		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getValues() {
-		// TODO Auto-generated method stub
-		return "sdraw";
 	}
 }
