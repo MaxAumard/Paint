@@ -2,6 +2,7 @@ package graphics.shapes.ui;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -9,7 +10,6 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.util.Iterator;
 
-import java.awt.geom.Line2D;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SDraw;
@@ -20,6 +20,7 @@ import graphics.shapes.SText;
 import graphics.shapes.STriangle;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.attributes.SizeAttributes;
 
@@ -65,6 +66,7 @@ public class ShapeDraftman implements ShapeVisitor{
 		}
 		if(selectAtt.isSelected()) {
 			drawSelected(r);		}
+		r.addAttributes(new SizeAttributes(1));
 	}
 
 	public void visitCircle(SCircle c) {
@@ -89,10 +91,12 @@ public class ShapeDraftman implements ShapeVisitor{
 		//FontAttributes fo = (FontAttributes)t.getAttributes("font");
 		ColorAttributes color = (ColorAttributes) t.getAttributes("Color");
 		SelectionAttributes selectAtt = (SelectionAttributes) t.getAttributes("Selected");
+		FontAttributes fa = (FontAttributes) t.getAttributes("Font");
 		if (color.filled) {
 			//g.setFont(fo.font);
 			g.setColor(color.fillColor);
 			g.fillRect(t.getBounds().x, t.getBounds().y, t.getBounds().width, t.getBounds().height);
+			g.setFont(fa.getFont());
 			g.setColor(DEFAULTCOLORATTRIBUTE.fillColor);
 		}
 		if (color.stroked) {
@@ -129,7 +133,9 @@ public class ShapeDraftman implements ShapeVisitor{
 		}
 		if (selectAtt.isSelected()) {
 			drawSelected(l);
-		}
+			}
+		
+		
 	}
 
 	

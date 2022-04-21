@@ -10,7 +10,7 @@ public class FontAttributes extends Attributes{
 
 	public Font font = GRAPHICS.getFont();
 	public Color fontColor;
-
+	
 	public FontAttributes(Font font, Color fontColor) {
 		this.font = font;
 		this.fontColor = fontColor;
@@ -20,6 +20,9 @@ public class FontAttributes extends Attributes{
 		this.fontColor = Color.BLACK;
 	}
 
+	public Font getFont() {
+		return this.font;
+	}
 	
 	@Override
 	public String getID() {
