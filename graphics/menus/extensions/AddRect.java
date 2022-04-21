@@ -34,8 +34,8 @@ public class AddRect {
 
 	public void add(ShapesView sview,Color colorBorder,Color colorFill) {
 				
-		JTextField xField = new JTextField(5);
-		JTextField yField = new JTextField(5);
+		JTextField xField = new JTextField("0",5);
+		JTextField yField = new JTextField("0",5);
 		JTextField longueur = new JTextField(5);
 		JTextField hauteur = new JTextField(5);
 		JCheckBox tFill = new JCheckBox("Transparent Rectangle");

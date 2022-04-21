@@ -30,7 +30,6 @@ public class ShapesController extends Controller {
 	public boolean rep;
 	public SCollection dessin;
 	public SCollection repere;
-	private int currentX, currentY, oldX, oldY;
 	private int paintSize = 4;
 
 	public ShapesController(Object newModel) {
@@ -47,8 +46,6 @@ public class ShapesController extends Controller {
 	{
 
 		lastPoint = new Point(e.getPoint());
-		oldX = e.getX();
-		oldY = e.getY();
 		if(this.crayon){
 			dessin = new SCollection();
 			dessin.addAttributes(new SelectionAttributes());
@@ -97,15 +94,11 @@ public class ShapesController extends Controller {
 
 	public void mouseDragged(MouseEvent evt)
 	{
-		currentX = evt.getX();
-		currentY = evt.getY();
 		if(this.crayon) {
-			SLine line = new SLine(new Point(oldX, oldY), new Point( currentX, currentY));
+			SLine line = new SLine(new Point(lastPoint.x, lastPoint.y), new Point(evt.getX(),evt.getY()));
 			line.addAttributes(new SelectionAttributes());
 			line.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
 			line.addAttributes(new SizeAttributes(paintSize));
-			oldX = currentX;
-			oldY = currentY;
 			SCollection oldDessin = dessin;
 			dessin.add(line);
 			if(oldDessin == ((SCollection)this.getModel()).collection.get(((SCollection)this.getModel()).collection.size()-1)){

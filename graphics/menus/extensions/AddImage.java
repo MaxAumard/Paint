@@ -18,8 +18,8 @@ public class AddImage {
 	
 	public void add(ShapesView sview) {
 				
-		JTextField xField = new JTextField(5);
-		JTextField yField = new JTextField(5);
+		JTextField xField = new JTextField("0",5);
+		JTextField yField = new JTextField("0",5);
 		JFileChooser pathField =  new JFileChooser();
 		JPanel myPanel = new JPanel();
 		

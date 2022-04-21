@@ -21,8 +21,8 @@ public class AddText {
 
 	public void add(ShapesView sview,Color colorBorder,Color colorFill) {
 
-		JTextField xField = new JTextField(5);
-		JTextField yField = new JTextField(5);
+		JTextField xField = new JTextField("0",5);
+		JTextField yField = new JTextField("0",5);
 		JTextField textInput = new JTextField(5);
 		JCheckBox tFill = new JCheckBox("Transparent Background");
 		JCheckBox tBorder = new JCheckBox("Transparent Font");
