@@ -3,6 +3,7 @@ package graphics.shapes;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,8 +12,10 @@ import graphics.shapes.ui.ShapeVisitor;
 public class SCollection extends Shape {
 
 	public ArrayList<Shape> collection = new ArrayList<>();
-	
+	public HashMap<Shape,Point> posCollection = new HashMap<>();
+
 	public SCollection() {
+
 	}
 	
 	@Override
@@ -70,6 +73,7 @@ public class SCollection extends Shape {
 
 	public void add(Shape shape) {
 		collection.add(shape);
+		posCollection.put(shape, shape.getBounds().getLocation());
 	}
 
 	public void accept(ShapeVisitor visitor) {

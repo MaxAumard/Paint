@@ -31,7 +31,7 @@ public class ShapesView extends View implements ComponentListener{
 
 	public Controller defaultController(Object model)
 	{
-		return new ShapesController(model);
+		return new ShapesController(model, this);
 	}
 
 	@Override

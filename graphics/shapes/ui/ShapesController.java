@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import graphics.menus.layer.LayerMenu;
 import graphics.shapes.*;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -26,6 +27,7 @@ public class ShapesController extends Controller {
 	private SCollection selectColl = new SCollection();
 	private ArrayList<Shape> copy;
 	private ArrayList<Shape> cut;
+	private LayerMenu layerMenu;
 	public ShapesView sview;
 	public boolean crayon;
 	public boolean rep;
@@ -33,14 +35,16 @@ public class ShapesController extends Controller {
 	public SCollection repere;
 	private int paintSize = 4;
 
-	public ShapesController(Object newModel) {
+	public ShapesController(Object newModel, ShapesView sview) {
 		super(newModel);
 		this.crayon = false;
 		this.rep = false;
 		this.dessin = new SCollection();
 		this.repere = new SCollection();
+		this.sview = sview;
 		dessin.addAttributes(new SelectionAttributes());
 		repere.addAttributes(new SelectionAttributes());
+
 	}
 
 	public void mousePressed(MouseEvent e)
@@ -56,6 +60,7 @@ public class ShapesController extends Controller {
 
 	public void mouseReleased(MouseEvent e)
 	{
+		layerMenu.refreshLayer(sview);
 		//System.out.println("mouse Released");
 	}
 
@@ -193,6 +198,7 @@ public class ShapesController extends Controller {
 
 		}
 
+
 	}
 
 	public void keyReleased(KeyEvent evt)
@@ -312,7 +318,6 @@ public class ShapesController extends Controller {
 	{
 		SCollection Scol = (SCollection) this.getModel();
 		for(Shape s : this.selected()){
-			System.out.println(s);
 			Scol.getShapes().remove(s);
 		}
 		this.getView().repaint();
@@ -505,7 +510,7 @@ public class ShapesController extends Controller {
 			}
 			tempModel.add(s);
 		}
-		
+
 		this.getView().setModel(tempModel);
 		this.getView().repaint();
 	}
@@ -686,6 +691,10 @@ public class ShapesController extends Controller {
 	public void setPenSize(int s) {
 		// TODO Auto-generated method stub
 		this.paintSize  = s;
+	}
+
+	public void setLayerMenu(LayerMenu layerMenu){
+		this.layerMenu = layerMenu;
 	}
 
 

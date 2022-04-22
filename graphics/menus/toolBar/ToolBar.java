@@ -20,15 +20,16 @@ public class ToolBar extends JToolBar{
 	private static Color color2 = Color.WHITE ;
 	public Button draw;
 	public Button repere;
+	private ShapesView sview;
 	private Map<String,Component> buttonMap = new HashMap<String,Component>();
-	
-
+	private LayerMenu layerMenu;
 
 
 	public ToolBar(JMenuBar menuBar, ShapesView sview, LayerMenu layerMenu) throws IOException {
 		super();
 		
-		
+		this.sview = sview;
+		this.layerMenu = layerMenu;
 		//creation of the toolBar
 		jtoolBar = new JToolBar();
 		//prevent flotability
@@ -244,5 +245,7 @@ public class ToolBar extends JToolBar{
 		return color1;
 	}
 
+	public void refreshLayerMenu(){this.layerMenu.refreshLayer(sview);
+	}
 	//Commentaire MAX
 }

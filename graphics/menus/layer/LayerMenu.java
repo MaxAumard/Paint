@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -51,7 +52,6 @@ public class LayerMenu {
 
         buttons = new ArrayList<>();
 
-
         printbuttonsarray(buttons);
 
         int count = 0;
@@ -62,42 +62,15 @@ public class LayerMenu {
 
             Shape s = shapeIterator.next();
 
-            if (s.getBounds() != null && s.getClass() != SPoint.class) {
+            if (s.getBounds() != null && s.getClass() != SPoint.class && s.getClass() != SOrthonormal.class) {
                 count++;
-                int max = Math.max(s.getBounds().width+1,s.getBounds().height+1);
-                BufferedImage bi = new BufferedImage(max, max, TYPE_INT_RGB);
+                int max = Math.max(s.getBounds().x+s.getBounds().width+1,s.getBounds().y+s.getBounds().height+1);
+                BufferedImage bi = new BufferedImage(max,max, TYPE_INT_RGB);
+                //bi = bi.getSubimage(s.getBounds().x+1, s.getBounds().y,s.getBounds().width,s.getBounds().height );
 
-                Point p = s.getLoc();
-                if (s.getClass() == SCollection.class){
-                    ((SCollection) s).setLocCollectionZero();
-                }
-                else if(s.getClass() == SText.class){
-                    s.setLoc(new Point(0,16));
-                }
-                else{
-                    s.setLoc(new Point(0,0));
-                }
-                if (s.getClass() == STriangle.class) {
-                    STriangle tri =(STriangle) s;
-                    STriangle triZero = new STriangle(new Point(50,0),new Point(0,100),new Point(100,100),3);
-                    ColorAttributes co = (ColorAttributes)tri.getAttributes("Color");
-                    triZero.addAttributes(new ColorAttributes(co.stroked,co.filled,co.strokeColor,co.fillColor));
-                    triZero.addAttributes(new SelectionAttributes());
+                displayBackgroundColor(s,bi,max);
 
-                    bi = new BufferedImage(triZero.getBounds().width, triZero.getBounds().height, TYPE_INT_RGB);
-                    displayBackgroundColor(bi,max);
-                    draftman.visitShape(triZero);
-                }
-                else {
-
-                    displayBackgroundColor(bi,max);
-                    draftman.visitShape(s);
-                }
-                if (s.getClass() != SCollection.class){s.setLoc(p);}
-                else {((SCollection) s).setLocCollection(p.x,p.y);}
-
-
-                JButton btn = new JButton(nameShape(s,count),new ImageIcon(new ImageIcon(bi).getImage().getScaledInstance(30,30,SCALE_SMOOTH)));
+                JButton btn = new JButton(nameShape(s,count),new ImageIcon(new ImageIcon(bi).getImage().getScaledInstance(35,35,SCALE_SMOOTH)));
                 btn.setVisible(true);
                 btn.setPreferredSize(new Dimension(170, 40));
                 btn.setFocusable(false);
@@ -117,6 +90,7 @@ public class LayerMenu {
 
                         sa.select();
                         sview.repaint();
+                        refreshLayer(sview);
                     }
                 });
 
@@ -130,6 +104,8 @@ public class LayerMenu {
         btndefault.setVisible(false);
         layerMenu.add(btndefault);
         buttons.add(btndefault);
+        //printbuttonsarray(buttons);
+        System.out.println("");
     }
 
     public String nameShape(Shape s, int count) {
@@ -165,11 +141,13 @@ public class LayerMenu {
         }
     }
 
-    public void displayBackgroundColor(BufferedImage bi, int max){
+    public void displayBackgroundColor(Shape s, BufferedImage bi, int max){
         g = bi.getGraphics();
         g.setColor(bcolor);
         g.fillRect(0, 0,max, max);
         draftman.setGraphics(g);
+        draftman.visitShape(s);
+
     }
 
     public void printbuttonsarray(ArrayList btns){

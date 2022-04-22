@@ -16,7 +16,7 @@ public class DarkTheme {
 
     public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, LayerMenu layerMenu, ShapesView sview, Collection<Button> tbButtons, JButton cc, JButton cc2){
         Iterator<Button> iterator = tbButtons.iterator();
-        Iterator<JButton> iteratorlm = layerMenu.getButtons().iterator();
+
         // Darkmode
         if (((JToggleButton)e.getSource()).isSelected()){
             Color interfaceDarkColor = new Color(31,31,31);
@@ -47,14 +47,12 @@ public class DarkTheme {
             cc.setIcon(icon);
             cc2.setIcon(icon);
 
-            layerMenu.printbuttonsarray(layerMenu.getButtons());
             
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceDarkColor);
             layerMenu.setBackgroundColor(interfaceDarkColor);
             layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceDarkColor));
-            layerMenu.refreshLayer(sview);
-            //TODO pk refresh menu clear et ne refresh pas la layerbar
+
         }
         //LightMode
         else{
@@ -88,15 +86,15 @@ public class DarkTheme {
             cc2.setIcon(icon);
             
             //layerMenu
-            layerMenu.printbuttonsarray(layerMenu.getButtons());
 
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceLightColor);
             layerMenu.setBackgroundColor(interfaceLightColor);
             layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceLightColor));
-            layerMenu.refreshLayer(sview);
+
 
         }
+        layerMenu.refreshLayer(sview);
     }
 
 }
