@@ -232,7 +232,7 @@ public class MenuBar extends java.awt.MenuBar {
 		viewBrush.setIcon(new ImageIcon(new ImageIcon("icon/dessine.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		Extensions.add(viewBrush);
 
-		for(int i = 0; i<Extensions.getComponents().length;i++){
+		for(int i = 0; i<Extensions.getItemCount();i++){
 			JCheckBoxMenuItem chckbx = (JCheckBoxMenuItem) Extensions.getItem(i);
 			chckbx.addActionListener(new ActionListener() {
 				@Override
