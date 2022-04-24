@@ -135,18 +135,18 @@ public class ShapesController extends Controller {
 			this.shiftHeld = true;
 		}
 		if(evt.isControlDown()) {
-			if(evt.getKeyCode()==71 ) {
+			if(evt.getKeyCode()==evt.VK_G ) {
 				groupShape();
 				replaceCollec(SCollection.class);
 			}
-			if(evt.getKeyCode()==65){
+			if(evt.getKeyCode()==evt.VK_A){
 				selectAll();
 			}
 		}
-		if(evt.getKeyCode()==127) {
+		if(evt.getKeyCode()==evt.VK_DELETE) {
 			deleteShape();
 		}
-		if(evt.getKeyCode()==37) {
+		if(evt.getKeyCode()==evt.VK_LEFT) {
 			if(evt.isControlDown()){
 				translateArrow(-10,0);
 			}
@@ -154,7 +154,7 @@ public class ShapesController extends Controller {
 				translateArrow(-1,0);
 			}
 		}
-		if(evt.getKeyCode()==38) {
+		if(evt.getKeyCode()==evt.VK_UP) {
 			if(evt.isControlDown()){
 				translateArrow(0,-10);
 			}
@@ -162,7 +162,7 @@ public class ShapesController extends Controller {
 				translateArrow(0,-1);
 			}
 		}
-		if(evt.getKeyCode()==39) {
+		if(evt.getKeyCode()==evt.VK_RIGHT) {
 			if(evt.isControlDown()){
 				translateArrow(10,0);
 			}
@@ -170,7 +170,7 @@ public class ShapesController extends Controller {
 				translateArrow(1,0);
 			}
 		}
-		if(evt.getKeyCode()==40) {
+		if(evt.getKeyCode()==evt.VK_DOWN) {
 			if(evt.isControlDown()){
 				translateArrow(0,10);
 			}
@@ -178,12 +178,12 @@ public class ShapesController extends Controller {
 				translateArrow(0,1);
 			}
 		}
-		if(evt.getKeyCode()==88) {
+		if(evt.getKeyCode()==evt.VK_X) {
 			if(evt.isControlDown()){
 				deleteShape();
 			}
 		}
-		if(evt.getKeyCode()==85) {
+		if(evt.getKeyCode()==evt.VK_U) {
 			if(evt.isAltDown()){
 				ungroupLastAdd();
 			}
