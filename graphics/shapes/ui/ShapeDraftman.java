@@ -53,7 +53,7 @@ public class ShapeDraftman implements ShapeVisitor{
 	public void visitRectangle(SRectangle r) {
 		ColorAttributes color = (ColorAttributes) r.getAttributes("Color");
 		SelectionAttributes selectAtt = (SelectionAttributes) r.getAttributes("Selected");
-
+		((Graphics2D) g).setStroke(new BasicStroke());
 		if(color.filled) {
 			g.setColor(color.fillColor);
 			g.fillRect(r.getLoc().x,r.getLoc().y,r.getRect().width,r.getRect().height);
@@ -70,6 +70,7 @@ public class ShapeDraftman implements ShapeVisitor{
 	}
 
 	public void visitCircle(SCircle c) {
+		((Graphics2D) g).setStroke(new BasicStroke());
 		ColorAttributes color = (ColorAttributes) c.getAttributes("Color");
 		SelectionAttributes selectAtt = (SelectionAttributes) c.getAttributes("Selected");
 
@@ -88,6 +89,7 @@ public class ShapeDraftman implements ShapeVisitor{
 	}
 
 	public void visitText(SText t) {
+		((Graphics2D) g).setStroke(new BasicStroke());
 		//FontAttributes fo = (FontAttributes)t.getAttributes("font");
 		ColorAttributes color = (ColorAttributes) t.getAttributes("Color");
 		SelectionAttributes selectAtt = (SelectionAttributes) t.getAttributes("Selected");
@@ -134,12 +136,11 @@ public class ShapeDraftman implements ShapeVisitor{
 		if (selectAtt.isSelected()) {
 			drawSelected(l);
 			}
-		
-		
 	}
 
 	
 	public void visitTriangle(STriangle t) {
+		((Graphics2D) g).setStroke(new BasicStroke());
 		ColorAttributes ca = (ColorAttributes) t.getAttributes("Color");
 		SelectionAttributes selectAtt = (SelectionAttributes) t.getAttributes("Selected");
 		if(ca.filled) {
