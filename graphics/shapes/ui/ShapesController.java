@@ -6,12 +6,12 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.nio.file.StandardCopyOption;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
+import javax.swing.SwingUtilities;
 
+import graphics.menus.extensions.rightclick.RightClickMenu;
+import graphics.menus.extensions.rightclick.RightClickMenuText;
 import graphics.menus.layer.LayerMenu;
 import graphics.shapes.*;
 import graphics.shapes.attributes.ColorAttributes;
@@ -66,12 +66,18 @@ public class ShapesController extends Controller {
 
 	public void mouseClicked(MouseEvent e)
 	{
-		//System.out.println("mouse Click");
-		Shape s = getTarget(e);
-		if(s!=null){
-			setSelection(s);
-		}
 
+		if(SwingUtilities.isLeftMouseButton(e)){
+			Shape s = getTarget(e);
+			if(s!=null){
+				setSelection(s);
+			}
+		}
+		
+		if(SwingUtilities.isRightMouseButton(e)){
+			RightClickMenu popMenu = new RightClickMenuText();
+			popMenu.show(sview, 100, 100);
+		}
 	}
 
 	public void mouseEntered(MouseEvent e)
@@ -244,9 +250,9 @@ public class ShapesController extends Controller {
 	public Shape getTarget(MouseEvent e) {
 		ArrayList<Shape> list = ((SCollection) getModel()).collection;
 		for (int i=list.size()-1;i>=0;i--) {
-				if(list.get(i).getBounds().contains(e.getPoint().x,e.getPoint().y)) {
-					return list.get(i);
-				}
+			if(list.get(i).getBounds().contains(e.getPoint().x,e.getPoint().y)) {
+				return list.get(i);
+			}
 		}
 		unselectAll();
 		return null;
@@ -514,8 +520,8 @@ public class ShapesController extends Controller {
 		this.getView().setModel(tempModel);
 		this.getView().repaint();
 	}
-	
-/*	public Shape ungroupCollec() {
+
+	/*	public Shape ungroupCollec() {
 		Shape newS =null;
 		SCollection view = (SCollection)(getModel());
 		ArrayList<Shape> shapes = new ArrayList<Shape>();
@@ -622,7 +628,7 @@ public class ShapesController extends Controller {
 
 		return newS;
 	}
-	*/
+	 */
 
 
 	public void replaceCollec(Class c) {
