@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import graphics.menus.extensions.rightclick.RightClickMenu;
 import graphics.menus.extensions.rightclick.RightClickMenuText;
@@ -61,6 +61,9 @@ public class ShapesController extends Controller {
 
 	public void mouseReleased(MouseEvent e)
 	{
+		//layerMenu.setBackgroundColor(new Color(0,0,0));
+		layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(0,0,0,0, new Color(0,0,0)));
+
 		layerMenu.refreshLayer(sview);
 		//System.out.println("mouse Released");
 	}
@@ -213,6 +216,7 @@ public class ShapesController extends Controller {
 		if(evt.getKeyCode()==KeyEvent.VK_SHIFT){
 			this.shiftHeld = false;
 		}
+		layerMenu.refreshLayer(sview);
 	}
 
 	public void unselectAll() {

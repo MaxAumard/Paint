@@ -61,7 +61,6 @@ public class DarkTheme {
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceDarkColor);
             layerMenu.setBackgroundColor(interfaceDarkColor);
-            layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceDarkColor));
 
         }
         //LightMode
@@ -107,8 +106,6 @@ public class DarkTheme {
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceLightColor);
             layerMenu.setBackgroundColor(interfaceLightColor);
-            layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceLightColor));
-
         }
         layerMenu.refreshLayer(sview);
     }

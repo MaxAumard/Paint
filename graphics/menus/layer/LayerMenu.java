@@ -34,7 +34,6 @@ public class LayerMenu {
         this.model = (SCollection) cpsview.getModel();
         this.draftman = cpsview.getDraftman();
         layerMenu = new JToolBar();
-        layerMenu.setBorder(BorderFactory.createMatteBorder(5,0,0,0, bcolor));
         layerMenu.setBorderPainted(true);
         layerMenu.setBackground(bcolor);
         layerMenu.setForeground(fcolor);
@@ -104,6 +103,8 @@ public class LayerMenu {
         layerMenu.add(btndefault);
         buttons.add(btndefault);
         //printbuttonsarray(buttons);
+        layerMenu.setBorder(BorderFactory.createMatteBorder(0,0,0,0, new Color(0,0,0)));
+
     }
 
     public String nameShape(Shape s, int count) {
