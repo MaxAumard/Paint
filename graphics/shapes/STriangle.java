@@ -119,8 +119,8 @@ public class STriangle extends Shape {
 		sClass += "(" + this.getP1().x + "," + this.getP1().y + ",";
 		sClass += this.getP2().x + "," + this.getP2().y + ",";
 		sClass += this.getP3().x + "," + this.getP3().y + ",";
-		sClass += "," + this.getLoc().x + ";" + this.getLoc().y + ")";
-		sClass += ";ColorAttribute"+ "(" + colorAtt.stroked + ";" + colorAtt.filled + ";" + strokeColor + ";" + fillColor +")";
+		sClass += this.getLoc().x + "," + this.getLoc().y + ")";
+		sClass += ";ColorAttribute"+ "(" + colorAtt.stroked + "," + colorAtt.filled + "," + strokeColor + "," + fillColor +")";
 		return sClass;
 	}
 }

@@ -54,7 +54,7 @@ public class SRectangle extends Shape {
 		String strokeColor = String.valueOf(colorAtt.strokeColor).replaceAll("[^0-9,]","");
 		String fillColor = String.valueOf(colorAtt.fillColor).replaceAll("[^0-9,]","");
 		sClass += "("+this.getLoc().x+","+this.getLoc().y+","+this.getRect().width+","+this.getRect().height+")";
-		sClass += ";ColorAttribute"+ "(" + colorAtt.stroked + ";" + colorAtt.filled + ";" + strokeColor + ";" + fillColor +")";
+		sClass += ";ColorAttribute"+ "(" + colorAtt.stroked + "," + colorAtt.filled + "," + strokeColor + "," + fillColor +")";
 		return sClass;
 			}
 }

@@ -86,7 +86,7 @@ public class SCollection extends Shape {
 
 	@Override
 	public String getValues() {
-		String values = "SCollection\r\n{";
+		String values = "SCollection\r\n{\r\n";
 		for(Shape s : this.collection) {
 			values += s.getValues() + "\r\n";
 		}
