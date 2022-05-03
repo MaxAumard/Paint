@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.SwingUtilities;
@@ -73,7 +74,7 @@ public class ShapesController extends Controller {
 				setSelection(s);
 			}
 		}
-		
+
 		if(SwingUtilities.isRightMouseButton(e)){
 			RightClickMenu popMenu = new RightClickMenuText();
 			popMenu.show(sview, 100, 100);
@@ -209,7 +210,7 @@ public class ShapesController extends Controller {
 
 	public void keyReleased(KeyEvent evt)
 	{
-		if(evt.getKeyCode()==16){
+		if(evt.getKeyCode()==KeyEvent.VK_SHIFT){
 			this.shiftHeld = false;
 		}
 	}
@@ -260,37 +261,35 @@ public class ShapesController extends Controller {
 
 	public void groupShape() {
 		SCollection newColl = new SCollection();
-		SCollection tempModel = new SCollection();
 		newColl.addAttributes(new SelectionAttributes());
-		tempModel.addAttributes(new SelectionAttributes());
+		ArrayList<Shape> selectedShapes = new ArrayList<>();
 
 		for (Shape s : ((SCollection) this.getModel()).collection) {
-			tempModel.add(s);
 			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
 			if( sAtt.isSelected() ) {
+				selectedShapes.add(s);
 				newColl.add(s);
 				sAtt.unselect();
-				tempModel.collection.remove(s);
 			}
 		}
-
-		tempModel.add(newColl);
-		this.getView().setModel(tempModel);
+		((SCollection)this.getModel()).collection.add(newColl);
+		for (Shape selectedShape : selectedShapes) {
+			((SCollection) this.getModel()).collection.remove(selectedShape);
+		}
 		this.getView().repaint();
 	}
 
 	public void deleteShape() {
-		SCollection tempModel = new SCollection();
-		tempModel.addAttributes(new SelectionAttributes());
-
+		ArrayList<Shape> selectedShape = new ArrayList<>();
 		for (Shape s : ((SCollection) this.getModel()).collection) {
 			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
-			if( !sAtt.isSelected() ) {
-				tempModel.add(s);
+			if( sAtt.isSelected() ) {
+				selectedShape.add(s);
 			}
 		}
-
-		this.getView().setModel(tempModel);
+		for (Shape shape : selectedShape) {
+			((SCollection) this.getModel()).collection.remove(shape);
+		}
 		this.getView().repaint();
 	}
 
