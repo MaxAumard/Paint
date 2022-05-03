@@ -26,7 +26,7 @@ public class Button extends JButton {
 
         setMargin(new Insets(-2,-2,-1,-1));
         addActionListener(actionListener);
-        //TODO faire un constructeur avec 2 images !!!!
     }
+
 
 }

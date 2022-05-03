@@ -52,7 +52,6 @@ public class LayerMenu {
 
         buttons = new ArrayList<>();
 
-        printbuttonsarray(buttons);
 
         int count = 0;
         Iterator<Shape> shapeIterator = ((SCollection)sview.getModel()).iterator();
@@ -105,7 +104,6 @@ public class LayerMenu {
         layerMenu.add(btndefault);
         buttons.add(btndefault);
         //printbuttonsarray(buttons);
-        System.out.println("");
     }
 
     public String nameShape(Shape s, int count) {
@@ -150,9 +148,4 @@ public class LayerMenu {
 
     }
 
-    public void printbuttonsarray(ArrayList btns){
-        for (Object btn : btns){
-            System.out.println(btn.toString());
-        }
-    }
 }

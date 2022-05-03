@@ -51,8 +51,7 @@ public class Save {
 			SCollection scoll = (SCollection) sview.getModel();
 			
 			for(Shape s : scoll.collection) {
-				System.out.println(s.getValues());
-				
+
 				String values = s.getValues();
 				String[] sclass = values.split(";");
 		        for(int i = 0 ; i< sclass.length ; i++) {

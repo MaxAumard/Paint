@@ -38,37 +38,35 @@ public class ToolBar extends JToolBar{
 		Collection buttons = new ArrayList<Button>();
 
 
-
-
-
 		//colorChooser button for color1
 		JButton colorChooser = new JButton();
 		ColorChooser cc = new ColorChooser();
 		colorChooser.setBackground(Color.black);
 		colorChooser.setBorder(BorderFactory.createEmptyBorder());
 		colorChooser.setMargin(new Insets(-2,-2,-1,-1));
-		colorChooser.setIcon(new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+		colorChooser.setIcon(new ImageIcon(new ImageIcon("icon/ColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		colorChooser.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ColorChooser cc = new ColorChooser();
 				cc.setColorChooseed(Color.BLACK);
 				cc.displayColorChooser(colorChooser);
 				color1 = cc.getColorChoosed() ;
+				layerMenu.refreshLayer(sview);
 			}});
 
 		//colorChooser button for color2
 		JButton colorChooser2 = new JButton();
-		ColorChooser cc2 = new ColorChooser();
 		colorChooser2.setBackground(Color.white);
 		colorChooser2.setBorder(BorderFactory.createEmptyBorder());
 		colorChooser2.setMargin(new Insets(-2,-2,-1,-1));
-		colorChooser2.setIcon(new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+		colorChooser2.setIcon(new ImageIcon(new ImageIcon("icon/ColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		colorChooser2.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ColorChooser cc2 = new ColorChooser();
 				cc2.setColorChooseed(Color.BLACK);
 				cc2.displayColorChooser(colorChooser2);
 				color2 = cc2.getColorChoosed() ;
+				layerMenu.refreshLayer(sview);
 
 			}});
 
@@ -89,6 +87,7 @@ public class ToolBar extends JToolBar{
 					sview.setCursor(Cursor.getDefaultCursor());
 					controller.setCrayon();
 				}
+				layerMenu.refreshLayer(sview);
 			}
 		});
 
@@ -104,6 +103,7 @@ public class ToolBar extends JToolBar{
 				} else {
 					controller.cutRepere();
 				}
+				layerMenu.refreshLayer(sview);
 			}
 		});
 
@@ -119,9 +119,13 @@ public class ToolBar extends JToolBar{
 		//darktheme button
 		ToggleButton darkTheme = new ToggleButton("icon/LightThemeIcon.png","icon/DarkThemeIcon.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				DarkTheme dt = new DarkTheme(e, jtoolBar, menuBar,layerMenu, sview, buttons, colorChooser,colorChooser2);
+				try {
+					DarkTheme dt = new DarkTheme(e, jtoolBar, menuBar,layerMenu, sview, buttonMap);
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+				layerMenu.refreshLayer(sview);
 			}});
-
 
 		//AddRect button
 		JButton addRect = new Button("icon/addRect.png","icon/addRect.png",new ActionListener(){
@@ -130,6 +134,7 @@ public class ToolBar extends JToolBar{
 				AddRect addRect = new AddRect();
 				addRect.add(sview, color2, color1);
 				sview.repaint();
+				layerMenu.refreshLayer(sview);
 			}});
 
 		//AddCircle button
@@ -139,6 +144,7 @@ public class ToolBar extends JToolBar{
 				AddCircle addCircle = new AddCircle();
 				addCircle.add(sview,color2,color1);
 				sview.repaint();
+				layerMenu.refreshLayer(sview);
 			}
 		});
 		
@@ -150,6 +156,7 @@ public class ToolBar extends JToolBar{
 				addText.add(sview,color1,color2);
 
 				sview.repaint();
+				layerMenu.refreshLayer(sview);
 			}
 		});
 
@@ -160,6 +167,7 @@ public class ToolBar extends JToolBar{
 						AddTriangle addTriangle = new AddTriangle();
 						addTriangle.add(sview, color2, color1);
 						sview.repaint();
+						layerMenu.refreshLayer(sview);
 					}});
 
 
@@ -168,28 +176,31 @@ public class ToolBar extends JToolBar{
 			public void actionPerformed(ActionEvent e) {
 				color1 = new Pipette(colorChooser).getColorPicked();
 				Bucket bu = new Bucket(color1,sview);
+				layerMenu.refreshLayer(sview);
 
 			}});
 		
-		JButton sizeChooser = new Button("icon/size.png","icon/size.png",new ActionListener(){
+		JButton sizeChooser = new Button("icon/size.png",new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				color1 = new Pipette(colorChooser).getColorPicked();
 				SizeChooser sizeChooser = new SizeChooser();
 				sizeChooser.add(sview);
 				sview.repaint();
+				layerMenu.refreshLayer(sview);
 			}});
 
-		buttonMap.put("AddRect",addRect);
-		buttonMap.put("Add Text",addText);
-		buttonMap.put("AddTriangle",addTriangle);
-		buttonMap.put("AddCircle",addCircle);
-		buttonMap.put("Bucket",bucket);
-		buttonMap.put("Pippette",pipette);
+		buttonMap.put("addRect",addRect);
+		buttonMap.put("addText",addText);
+		buttonMap.put("addTriangle",addTriangle);
+		buttonMap.put("addCircle",addCircle);
+		buttonMap.put("bucket",bucket);
+		buttonMap.put("pipette",pipette);
 		buttonMap.put("Change Theme",darkTheme);
 		buttonMap.put("ColorChooser",colorChooser);
 		buttonMap.put("ColorChooser2",colorChooser2);
 		buttonMap.put("Brush",draw);
 		buttonMap.put("Repere",repere);
+		buttonMap.put("Size", sizeChooser);
 
 		//add icons to toolbar
 		jtoolBar.addSeparator(new Dimension(15,0));

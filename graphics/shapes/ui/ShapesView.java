@@ -52,7 +52,6 @@ public class ShapesView extends View implements ComponentListener{
 	@Override
 	public void componentResized(ComponentEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e.getComponent().getWidth());
 		ArrayList<Shape> shapes = ((SCollection)getModel()).getCollection();
 		for(Shape s : shapes) {
 			if(s instanceof SOrthonormal) {

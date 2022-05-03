@@ -35,6 +35,7 @@ public class MenuBar extends java.awt.MenuBar {
 		controller = (ShapesController) sview.getController();
 		this.sview = sview;
 
+
 		Font fontMenu = new Font("Sans Serif", Font.PLAIN, 15);
 		UIManager.put("Menu.font", fontMenu);
 		menuBar = new  JMenuBar();
@@ -85,7 +86,6 @@ public class MenuBar extends java.awt.MenuBar {
 			File f2 = new File(path);
 			try {
 				ImageIO.write(bufferedImage, "PNG", f2);
-				System.out.println(f2.getAbsolutePath());
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

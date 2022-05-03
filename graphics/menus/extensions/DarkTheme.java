@@ -1,21 +1,24 @@
 package graphics.menus.extensions;
 
 import graphics.menus.layer.LayerMenu;
-import graphics.menus.toolBar.Button;
 import graphics.menus.toolBar.ToggleButton;
-import graphics.shapes.SCollection;
 import graphics.shapes.ui.ShapesView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.Collection;
-import java.util.Iterator;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.Map;
 
 public class DarkTheme {
 
-    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, LayerMenu layerMenu, ShapesView sview, Collection<Button> tbButtons, JButton cc, JButton cc2){
-        Iterator<Button> iterator = tbButtons.iterator();
+    public DarkTheme(ActionEvent e, JToolBar toolBar, JMenuBar menuBar, LayerMenu layerMenu, ShapesView sview, Map<String,Component> tbButtons) throws IOException {
+        Component[] buttons = tbButtons.values().toArray(new Component[0]);
+        String[] buttonsName = tbButtons.keySet().toArray(new String[0]);
 
         // Darkmode
         if (((JToggleButton)e.getSource()).isSelected()){
@@ -38,15 +41,22 @@ public class DarkTheme {
             sview.setBackground(Color.darkGray);
 
             //buttons color
-            while (iterator.hasNext()) {
-                iterator.next().setBackground(interfaceDarkColor);
+            int count = 0;
+            for (Component btn : buttons) {
+                btn.setBackground(interfaceDarkColor);
+                String path = "icon/"+buttonsName[count]+"Dark.png";
+                if ((new File(path)).exists()){
+                    ImageIcon icon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+                    ((JButton) btn).setIcon(icon);
+                }
+                else if(buttonsName[count] == "ColorChooser2"){
+                    ImageIcon icon = new ImageIcon(new ImageIcon("icon/ColorChooserDark.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+                    ((JButton) btn).setIcon(icon);
+                }
+
+
+                count++;
             }
-
-            //colorchooser picture
-            ImageIcon icon = new ImageIcon(new ImageIcon("icon/darkColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
-            cc.setIcon(icon);
-            cc2.setIcon(icon);
-
             
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceDarkColor);
@@ -76,22 +86,28 @@ public class DarkTheme {
             sview.setBackground(Color.white);
 
             //buttons color
-            while (iterator.hasNext()) {
-                iterator.next().setBackground(interfaceLightColor);
+            int count = 0;
+            for (Component btn : buttons) {
+                btn.setBackground(interfaceLightColor);
+                String path = "icon/"+buttonsName[count]+".png";
+                if ((new File(path)).exists()){
+                    ImageIcon icon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+                    ((JButton) btn).setIcon(icon);
+                }
+                else if(buttonsName[count] == "ColorChooser2"){
+                    ImageIcon icon = new ImageIcon(new ImageIcon("icon/ColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
+                    ((JButton) btn).setIcon(icon);
+                }
+
+
+                count++;
             }
 
-            //colorchooser picture
-            ImageIcon icon = new ImageIcon(new ImageIcon("icon/lightColorChooser.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH));
-            cc.setIcon(icon);
-            cc2.setIcon(icon);
             
-            //layerMenu
-
             //layerMenu
             layerMenu.getMyJMenuBar().setBackground(interfaceLightColor);
             layerMenu.setBackgroundColor(interfaceLightColor);
             layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(5,0,0,0, interfaceLightColor));
-
 
         }
         layerMenu.refreshLayer(sview);
