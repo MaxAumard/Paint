@@ -25,24 +25,25 @@ public class Save {
 	public void saveAs(ShapesView sview) {
 
 		JFileChooser pathField =  new JFileChooser();
-		pathField.showSaveDialog(pathField);
+		int result = pathField.showSaveDialog(pathField);
+		if(result == JFileChooser.APPROVE_OPTION) {
+			String path = pathField.getSelectedFile().getAbsolutePath() + ".view";
+			System.out.println(path);
 
-		String path = pathField.getSelectedFile().getAbsolutePath() + ".view";
-		System.out.println(path);
+			File myFile = new File(path);
+			try {
+				if (!myFile.createNewFile()) {
 
-		File myFile = new File(path);
-		try {
-			if(!myFile.createNewFile()) {
-				//TODO Msg error overwrite
+				}
+				transcript(sview, path);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			transcript(sview, path);
-		} catch (IOException e) {
-			e.printStackTrace();
+			//SCollection coll = (SCollection) sview.getModel();
+			System.out.println("Save As... fonction");
+			this.path = path;
 		}
-		//SCollection coll = (SCollection) sview.getModel();
-		System.out.println("Save As... fonction");
-		this.path = path;
-
+		else{}
 	}
 
 	private void transcript(ShapesView sview, String path) {
@@ -67,7 +68,7 @@ public class Save {
 	}
 
 	public void save(ShapesView sview , String path) {
-		
+
 		this.transcript(sview, path);
 	}
 
