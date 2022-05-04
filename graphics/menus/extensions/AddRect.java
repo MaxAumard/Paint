@@ -33,9 +33,7 @@ public class AddRect {
 	public AddRect() {}
 
 	public void add(ShapesView sview,Color colorBorder,Color colorFill) {
-				
-		JTextField xField = new JTextField("0",5);
-		JTextField yField = new JTextField("0",5);
+
 		JTextField longueur = new JTextField(5);
 		JTextField hauteur = new JTextField(5);
 		JCheckBox tFill = new JCheckBox("Transparent Rectangle");
@@ -45,10 +43,6 @@ public class AddRect {
 		JPanel myPanel = new JPanel();
 		
 		myPanel.setLayout(new GridLayout(3,4,4,10));
-		myPanel.add(new JLabel("Position x:"));
-		myPanel.add(xField);
-		myPanel.add(new JLabel("Position y:"));
-		myPanel.add(yField);
 		myPanel.add(new JLabel("Longueur:"));
 		myPanel.add(longueur);
 		myPanel.add(new JLabel("Hauteur:"));
@@ -58,12 +52,10 @@ public class AddRect {
 
 		int result = JOptionPane.showConfirmDialog(null, myPanel,"New Rectangle", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION && this.tester(myPanel,tFill,tBorder,colorBorder)) {
-			int x = Integer.valueOf(xField.getText());
-			int y = Integer.valueOf(yField.getText());
 			int l = Integer.valueOf(longueur.getText());
 			int h = Integer.valueOf(hauteur.getText());
 			
-			SRectangle r = new SRectangle(new Point(x,y),l,h);
+			SRectangle r = new SRectangle(new Point(15,15),l,h);
 			r.addAttributes(new ColorAttributes(!tBorder.isSelected(),!tFill.isSelected(),colorBorder,colorFill));
 			r.addAttributes(new SelectionAttributes());
 			SCollection coll = (SCollection) sview.getModel();

@@ -1,9 +1,6 @@
 package graphics.menus.extensions;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Point;
+import java.awt.*;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -23,13 +20,12 @@ public class AddText {
 
 	public void add(ShapesView sview,Color colorBorder,Color colorFill) {
 
-		JTextField xField = new JTextField("0",5);
-		JTextField yField = new JTextField("0",5);
-		JTextField textSize = new JTextField("0",5);
+		JTextField textSize = new JTextField("10",5);
 		JTextField textInput = new JTextField(5);
 		JCheckBox tFill = new JCheckBox("Transparent Background");
 		JCheckBox tBorder = new JCheckBox("Transparent Font");
 		JCheckBox he = new JCheckBox("Helvetica");
+		he.setSelected(true);
 		JCheckBox tr = new JCheckBox("TimesRoman");
 		JCheckBox cr = new JCheckBox("Courrier");
 		JCheckBox ar = new JCheckBox("Arial");
@@ -37,14 +33,9 @@ public class AddText {
 		JCheckBox cs = new JCheckBox("Comic Sans");
 
 
-
 		JPanel myPanel = new JPanel();
 
-		myPanel.setLayout(new GridLayout(4,2,4,10));
-		myPanel.add(new JLabel("Position x:"));
-		myPanel.add(xField);
-		myPanel.add(new JLabel("Position y:"));
-		myPanel.add(yField);
+		myPanel.setLayout(new GridLayout(6,2,4,10));
 		myPanel.add(new JLabel("texte:"));
 		myPanel.add(textInput);
 		myPanel.add(new JLabel("taille:"));
@@ -60,9 +51,9 @@ public class AddText {
 
 
 		int result = JOptionPane.showConfirmDialog(null, myPanel,"New Text", JOptionPane.OK_CANCEL_OPTION);
-		if (result == JOptionPane.OK_OPTION && this.tester(xField,yField,tFill,tBorder)) {
-			int x = Integer.valueOf(xField.getText());
-			int y = Integer.valueOf(yField.getText());
+		if (result == JOptionPane.OK_OPTION && this.tester(myPanel)) {
+			int x = 15;
+			int y = 15;
 			int size = Integer.valueOf(textSize.getText());
 
 			if(he.isSelected()) {  //FontAttributes(Font font, Color fontColor)
@@ -109,27 +100,16 @@ public class AddText {
 		}
 	}
 
-	public boolean tester(JTextField x,JTextField y,JCheckBox ch1,JCheckBox ch2) {
-		if(textIsEmpty(x) || textIsEmpty(y)) {return false;};
-		if(!textIsInt(x) || !textIsInt(y)) {return false;};
-		if(ch1.isSelected() && ch2.isSelected()) {return false;}
-		return true;
-	}
-
-	public boolean textIsEmpty(JTextField field) {
-		if(field.getText().isEmpty()) {
-			return true;
+	public boolean tester(JPanel panel) {
+		int i=0;
+		for(Component c : panel.getComponents()){
+			if(c.getClass() == JCheckBox.class){
+				if(((JCheckBox) c).isSelected()){
+					i++;
+				}
+			}
 		}
-		return false;
-	}
-
-	public boolean textIsInt(JTextField field) {		
-		try {
-			Integer.parseInt(field.getText());
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		}
+		return i != 0;
 	}
 	
 	public void text(int x, int y, JTextField textInput, JCheckBox tFill, JCheckBox tBorder, Color colorBorder, Color colorFill, ShapesView sview, int size, String font ) {

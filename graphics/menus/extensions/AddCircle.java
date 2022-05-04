@@ -19,9 +19,7 @@ import graphics.shapes.ui.ShapesView;
 public class AddCircle {
 
 	public void add(ShapesView sview,Color colorBorder,Color colorFill) {
-		
-		JTextField xField = new JTextField("0",5);
-		JTextField yField = new JTextField("0",5);
+
 		JTextField rayon = new JTextField(5);
 		JCheckBox tFill = new JCheckBox("Transparent Circle");
 		JCheckBox tBorder = new JCheckBox("Transparent Border");
@@ -30,10 +28,6 @@ public class AddCircle {
 		JPanel myPanel = new JPanel();
 		
 		myPanel.setLayout(new GridLayout(4,2,4,10));
-		myPanel.add(new JLabel("Position x: "));
-		myPanel.add(xField);
-		myPanel.add(new JLabel("Position y: "));
-		myPanel.add(yField);
 		myPanel.add(new JLabel("Rayon:"));
 		myPanel.add(rayon);
 		myPanel.add(tFill);
@@ -41,11 +35,9 @@ public class AddCircle {
 
 		int result = JOptionPane.showConfirmDialog(null, myPanel,"New Circle", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION && this.tester(myPanel,tFill,tBorder,colorBorder)) {
-			int x = Integer.parseInt(xField.getText());
-			int y = Integer.parseInt(yField.getText());
 			int r = Integer.parseInt(rayon.getText());
 			
-			SCircle circle = new SCircle(new Point(x,y),r);
+			SCircle circle = new SCircle(new Point(15,15),r);
 			circle.addAttributes(new ColorAttributes(!tBorder.isSelected(),!tFill.isSelected(),colorBorder,colorFill));
 			circle.addAttributes(new SelectionAttributes());
 			SCollection coll = (SCollection) sview.getModel();

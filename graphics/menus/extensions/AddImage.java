@@ -18,8 +18,6 @@ public class AddImage {
 	
 	public void add(ShapesView sview) {
 				
-		JTextField xField = new JTextField("0",5);
-		JTextField yField = new JTextField("0",5);
 		JFileChooser pathField =  new JFileChooser();
 		JPanel myPanel = new JPanel();
 		
@@ -27,34 +25,13 @@ public class AddImage {
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.anchor = GridBagConstraints.LINE_START;
 
-		gc.weightx = 0.5;
-		gc.gridx = 0;
-		gc.gridy = 0;
-		myPanel.add(new JLabel("Position x:"),gc);
-
-		gc.weightx = 0.5;
-		gc.gridx = 0;
-		gc.gridy = 1;
-		myPanel.add(xField,gc);
-
-		gc.anchor = GridBagConstraints.LINE_START;
-		gc.weightx = 0.5;
-		gc.gridx = 1;
-		gc.gridy = 0;
-		myPanel.add(new JLabel("Position y:"),gc);
-
-		gc.weightx = 0.5;
-		gc.gridx = 1;
-		gc.gridy = 1;
-		myPanel.add(yField,gc);
-
 		gc.gridx = 0;
 		gc.gridy = 3;
 		myPanel.add(pathField,gc);
 		int result = JOptionPane.showConfirmDialog(null, myPanel,"New Image", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION && this.tester(myPanel)) {
-			int x = Integer.valueOf(xField.getText());
-			int y = Integer.valueOf(yField.getText());
+			int x = 15;
+			int y = 15;
 			String path = pathField.getSelectedFile().getAbsolutePath();
 			SCollection coll = (SCollection) sview.getModel();
 			try {
