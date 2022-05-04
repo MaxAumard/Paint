@@ -212,7 +212,7 @@ public class MenuBar extends java.awt.MenuBar {
 
 		menuBar.add(Extensions);
 
-		final JCheckBoxMenuItem viewAddText = new JCheckBoxMenuItem("Add Text", true);
+		final JCheckBoxMenuItem viewAddText = new JCheckBoxMenuItem("addText", true);
 		viewAddText.setIcon(new ImageIcon(new ImageIcon("icon/addText.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		Extensions.add(viewAddText);
 
@@ -220,11 +220,11 @@ public class MenuBar extends java.awt.MenuBar {
 		viewChangeTheme.setIcon(new ImageIcon(new ImageIcon("icon/LightThemeIcon.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		Extensions.add(viewChangeTheme);
 
-		final JCheckBoxMenuItem viewPippette = new JCheckBoxMenuItem("Pippette", true);
+		final JCheckBoxMenuItem viewPippette = new JCheckBoxMenuItem("pipette", true);
 		viewPippette.setIcon(new ImageIcon(new ImageIcon("icon/pipette.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		Extensions.add(viewPippette);
 
-		final JCheckBoxMenuItem viewBucket = new JCheckBoxMenuItem("Bucket", true);
+		final JCheckBoxMenuItem viewBucket = new JCheckBoxMenuItem("bucket", true);
 		viewBucket.setIcon(new ImageIcon(new ImageIcon("icon/bucket.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		Extensions.add(viewBucket);
 
