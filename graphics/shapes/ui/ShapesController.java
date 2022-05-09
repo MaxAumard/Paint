@@ -181,7 +181,7 @@ public class ShapesController extends Controller {
 		}
 		if(evt.getKeyCode()==evt.VK_X) {
 			if(evt.isControlDown()){
-				deleteShape();
+				cut();
 			}
 		}
 		if(evt.getKeyCode()==evt.VK_U) {
@@ -360,7 +360,6 @@ public class ShapesController extends Controller {
 	private Shape duplicate(Shape s)
 	{
 		Shape newShape = null;
-		Shape newS =null;
 
 		if (s instanceof SRectangle) {
 			SRectangle rectangle = (SRectangle) s;
