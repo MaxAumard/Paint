@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 import javax.swing.*;
 
 import graphics.menus.extensions.rightclick.RightClickMenu;
@@ -98,22 +99,30 @@ public class ShapesController extends Controller {
 		
 		switch (s.getClass().getSimpleName()){
 		case "SCircle":{
-			JTextField width = new JTextField();
-			JTextField height = new JTextField();
-			editMenu.add(width);
-			editMenu.add(height);
-			JLabel widthLabel = new JLabel("Longueur");
-			JLabel heightLabel = new JLabel("largeur");
-			widthLabel.setLabelFor(width);
-			heightLabel.setLabelFor(height);
-			JOptionPane.showConfirmDialog(null, editMenu,"edit Circle", JOptionPane.CANCEL_OPTION);
-
-
+			String text = (String) JOptionPane.showInputDialog(null, "Rayon : ", "Edit Circle",
+					JOptionPane.QUESTION_MESSAGE, null, null, ((SCircle)s).getRadius());
+			if (text != null && text.length() > 0) {
+				try {((SCircle)s).setRadius(Integer.parseInt(text));} catch (NumberFormatException e) {}
+			}
 		}
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + s.getClass());
+			case "SRectangle":{
+				JPanel myPanel = new JPanel();
+				JTextField width = new JTextField(((SRectangle)s).getRect().width);
+				JTextField height = new JTextField(((SRectangle)s).getRect().height);
+				myPanel.add(new JLabel("Longueur:"));	myPanel.add(width);
+				myPanel.add(new JLabel("Largeur:"));	myPanel.add(height);
+				int result = JOptionPane.showConfirmDialog(null, myPanel,"Edit Rectangle", JOptionPane.OK_CANCEL_OPTION);
+				if (result == JOptionPane.OK_OPTION) {
+						try {
+							((SRectangle)s).getRect().setRect(s.getBounds().x,s.getBounds().y,
+									Integer.parseInt(width.getText()),Integer.parseInt(height.getText()));
+						}
+						catch (NumberFormatException e) {}
+				}
+			}
+		default:{}
 		}
-		
+		getView().repaint();
 	}
 
 	public void mouseMoved(MouseEvent evt)
