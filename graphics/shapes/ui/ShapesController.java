@@ -379,35 +379,29 @@ public class ShapesController extends Controller {
 		if (s instanceof SRectangle) {
 			SRectangle rectangle = (SRectangle) s;
 			newShape = new SRectangle(new Point(rectangle.getLoc().x, rectangle.getLoc().y), rectangle.getRect().width, rectangle.getRect().height);
-			newShape.addAttributes(rectangle.getAttributes("Color"));
+			newShape.addAttributes(new ColorAttributes((ColorAttributes) rectangle.getAttributes("Color")));
 			newShape.addAttributes(new SelectionAttributes());
 		}else if (s instanceof SCircle) {
 			SCircle circle = (SCircle) s;
 			newShape = new SCircle(new Point(circle.getLoc().x, circle.getLoc().y), circle.getRadius());
-			newShape.addAttributes(circle.getAttributes("Color"));
+			newShape.addAttributes(new ColorAttributes((ColorAttributes) circle.getAttributes("Color")));
 			newShape.addAttributes(new SelectionAttributes());
 		}else if (s instanceof STriangle) {
 			STriangle triangle = (STriangle) s;
 			newShape = new STriangle(new Point(triangle.p1), new Point(triangle.p2), new Point(triangle.p3), 3);
-			newShape.addAttributes(triangle.getAttributes("Color"));
+			newShape.addAttributes(new ColorAttributes((ColorAttributes) triangle.getAttributes("Color")));
 			newShape.addAttributes(new SelectionAttributes());
 		}else if (s instanceof SLine) {
 			SLine line = (SLine) s;
 			newShape = new SLine(new Point((line.p1)), new Point(line.p2));
-			newShape.addAttributes(line.getAttributes("Color"));
+			newShape.addAttributes(new ColorAttributes((ColorAttributes) line.getAttributes("Color")));
 			newShape.addAttributes(new SelectionAttributes());
 		}
 		else if (s instanceof SText) {
 			SText txt = (SText) s;
-			newShape = new SText(new Point(txt.getLoc().x, txt.getLoc().y),txt.getText());
-			newShape.addAttributes(txt.getAttributes("Color"));
+			newShape = new SText(new Point(txt.getLoc().x, txt.getLoc().y), txt.getText());
+			newShape.addAttributes(new ColorAttributes((ColorAttributes) txt.getAttributes("Color")));
 			newShape.addAttributes(new SelectionAttributes());
-		}else if (s instanceof SPoint) {
-			SPoint coor = (SPoint) s;
-			newShape = new SPoint(new Point(coor.getLoc().x, coor.getLoc().y),coor.getText());
-			newShape.addAttributes(coor.getAttributes("Color"));
-			newShape.addAttributes(new SelectionAttributes());
-
 		}else if (s instanceof SImage) {
 			SImage image = (SImage) s;
 			try {
@@ -430,6 +424,27 @@ public class ShapesController extends Controller {
 	}
 
 	public void ungroupLastAdd() {
+		SCollection newColl = new SCollection();
+		SCollection tempModel = new SCollection();
+		newColl.addAttributes(new SelectionAttributes());
+		tempModel.addAttributes(new SelectionAttributes());
+
+		for (Shape s : ((SCollection) this.getModel()).collection) {
+			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
+			if( sAtt.isSelected() && s.getClass() == SCollection.class) {
+				Shape s2 = ((SCollection) s).collection.get(((SCollection)s).collection.size()-1);
+				((SCollection) s).collection.remove(((SCollection)s).collection.size()-1);
+				sAtt.unselect();
+				tempModel.add(s2);
+			}
+			tempModel.add(s);
+		}
+
+		this.getView().setModel(tempModel);
+		this.getView().repaint();
+	}
+
+	public void ungroupCollec(){
 		SCollection newColl = new SCollection();
 		SCollection tempModel = new SCollection();
 		newColl.addAttributes(new SelectionAttributes());

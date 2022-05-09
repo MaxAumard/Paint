@@ -16,6 +16,13 @@ public class ColorAttributes extends Attributes{
 		this.fillColor = fColor;
 	}
 
+	public ColorAttributes(ColorAttributes ca){
+		this.stroked = ca.stroked;
+		this.filled = ca.filled;
+		this.strokeColor = ca.strokeColor;
+		this.fillColor = ca.fillColor;
+	}
+
 	@Override
 	public String getID() {
 		return "Color";
