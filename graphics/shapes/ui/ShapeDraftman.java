@@ -47,6 +47,23 @@ public class ShapeDraftman implements ShapeVisitor{
 		g2d.setStroke(dashed);
 		g2d.setColor(new Color(161,146,125));
 		g2d.drawRect(rectSelection.getLoc().x, rectSelection.getLoc().y, rectSelection.getRect().width ,rectSelection.getRect().height);
+		drawResize(s);
+	}
+
+	private void drawResize(Shape s) {
+		Graphics2D g2d = (Graphics2D) g.create();
+		Rectangle border = s.getBounds();
+		switch (s.getClass().getSimpleName()){
+			case "SRectangle":{
+				g2d.setColor(Color.BLACK);
+				g2d.fillRect(border.getLocation().x+border.width,border.getLocation().y+border.height,5,5);
+			}
+			case "SCircle":{
+				g2d.setColor(Color.BLACK);
+				g2d.fillRect(border.getLocation().x+border.width,border.getLocation().y+border.height,5,5);
+			}
+			default:{}
+		}
 	}
 
 

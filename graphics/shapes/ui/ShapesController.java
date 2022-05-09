@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 import javax.swing.*;
 
 import graphics.menus.extensions.rightclick.RightClickMenu;
@@ -212,8 +213,13 @@ public class ShapesController extends Controller {
 			}
 		}
 		if(evt.getKeyCode()==evt.VK_U) {
-			if(evt.isAltDown()){
-				ungroupLastAdd();
+			if(evt.isControlDown()){
+				if(evt.isShiftDown()){
+					ungroupCollec();
+				}
+				else{
+					ungroupLastAdd();
+				}
 			}
 		}
 		if(evt.getKeyCode() == evt.VK_ESCAPE) {
@@ -445,24 +451,41 @@ public class ShapesController extends Controller {
 	}
 
 	public void ungroupCollec(){
-		SCollection newColl = new SCollection();
 		SCollection tempModel = new SCollection();
-		newColl.addAttributes(new SelectionAttributes());
 		tempModel.addAttributes(new SelectionAttributes());
 
-		for (Shape s : ((SCollection) this.getModel()).collection) {
-			SelectionAttributes sAtt = 	(SelectionAttributes) s.getAttributes("Selected");
-			if( sAtt.isSelected() && s.getClass() == SCollection.class) {
-				Shape s2 = ((SCollection) s).collection.get(((SCollection)s).collection.size()-1);
-				((SCollection) s).collection.remove(((SCollection)s).collection.size()-1);
-				sAtt.unselect();
-				tempModel.add(s2);
+		for(Shape s : ((SCollection)getModel()).collection ){
+			SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
+			if(sAtt.isSelected()){
+				if(s instanceof SCollection) {
+					for (Shape s2 : ((SCollection) s).collection) {
+						ungroupShape((SCollection) s,s2,tempModel);
+					}
+				}
+				else {
+					tempModel.add(s);
+				}
 			}
-			tempModel.add(s);
 		}
-
+		for(Shape s : ((SCollection)getModel()).collection ) {
+			SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
+			if(!sAtt.isSelected()){
+				tempModel.add(s);
+			}
+		}
 		this.getView().setModel(tempModel);
 		this.getView().repaint();
+	}
+
+	public void ungroupShape(SCollection coll, Shape s,SCollection tempModel){
+		if(s instanceof SCollection){
+			for (Shape inside : ((SCollection) s).collection){
+				ungroupShape((SCollection) s,inside,tempModel);
+			}
+		}
+		else {
+			tempModel.add(s);
+		}
 	}
 
 	/*	public Shape ungroupCollec() {
