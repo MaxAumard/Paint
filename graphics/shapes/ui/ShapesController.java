@@ -25,9 +25,7 @@ public class ShapesController extends Controller {
 
 	private boolean shiftHeld = false;
 	private Point lastPoint;
-	private SCollection selectColl = new SCollection();
 	private ArrayList<Shape> copy;
-	private ArrayList<Shape> cut;
 	private LayerMenu layerMenu;
 	public ShapesView sview;
 	public boolean crayon;
@@ -65,7 +63,6 @@ public class ShapesController extends Controller {
 		layerMenu.getMyJMenuBar().setBorder(BorderFactory.createMatteBorder(0,0,0,0, new Color(0,0,0)));
 
 		layerMenu.refreshLayer(sview);
-		//System.out.println("mouse Released");
 	}
 
 	public void mouseClicked(MouseEvent e)
@@ -213,7 +210,6 @@ public class ShapesController extends Controller {
 			sAtt.unselect();
 		}
 		this.getView().repaint();
-		this.selectColl = new SCollection();
 	}
 
 
@@ -223,11 +219,9 @@ public class ShapesController extends Controller {
 			sAtt.select();
 		}
 		this.getView().repaint();
-		this.selectColl = new SCollection();
 	}
 	public void setSelection(Shape s) {
 		if(!this.shiftHeld){unselectAll();}
-		this.selectColl.add(s);
 		if(s.getAttributes("Selection") == null) {
 			SelectionAttributes sAtt = new SelectionAttributes();
 			sAtt.select();
@@ -337,21 +331,12 @@ public class ShapesController extends Controller {
 			copy.clear();
 			getView().repaint();
 		}
-
-		if (this.cut != null) {
-			for (Shape shape : this.cut) {
-				Shape s = duplicate(shape);
-				Scol.getShapes().add(s);
-			}
-			cut.clear();
-			getView().repaint();
-		}
 	}
 
 
 	public void cut()
 	{
-		this.cut = selected();
+		this.copy = selected();
 		this.delete();
 	}
 
@@ -568,8 +553,6 @@ public class ShapesController extends Controller {
 	}
 
 	public void setRepere() {
-		System.out.println("setrepere");
-
 		this.rep = true;
 
 		SOrthonormal l = new SOrthonormal(new Point(getView().getWidth()/2, 0), new Point(getView().getWidth()/2,getView().getHeight()), true);
@@ -591,7 +574,6 @@ public class ShapesController extends Controller {
 	}
 
 	public void cutRepere() {
-		System.out.println("cutrepere");
 		this.rep = false;
 
 		SCollection tempModel = new SCollection();
