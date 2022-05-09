@@ -81,8 +81,38 @@ public class ShapesController extends Controller {
 		}
 
 		if(e.getClickCount() == 2){
+			editShape(e);
+		}
+	}
+
+	private void editShape(MouseEvent e) {
+		Shape s = getTarget(e);
+		if(s!=null) {
+			editMenu(s);
+		}
+	}
+
+	private void editMenu(Shape s) {
+		JOptionPane editMenu = new JOptionPane();
+		
+		switch (s.getClass().getSimpleName()){
+		case "SCircle":{
+			JTextField width = new JTextField();
+			JTextField height = new JTextField();
+			editMenu.add(width);
+			editMenu.add(height);
+			JLabel widthLabel = new JLabel("Longueur");
+			JLabel heightLabel = new JLabel("largeur");
+			widthLabel.setLabelFor(width);
+			heightLabel.setLabelFor(height);
+			JOptionPane.showConfirmDialog(null, editMenu,"edit Circle", JOptionPane.CANCEL_OPTION);
+
 
 		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + s.getClass());
+		}
+		
 	}
 
 	public void mouseMoved(MouseEvent evt)
