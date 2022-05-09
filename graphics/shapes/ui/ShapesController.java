@@ -82,29 +82,20 @@ public class ShapesController extends Controller {
 			RightClickMenu popMenu = new RightClickMenuText();
 			popMenu.show(sview, 100, 100);
 		}
-	}
 
-	public void mouseEntered(MouseEvent e)
-	{
-		//System.out.println("mouse Enter");
-	}
+		if(e.getClickCount() == 2){
 
-	public void mouseExited(MouseEvent e)
-	{
-		//System.out.println("mouse Exit");
+		}
 	}
 
 	public void mouseMoved(MouseEvent evt)
 	{
-		//System.out.println("mouse Move");
-
 		SCollection Scol = (SCollection) this.getModel();
 		for(Shape s : new ArrayList<>(Scol.getShapes())) {
 			if(s instanceof SPoint) {
 				((SPoint) s).setText("("+evt.getX()+","+evt.getY()+")");
 				this.getView().repaint();
 			}
-
 		}
 	}
 
@@ -203,9 +194,6 @@ public class ShapesController extends Controller {
 			this.crayon=false;
 			this.rep=false;
 			getView().setCursor(Cursor.getDefaultCursor());
-
-
-
 		}
 
 
@@ -335,7 +323,6 @@ public class ShapesController extends Controller {
 	public void copy()
 	{
 		this.copy = selected();
-
 	}
 
 	public void paste()
@@ -378,39 +365,33 @@ public class ShapesController extends Controller {
 		if (s instanceof SRectangle) {
 			SRectangle rectangle = (SRectangle) s;
 			newShape = new SRectangle(new Point(rectangle.getLoc().x, rectangle.getLoc().y), rectangle.getRect().width, rectangle.getRect().height);
-			ColorAttributes ca = (ColorAttributes) rectangle.getAttributes("Color");
-			newShape.addAttributes( new ColorAttributes( ca.stroked, ca.filled, ca.strokeColor,ca.fillColor));
+			newShape.addAttributes(rectangle.getAttributes("Color"));
 			newShape.addAttributes(new SelectionAttributes());
 		}else if (s instanceof SCircle) {
 			SCircle circle = (SCircle) s;
 			newShape = new SCircle(new Point(circle.getLoc().x, circle.getLoc().y), circle.getRadius());
-			ColorAttributes ca = (ColorAttributes) circle.getAttributes("Color");
-			newShape.addAttributes( new ColorAttributes( ca.stroked, ca.filled, ca.strokeColor,ca.fillColor));
+			newShape.addAttributes(circle.getAttributes("Color"));
 			newShape.addAttributes(new SelectionAttributes());
 		}else if (s instanceof STriangle) {
 			STriangle triangle = (STriangle) s;
 			newShape = new STriangle(new Point(triangle.p1), new Point(triangle.p2), new Point(triangle.p3), 3);
-			ColorAttributes ca = (ColorAttributes) triangle.getAttributes("Color");
-			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+			newShape.addAttributes(triangle.getAttributes("Color"));
 			newShape.addAttributes(new SelectionAttributes());
 		}else if (s instanceof SLine) {
 			SLine line = (SLine) s;
 			newShape = new SLine(new Point((line.p1)), new Point(line.p2));
-			ColorAttributes ca = (ColorAttributes) line.getAttributes("Color");
-			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+			newShape.addAttributes(line.getAttributes("Color"));
 			newShape.addAttributes(new SelectionAttributes());
 		}
 		else if (s instanceof SText) {
 			SText txt = (SText) s;
 			newShape = new SText(new Point(txt.getLoc().x, txt.getLoc().y),txt.getText());
-			ColorAttributes ca = (ColorAttributes) txt.getAttributes("Color");
-			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+			newShape.addAttributes(txt.getAttributes("Color"));
 			newShape.addAttributes(new SelectionAttributes());
 		}else if (s instanceof SPoint) {
 			SPoint coor = (SPoint) s;
 			newShape = new SPoint(new Point(coor.getLoc().x, coor.getLoc().y),coor.getText());
-			ColorAttributes ca = (ColorAttributes) coor.getAttributes("Color");
-			newShape.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+			newShape.addAttributes(coor.getAttributes("Color"));
 			newShape.addAttributes(new SelectionAttributes());
 
 		}else if (s instanceof SImage) {
@@ -418,8 +399,6 @@ public class ShapesController extends Controller {
 			try {
 				newShape = new SImage(image.getPath(),new Point(image.getLoc().x, image.getLoc().y),sview);
 			} catch (IOException e) {
-
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			newShape.addAttributes(new SelectionAttributes());
@@ -434,7 +413,7 @@ public class ShapesController extends Controller {
 						SRectangle rectangle = (SRectangle) shapeInside;
 						newS = new SRectangle(new Point(rectangle.getLoc().x, rectangle.getLoc().y), rectangle.getRect().width, rectangle.getRect().height);
 						ColorAttributes ca = (ColorAttributes) rectangle.getAttributes("Color");
-						newS.addAttributes( new ColorAttributes( ca.stroked, ca.filled, ca.strokeColor,ca.fillColor));
+						newS.addAttributes(ca);
 						newS.addAttributes(new SelectionAttributes());
 						newShape.add(newS);
 
@@ -442,14 +421,14 @@ public class ShapesController extends Controller {
 						SCircle circle = (SCircle) shapeInside;
 						newS = new SCircle(new Point(circle.getLoc().x, circle.getLoc().y), circle.getRadius());
 						ColorAttributes ca = (ColorAttributes) circle.getAttributes("Color");
-						newS.addAttributes( new ColorAttributes( ca.stroked, ca.filled, ca.strokeColor,ca.fillColor));
+						newS.addAttributes(ca);
 						newS.addAttributes(new SelectionAttributes());
 						newShape.add(newS);
 					} else if (shapeInside.getClass() == SText.class) {
 						SText txt = (SText) shapeInside;
 						newS = new SText(new Point(txt.getLoc().x, txt.getLoc().y),txt.getText());
 						ColorAttributes ca = (ColorAttributes) txt.getAttributes("Color");
-						newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+						newS.addAttributes(ca);
 						newS.addAttributes(new SelectionAttributes());
 						newShape.add(newS);
 					}
@@ -457,7 +436,7 @@ public class ShapesController extends Controller {
 						STriangle triangle = (STriangle) shapeInside;
 						newS = new STriangle(new Point(triangle.p1), new Point(triangle.p2), new Point(triangle.p3), 3);
 						ColorAttributes ca = (ColorAttributes) triangle.getAttributes("Color");
-						newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+						newS.addAttributes(ca);
 						newS.addAttributes(new SelectionAttributes());
 						newShape.add(newS);
 					}
@@ -465,7 +444,7 @@ public class ShapesController extends Controller {
 						SPoint coor = (SPoint) shapeInside;
 						newS = new SPoint(new Point(coor.getLoc().x, coor.getLoc().y),coor.getText());
 						ColorAttributes ca = (ColorAttributes) coor.getAttributes("Color");
-						newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+						newS.addAttributes(ca);
 						newS.addAttributes(new SelectionAttributes());
 						newShape.add(newS);
 					}
@@ -473,7 +452,7 @@ public class ShapesController extends Controller {
 						SLine line = (SLine) shapeInside;
 						newS = new SLine(new Point(line.p1),new Point(line.p2));
 						ColorAttributes ca = (ColorAttributes) line.getAttributes("Color");
-						newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
+						newS.addAttributes(ca);
 						newS.addAttributes(new SelectionAttributes());
 						newShape.add(newS);
 					}
@@ -482,24 +461,18 @@ public class ShapesController extends Controller {
 						try {
 							newS = new SImage(image.getPath(),new Point(image.getLoc().x, image.getLoc().y),sview);
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						newS.addAttributes(new SelectionAttributes());
 						newShape.add(newS);
 					}
 					else if(shapeInside.getClass() == SCollection.class){
-						//duplicate(shapeInside);
 						newShape.add(duplicate(shapeInside));
 					}
 				}
 			}
 		}
-
 		newShape.addAttributes(new SelectionAttributes());
-
-
-
 		return newShape;
 	}
 
