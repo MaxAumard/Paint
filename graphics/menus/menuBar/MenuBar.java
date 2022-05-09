@@ -146,6 +146,16 @@ public class MenuBar extends java.awt.MenuBar {
 		CopyItem.setBorderPainted(false);
 		home.add(CopyItem);
 
+		JMenuItem cutItem = new JMenuItem("Cut");
+		cutItem.addActionListener(this::cutShape);
+		cutItem.setBackground(new Color(239, 239, 239));//fond
+		cutItem.setForeground(Color.black);//text
+		cutItem.setIcon(new ImageIcon(new ImageIcon("icon/copy.png").getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+		cutItem.setMnemonic('X');
+		cutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
+		cutItem.setBorderPainted(false);
+		home.add(cutItem);
+
 		JMenuItem PasteItem = new JMenuItem("Paste");
 		PasteItem.addActionListener(this::pasteShape);
 		PasteItem.setBackground(new Color(239, 239, 239));//fond
@@ -378,13 +388,15 @@ public class MenuBar extends java.awt.MenuBar {
 	}
 
 	private void copyShape(ActionEvent event) {
-		System.out.println("Shape copied");
 		controller.copy();
 	}
 
 	private void pasteShape(ActionEvent event) {
-		System.out.println("Shape pasted");
 		controller.paste();
+	}
+
+	private void cutShape(ActionEvent event) {
+		controller.cut();
 	}
 
 	public void setToolBar(ToolBar t){
