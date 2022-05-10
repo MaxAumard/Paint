@@ -1,22 +1,18 @@
 package graphics.shapes.ui;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Scanner;
-import java.util.regex.Pattern;
 import javax.swing.*;
 
 import graphics.menus.extensions.rightclick.RightClickMenu;
 import graphics.menus.extensions.rightclick.RightClickMenuText;
 import graphics.menus.layer.LayerMenu;
 import graphics.shapes.*;
+import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.attributes.SizeAttributes;
@@ -35,6 +31,8 @@ public class ShapesController extends Controller {
 	public SCollection dessin;
 	public SCollection repere;
 	private int paintSize = 4;
+	private Shape shapeToResize;
+	private boolean resize = false;
 
 	public ShapesController(Object newModel, ShapesView sview) {
 		super(newModel);
@@ -50,7 +48,7 @@ public class ShapesController extends Controller {
 
 	public void mousePressed(MouseEvent e)
 	{
-
+		if(shapeToResize != null){testResize(e,shapeToResize);}
 		lastPoint = new Point(e.getPoint());
 		if(this.crayon){
 			dessin = new SCollection();
@@ -96,16 +94,14 @@ public class ShapesController extends Controller {
 
 	private void editMenu(Shape s) {
 		JOptionPane editMenu = new JOptionPane();
-
-		switch (s.getClass().getSimpleName()){
-		case "SCircle":{
+		if(s.getClass() == SCircle.class){
 			String text = (String) JOptionPane.showInputDialog(null, "Rayon : ", "Edit Circle",
 					JOptionPane.QUESTION_MESSAGE, null, null, ((SCircle)s).getRadius());
 			if (text != null && text.length() > 0) {
 				try {((SCircle)s).setRadius(Integer.parseInt(text));} catch (NumberFormatException e) {}
 			}
 		}
-		case "SRectangle":{
+		if(s.getClass() == SRectangle.class){
 			JPanel myPanel = new JPanel();
 			JTextField width = new JTextField(((SRectangle)s).getRect().width);
 			JTextField height = new JTextField(((SRectangle)s).getRect().height);
@@ -120,14 +116,12 @@ public class ShapesController extends Controller {
 				catch (NumberFormatException e) {}
 			}
 		}
-		case "SText":{
+		if(s.getClass() == SText.class){
 			String text = (String) JOptionPane.showInputDialog(null, "Texte : ", "Edit Texte",
 					JOptionPane.QUESTION_MESSAGE, null, null, ((SText)s).getText());
 			if (text != null && text.length() > 0) {
 				((SText)s).setText(text);
 			}
-		}
-		default:{}
 		}
 		getView().repaint();
 	}
@@ -146,16 +140,10 @@ public class ShapesController extends Controller {
 	public void mouseDragged(MouseEvent evt)
 	{
 		if(this.crayon) {
-			SLine line = new SLine(new Point(lastPoint.x, lastPoint.y), new Point(evt.getX(),evt.getY()));
-			line.addAttributes(new SelectionAttributes());
-			line.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
-			line.addAttributes(new SizeAttributes(paintSize));
-			SCollection oldDessin = dessin;
-			dessin.add(line);
-			if(oldDessin == ((SCollection)this.getModel()).collection.get(((SCollection)this.getModel()).collection.size()-1)){
-				((SCollection)this.getModel()).collection.remove(((SCollection)this.getModel()).collection.size()-1);
-				((SCollection)getModel()).add(dessin);
-			}
+			drawing(evt);
+		}
+		else if(this.resize){
+			resizeShape(evt);
 		}
 		else {
 			for (Shape s : ((SCollection) getModel()).collection) {
@@ -287,14 +275,25 @@ public class ShapesController extends Controller {
 	}
 
 	public Shape getTarget(MouseEvent e) {
-		ArrayList<Shape> list = ((SCollection) getModel()).collection;
-		for (int i=list.size()-1;i>=0;i--) {
-			if(list.get(i).getBounds().contains(e.getPoint().x,e.getPoint().y)) {
-				return list.get(i);
+		ArrayList<Shape> collection = ((SCollection) getModel()).collection;
+		for (int i=collection.size()-1;i>=0;i--) {
+			SelectionAttributes sAtt = (SelectionAttributes) collection.get(i).getAttributes("Selected");
+			if(collection.get(i).getBounds().contains(e.getPoint().x,e.getPoint().y)) {
+				shapeToResize = collection.get(i);
+				return collection.get(i);
 			}
 		}
 		unselectAll();
 		return null;
+	}
+
+	private void testResize(MouseEvent e, Shape s) {
+		Rectangle rect = new Rectangle(s.getBounds().x+s.getBounds().width,s.getBounds().y+s.getBounds().height,5,5);
+		if(rect.getBounds().contains(e.getPoint())){
+			this.shapeToResize = s;
+			this.resize = true;
+		}
+		else{this.resize=false;}
 	}
 
 	public void groupShape() {
@@ -504,116 +503,6 @@ public class ShapesController extends Controller {
 		}
 	}
 
-	/*	public Shape ungroupCollec() {
-		Shape newS =null;
-		SCollection view = (SCollection)(getModel());
-		ArrayList<Shape> shapes = new ArrayList<Shape>();
-
-		for(Shape s : ((SCollection) this.getModel()).collection) {
-			shapes.add(s);
-		}
-
-		for(Shape s : shapes) {
-			SelectionAttributes sAtt = (SelectionAttributes) s.getAttributes("Selected");
-
-			if(sAtt.isSelected() && s.getClass()==SCollection.class ) {
-				Iterator<Shape> sInside = ((SCollection) s).iterator();
-				System.out.println(((SCollection) s).getCollection().size());
-				while (sInside.hasNext()){
-					Shape shapeInside = sInside.next();
-					System.out.println(shapeInside.getClass().getName());
-					if (shapeInside.getBounds().contains(shapeInside.getLoc().x, shapeInside.getLoc().y)) {
-						if (shapeInside.getClass() == SRectangle.class) {
-							System.out.println("ajout rect");
-							SRectangle rectangle = (SRectangle) shapeInside;
-							newS = new SRectangle(new Point(rectangle.getLoc().x, rectangle.getLoc().y), rectangle.getRect().width, rectangle.getRect().height);
-							ColorAttributes ca = (ColorAttributes) rectangle.getAttributes("Color");
-							newS.addAttributes( new ColorAttributes( ca.stroked, ca.filled, ca.strokeColor,ca.fillColor));
-							newS.addAttributes(new SelectionAttributes());
-							view.add(newS);
-
-						}
-						else if (shapeInside.getClass() == SCircle.class) {
-							System.out.println("ajout circle");
-							SCircle circle = (SCircle) shapeInside;
-							newS = new SCircle(new Point(circle.getLoc().x, circle.getLoc().y), circle.getRadius());
-							ColorAttributes ca = (ColorAttributes) circle.getAttributes("Color");
-							newS.addAttributes( new ColorAttributes( ca.stroked, ca.filled, ca.strokeColor,ca.fillColor));
-							newS.addAttributes(new SelectionAttributes());
-							newS.addAttributes(new SelectionAttributes());
-							view.add(newS);
-
-						}
-						else if (shapeInside.getClass() == SText.class) {
-							System.out.println("ajout txt");
-							SText txt = (SText) shapeInside;
-							newS = new SText(new Point(txt.getLoc().x, txt.getLoc().y),txt.getText());
-							ColorAttributes ca = (ColorAttributes) txt.getAttributes("Color");
-							newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
-							newS.addAttributes(new SelectionAttributes());
-							view.add(newS);
-						}
-						else if (shapeInside instanceof STriangle){
-							System.out.println("ajout triangle en cours");
-							STriangle triangle = (STriangle) shapeInside;
-							System.out.println("ajout triangle 1");
-							newS = new STriangle(new Point(triangle.p1), new Point(triangle.p2), new Point(triangle.p3), 3);
-							System.out.println("ajout triangle 2");
-							ColorAttributes ca = (ColorAttributes) triangle.getAttributes("Color");
-							System.out.println("ajout triangle 3");
-							newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
-							newS.addAttributes(new SelectionAttributes());
-							view.add(newS);
-							System.out.println("triangle ajouter");
-						}
-						else if (shapeInside.getClass() == SPoint.class){
-							System.out.println("ajout point");
-							SPoint coor = (SPoint) shapeInside;
-							newS = new SPoint(new Point(coor.getLoc().x, coor.getLoc().y),coor.getText());
-							ColorAttributes ca = (ColorAttributes) coor.getAttributes("Color");
-							newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
-							newS.addAttributes(new SelectionAttributes());
-							view.add(newS);
-						}
-						else if (shapeInside.getClass() == SLine.class){
-							System.out.println("ajout ligne");
-							SLine line = (SLine) shapeInside;
-							newS = new SLine(new Point(line.p1),new Point(line.p2));
-							ColorAttributes ca = (ColorAttributes) line.getAttributes("Color");
-							newS.addAttributes( new ColorAttributes(ca.stroked, ca.filled, ca.strokeColor, ca.fillColor));
-							newS.addAttributes(new SelectionAttributes());
-							view.add(newS);
-						}
-						else if (shapeInside.getClass() == SImage.class) {
-							System.out.println("ajout image");
-							SImage image = (SImage) shapeInside;
-							try {
-								newS = new SImage(image.getPath(),new Point(image.getLoc().x, image.getLoc().y),sview);
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							newS.addAttributes(new SelectionAttributes());
-							view.add(newS);
-						}
-						else if(shapeInside.getClass() == SCollection.class){
-							//duplicate(shapeInside);
-							view.add(ungroupCollec());
-						}
-					}
-				}
-				shapes.remove(s);
-			}
-
-
-		}
-		((SCollection)this.getModel()).collection = shapes;
-
-		return newS;
-	}
-	 */
-
-
 	public void replaceCollec(Class c) {
 		SCollection sview = (SCollection) (this.getModel());
 		SCollection tempModel = new SCollection();
@@ -675,7 +564,6 @@ public class ShapesController extends Controller {
 	}
 
 	public void setPenSize(int s) {
-		// TODO Auto-generated method stub
 		this.paintSize  = s;
 	}
 
@@ -683,5 +571,35 @@ public class ShapesController extends Controller {
 		this.layerMenu = layerMenu;
 	}
 
+	public void drawing(MouseEvent evt){
+		SLine line = new SLine(new Point(lastPoint.x, lastPoint.y), new Point(evt.getX(),evt.getY()));
+		line.addAttributes(new SelectionAttributes());
+		line.addAttributes(new ColorAttributes(true, true, Color.BLACK,Color.BLACK));
+		line.addAttributes(new SizeAttributes(paintSize));
+		SCollection oldDessin = dessin;
+		dessin.add(line);
+		if(oldDessin == ((SCollection)this.getModel()).collection.get(((SCollection)this.getModel()).collection.size()-1)){
+			((SCollection)this.getModel()).collection.remove(((SCollection)this.getModel()).collection.size()-1);
+			((SCollection)getModel()).add(dessin);
+		}
+	}
 
+	public void resizeShape(MouseEvent evt){
+		System.out.println(shapeToResize.getClass());
+		if(shapeToResize.getClass() == SRectangle.class) {resizeRect((SRectangle) shapeToResize,evt);}
+		if(shapeToResize.getClass() == SCircle.class){resizeCircle((SCircle)shapeToResize,evt);}
+	}
+
+	private void resizeCircle(SCircle shapeToResize, MouseEvent evt) {
+		int dx = lastPoint.x-evt.getX();
+		int dy = lastPoint.y-evt.getY();
+		int radius = Integer.max(shapeToResize.getRadius()-dx,shapeToResize.getRadius()-dy);
+		shapeToResize.setRadius(radius);
+	}
+
+	private void resizeRect(SRectangle shapeToResize,MouseEvent evt) {
+		int dx = lastPoint.x-evt.getX();
+		int dy = lastPoint.y-evt.getY();
+		shapeToResize.getRect().setRect(shapeToResize.getLoc().x,shapeToResize.getLoc().y,shapeToResize.getBounds().width-dx,shapeToResize.getBounds().height-dy);
+	}
 }
