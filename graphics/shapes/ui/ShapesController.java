@@ -96,7 +96,7 @@ public class ShapesController extends Controller {
 
 	private void editMenu(Shape s) {
 		JOptionPane editMenu = new JOptionPane();
-		
+
 		switch (s.getClass().getSimpleName()){
 		case "SCircle":{
 			String text = (String) JOptionPane.showInputDialog(null, "Rayon : ", "Edit Circle",
@@ -105,21 +105,28 @@ public class ShapesController extends Controller {
 				try {((SCircle)s).setRadius(Integer.parseInt(text));} catch (NumberFormatException e) {}
 			}
 		}
-			case "SRectangle":{
-				JPanel myPanel = new JPanel();
-				JTextField width = new JTextField(((SRectangle)s).getRect().width);
-				JTextField height = new JTextField(((SRectangle)s).getRect().height);
-				myPanel.add(new JLabel("Longueur:"));	myPanel.add(width);
-				myPanel.add(new JLabel("Largeur:"));	myPanel.add(height);
-				int result = JOptionPane.showConfirmDialog(null, myPanel,"Edit Rectangle", JOptionPane.OK_CANCEL_OPTION);
-				if (result == JOptionPane.OK_OPTION) {
-						try {
-							((SRectangle)s).getRect().setRect(s.getBounds().x,s.getBounds().y,
-									Integer.parseInt(width.getText()),Integer.parseInt(height.getText()));
-						}
-						catch (NumberFormatException e) {}
+		case "SRectangle":{
+			JPanel myPanel = new JPanel();
+			JTextField width = new JTextField(((SRectangle)s).getRect().width);
+			JTextField height = new JTextField(((SRectangle)s).getRect().height);
+			myPanel.add(new JLabel("Longueur:"));	myPanel.add(width);
+			myPanel.add(new JLabel("Largeur:"));	myPanel.add(height);
+			int result = JOptionPane.showConfirmDialog(null, myPanel,"Edit Rectangle", JOptionPane.OK_CANCEL_OPTION);
+			if (result == JOptionPane.OK_OPTION) {
+				try {
+					((SRectangle)s).getRect().setRect(s.getBounds().x,s.getBounds().y,
+							Integer.parseInt(width.getText()),Integer.parseInt(height.getText()));
 				}
+				catch (NumberFormatException e) {}
 			}
+		}
+		case "SText":{
+			String text = (String) JOptionPane.showInputDialog(null, "Texte : ", "Edit Texte",
+					JOptionPane.QUESTION_MESSAGE, null, null, ((SText)s).getText());
+			if (text != null && text.length() > 0) {
+				((SText)s).setText(text);
+			}
+		}
 		default:{}
 		}
 		getView().repaint();
