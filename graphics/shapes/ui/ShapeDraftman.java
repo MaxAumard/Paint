@@ -140,9 +140,7 @@ public class ShapeDraftman implements ShapeVisitor{
 		if(ca.stroked) {
 			g.setColor(ca.strokeColor);
 			g.drawLine(l.getP1().x,l.getP1().y,l.getP2().x,l.getP2().y);
-			((Graphics2D) g).setStroke(new BasicStroke(sa.getSize()));
-           // ((Graphics2D) g).draw(new Line2D.Float(l.getP1().x,l.getP1().y,l.getP2().x,l.getP2().y));
-		}
+			((Graphics2D) g).setStroke(new BasicStroke(sa.getSize()));		}
 		if (selectAtt.isSelected()) {
 			drawSelected(l);
 			}
