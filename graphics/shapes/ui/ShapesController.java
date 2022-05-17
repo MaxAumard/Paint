@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.*;
 
-import graphics.menus.extensions.rightclick.RightClickMenu;
-import graphics.menus.extensions.rightclick.RightClickMenuText;
 import graphics.menus.layer.LayerMenu;
 import graphics.shapes.*;
 import graphics.shapes.Shape;
@@ -73,11 +71,6 @@ public class ShapesController extends Controller {
 			if(s!=null){
 				setSelection(s);
 			}
-		}
-
-		if(SwingUtilities.isRightMouseButton(e)){
-			RightClickMenu popMenu = new RightClickMenuText();
-			popMenu.show(sview, 100, 100);
 		}
 
 		if(e.getClickCount() == 2){
