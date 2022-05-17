@@ -58,7 +58,8 @@ public class AddText {
 
 			if(he.isSelected()) {  //FontAttributes(Font font, Color fontColor)
 				text(x,  y, textInput, tFill,tBorder,colorBorder,colorFill,sview,size,"Helvetica" );
-			}else if(tr.isSelected()){
+			}
+			else if(tr.isSelected()){
 				text(x,  y, textInput, tFill,tBorder,colorBorder,colorFill,sview,size,"TimesRoman" );
 			}
 			else if(cr.isSelected()) {

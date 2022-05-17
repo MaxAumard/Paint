@@ -3,7 +3,6 @@ package graphics.ui;
 import javax.swing.JPanel;
 
 import graphics.shapes.SCollection;
-import graphics.shapes.SDraw;
 import graphics.shapes.ui.ShapeDraftman;
 
 import java.awt.*;

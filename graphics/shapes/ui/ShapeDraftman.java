@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
-import graphics.shapes.SDraw;
+
 import graphics.shapes.SImage;
 import graphics.shapes.SLine;
 import graphics.shapes.SRectangle;
@@ -129,14 +129,7 @@ public class ShapeDraftman implements ShapeVisitor{
 		}
 	}
 
-	public void visitDraw(SDraw d) {
-		for(Point p:d.point) {
-			g.setColor(d.getColor());
-			g.fillOval(p.x, p.y, 10, 10);
-
-		}
-
-	}
+	
 	
 	@Override
 	public void visitLine(SLine l) {
@@ -213,6 +206,9 @@ public class ShapeDraftman implements ShapeVisitor{
 			visitCollection((SCollection) s);
 		}
 	}
+
+
+
 
 
 

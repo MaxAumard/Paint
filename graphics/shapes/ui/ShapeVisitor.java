@@ -12,8 +12,6 @@ public interface ShapeVisitor {
 	
 	public void visitText(SText t);
 	
-	public void visitDraw(SDraw d);
-	
 	public void visitImage(SImage image);
 	
 	public void visitTriangle(STriangle t);
